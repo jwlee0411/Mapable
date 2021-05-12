@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textTrafficCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nanum_bold"
+        android:text="도보"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textSectionTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="소요시간"
+        app:layout_constraintStart_toEndOf="@+id/textTrafficCount"
+        app:layout_constraintTop_toBottomOf="@+id/textName" />
+
+    <TextView
+        android:id="@+id/textDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="거리"
+        app:layout_constraintStart_toEndOf="@+id/textSectionTime"
+        app:layout_constraintTop_toTopOf="@+id/textSectionTime" />
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="버스 / 지하철 번호"
+        app:layout_constraintStart_toStartOf="@+id/textStartStation"
+        app:layout_constraintTop_toBottomOf="@+id/textStartStation" />
+
+    <TextView
+        android:id="@+id/textStartStation"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="df"
+        app:layout_constraintStart_toEndOf="@+id/textTrafficCount"
+        app:layout_constraintTop_toTopOf="@+id/textTrafficCount" />
+
+    <TextView
+        android:id="@+id/textEndStation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="도착 정류장"
+        app:layout_constraintStart_toStartOf="@+id/textSectionTime"
+        app:layout_constraintTop_toBottomOf="@+id/textSectionTime" />
+</androidx.constraintlayout.widget.ConstraintLayout>

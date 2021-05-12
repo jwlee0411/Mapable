@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: artifacts:ODsayAndroidSDK:unspecified">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/533740e4714b73533c958c28d0e20499/res" />
+      <root url="file://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/0e99935014f26fb69c57052c835a0a8e/ODsayAndroidSDK/res" />
+      <root url="file://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/f8a5ae8e6375add375ef2778a693b295/jetified-ODsayAndroidSDK/res" />
+      <root url="file://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/8933737faba213180a1d1fa0b03a4a99/jetified-ODsayAndroidSDK/res" />
+      <root url="file://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/992ae91d150d655cd709cfa3da4e4686/jetified-ODsayAndroidSDK/res" />
+      <root url="file://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/444b606c5f02b6631540b8849cb1b0c2/jetified-ODsayAndroidSDK/res" />
+      <root url="jar://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/728fee83772f8d4efa1d62df64bf9fd3/jetified-ODsayAndroidSDK/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/728fee83772f8d4efa1d62df64bf9fd3/jetified-ODsayAndroidSDK/res" />
+      <root url="file://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/728fee83772f8d4efa1d62df64bf9fd3/jetified-ODsayAndroidSDK/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
