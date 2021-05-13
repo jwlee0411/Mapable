@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-
+<!-- 테마색 -->
     <color name="pink01">#FF3083</color>
     <color name="pink02">#FF508C</color>
     <color name="pink03">#FD7099</color>
@@ -14,17 +14,50 @@
     <color name="pink07">#F6EBEB</color>
 
     <color name="pink01text">#f8afbc</color>
+    <color name="pink02text">#f8cfd6</color>
+    <color name="pink03text">#ed212f</color>
+    <color name="pink04text">#ee2982</color>
+    <color name="pink05text">#ef518e</color>
+    <color name="pink06text">#f16e97</color>
+    <color name="pink07text">#f48ea8</color>
 
-    <color name="pink02text">#FF508C</color>
-    <color name="pink03text">#FD7099</color>
-    <color name="pink04text">#FC8FA8</color>
-    <color name="pink05text">#FAAEBB</color>
-    <color name="pink06text">#F8CDD2</color>
-    <color name="pink07text">#F6EBEB</color>
 
+
+    <!-- 버스 -->
     <color name="blueBus">#6175f5</color>
     <color name="redBus">#ff451e</color>
     <color name="greenBus">#47af1b</color>
     <color name="yellowBus">#e5a800</color>
     <color name="gBus">#04b0be</color>
+
+
+    <!-- 전철(수도권) -->
+    <color name="line1">#0052A4</color>
+    <color name="line2">#009D3E</color>
+    <color name="line3">#EF7C1C</color>
+    <color name="line4">#00A5DE</color>
+    <color name="line5">#996CAC</color>
+    <color name="line6">#CD7C2F</color>
+    <color name="line7">#747F00</color>
+    <color name="line8">#EA545D	</color>
+    <color name="line9">#BDB092</color>
+
+    <color name="lineIncheon1">#7CA8D5</color>
+    <color name="lineIncheon2">#ED8B00</color>
+    <color name="lineAirport">#0090D2</color>
+    <color name="lineGimpo">#A17800</color>
+    <color name="lineUi">#B0CE18</color>
+    <color name="lineUijeongbu">#FDA600</color>
+    <color name="lineYongin">#509F22</color>
+    <color name="lineBundang">#F5A200</color>
+    <color name="lineShinBundang">#D4003B</color>
+    <color name="lineSeohae">#81A914</color>
+    <color name="lineGyeonggang">#003DA5</color>
+    <color name="lineGyeongui">#77C4A3</color>
+    <color name="lineGyeongchun">#0C8E72</color>
+
+
+
+
+
 </resources>
