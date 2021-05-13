@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#FF3083</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+    <color name="pink01">#FF3083</color>
+    <color name="pink02">#FF508C</color>
+    <color name="pink03">#FD7099</color>
+    <color name="pink04">#FC8FA8</color>
+    <color name="pink05">#FAAEBB</color>
+    <color name="pink06">#F8CDD2</color>
+    <color name="pink07">#F6EBEB</color>
+
+    <color name="pink01text">#f8afbc</color>
+
+    <color name="pink02text">#FF508C</color>
+    <color name="pink03text">#FD7099</color>
+    <color name="pink04text">#FC8FA8</color>
+    <color name="pink05text">#FAAEBB</color>
+    <color name="pink06text">#F8CDD2</color>
+    <color name="pink07text">#F6EBEB</color>
+
+    <color name="blueBus">#6175f5</color>
+    <color name="redBus">#ff451e</color>
+    <color name="greenBus">#47af1b</color>
+    <color name="yellowBus">#e5a800</color>
+    <color name="gBus">#04b0be</color>
 </resources>
