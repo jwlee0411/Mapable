@@ -1,7 +1,7 @@
 package app.jw.mapable.gm;
 
 import android.Manifest;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -30,9 +30,11 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
     boolean mapStatus = false;
 
-    double startX, startY, endX, endY;
+    double x, y;
     String locationTmp;
     private GoogleMap mMap;
+
+    SharedPreferences preferences;
 
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -145,42 +147,70 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
         mMap.setOnMapLongClickListener(latLng -> {
 
-            if(!mapStatus)
-            {
+            //TODO : 기존 코드 갈아엎고 새로운 방식으로 출발 도착 등 결정
+
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
                 locationTmp = latLng.toString();
-                startX = Double.parseDouble(locationTmp.substring(locationTmp.indexOf("(")+1, locationTmp.indexOf(",")));
-                startY = Double.parseDouble(locationTmp.substring(locationTmp.indexOf(",")+1, locationTmp.length()-1));
-                System.out.println(startX);
-                System.out.println(startY);
-                markerOptions.title("출발");
-                Toast.makeText(StartActivity.this, "출발위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
+                x = Double.parseDouble(locationTmp.substring(locationTmp.indexOf("(")+1, locationTmp.indexOf(",")));
+                y = Double.parseDouble(locationTmp.substring(locationTmp.indexOf(",")+1, locationTmp.length()-1));
+                System.out.println(x);
+                System.out.println(y);
+//                markerOptions.title("출발");
+//                Toast.makeText(StartActivity.this, "출발위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
+
+
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.addMarker(markerOptions);
                 mapStatus = true;
-            }
-            else
-            {
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                locationTmp = latLng.toString();
-                endX = Double.parseDouble(locationTmp.substring(locationTmp.indexOf("(")+1, locationTmp.indexOf(",")));
-                endY = Double.parseDouble(locationTmp.substring(locationTmp.indexOf(",")+1, locationTmp.length()-1));
-                System.out.println(latLng);
-                markerOptions.title("도착");
-                Toast.makeText(StartActivity.this, "도착위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                mMap.addMarker(markerOptions);
-                mapStatus = false;
-                Intent intent = new Intent(StartActivity.this, AfterSearchActivity.class);
-                intent.putExtra("startX", startX);
-                intent.putExtra("startY", startY);
-                intent.putExtra("endX", endX);
-                intent.putExtra("endY", endY);
-                startActivity(intent);
-                finish();
-            }
+
+            StartDialog startDialog = new StartDialog(StartActivity.this);
+            startDialog.callFunction(x, y, "TODO", "TODO", false, false);
+
+
+
+
+
+
+
+
+
+//            if(!mapStatus)
+//            {
+//                MarkerOptions markerOptions = new MarkerOptions();
+//                markerOptions.position(latLng);
+//                locationTmp = latLng.toString();
+//                startX = Double.parseDouble(locationTmp.substring(locationTmp.indexOf("(")+1, locationTmp.indexOf(",")));
+//                startY = Double.parseDouble(locationTmp.substring(locationTmp.indexOf(",")+1, locationTmp.length()-1));
+//                System.out.println(startX);
+//                System.out.println(startY);
+//                markerOptions.title("출발");
+//                Toast.makeText(StartActivity.this, "출발위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
+//                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+//                mMap.addMarker(markerOptions);
+//                mapStatus = true;
+//            }
+//            else
+//            {
+//                MarkerOptions markerOptions = new MarkerOptions();
+//                markerOptions.position(latLng);
+//                locationTmp = latLng.toString();
+//                endX = Double.parseDouble(locationTmp.substring(locationTmp.indexOf("(")+1, locationTmp.indexOf(",")));
+//                endY = Double.parseDouble(locationTmp.substring(locationTmp.indexOf(",")+1, locationTmp.length()-1));
+//                System.out.println(latLng);
+//                markerOptions.title("도착");
+//                Toast.makeText(StartActivity.this, "도착위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
+//                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+//                mMap.addMarker(markerOptions);
+//                mapStatus = false;
+//                Intent intent = new Intent(StartActivity.this, AfterSearchActivity.class);
+//                intent.putExtra("startX", startX);
+//                intent.putExtra("startY", startY);
+//                intent.putExtra("endX", endX);
+//                intent.putExtra("endY", endY);
+//                startActivity(intent);
+//                finish();
+//            }
 
 
         });

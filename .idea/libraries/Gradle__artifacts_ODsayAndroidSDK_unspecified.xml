@@ -10,6 +10,10 @@
       <root url="jar://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/728fee83772f8d4efa1d62df64bf9fd3/jetified-ODsayAndroidSDK/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/728fee83772f8d4efa1d62df64bf9fd3/jetified-ODsayAndroidSDK/res" />
       <root url="file://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/728fee83772f8d4efa1d62df64bf9fd3/jetified-ODsayAndroidSDK/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/a33f60428e20255c392061a2776705b9/jetified-ODsayAndroidSDK/res" />
+      <root url="jar://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/55487b8a4bee416d3339ea765f03fdd8/jetified-ODsayAndroidSDK/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/55487b8a4bee416d3339ea765f03fdd8/jetified-ODsayAndroidSDK/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/ODsayAndroidSDK/build/.transforms/55487b8a4bee416d3339ea765f03fdd8/jetified-ODsayAndroidSDK/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
