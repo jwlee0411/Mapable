@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class MapRecyclerAdapter2 extends RecyclerView.Adapter<MapRecyclerAdapter2.ItemViewHolder> {
 
-    TextView[] textViews = new TextView[6];
+
     private ArrayList<Item2> listItem = new ArrayList<>();
 
     @NonNull
@@ -44,6 +44,8 @@ public class MapRecyclerAdapter2 extends RecyclerView.Adapter<MapRecyclerAdapter
 
     class ItemViewHolder extends RecyclerView.ViewHolder
     {
+        TextView[] textViews = new TextView[6];
+
         ItemViewHolder(View itemView)
         {
             super(itemView);

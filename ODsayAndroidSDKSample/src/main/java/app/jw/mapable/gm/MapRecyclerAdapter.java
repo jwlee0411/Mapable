@@ -1,6 +1,7 @@
 package app.jw.mapable.gm;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,12 @@ import java.util.ArrayList;
 
 public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.ItemViewHolder> {
 
-    TextView[] textViews = new TextView[3];
+
     RecyclerView thisRecyclerView;
     ConstraintLayout constraintLayout;
     private ArrayList<Item> listItem = new ArrayList<>();
     public MapRecyclerAdapter2 adapter2;
+    SharedPreferences preferences;
 
     @NonNull
     @Override
@@ -48,8 +50,11 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
 
     class ItemViewHolder extends RecyclerView.ViewHolder{
 
+        TextView[] textViews = new TextView[3];
+
         ItemViewHolder(View itemView) {
             super(itemView);
+
 
 
             textViews[0] = itemView.findViewById(R.id.textTrafficDistance);
@@ -81,12 +86,29 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                 float distance;
 
                 String getWays = item.getWays();
+                System.out.println("○" + getWays);
+                preferences = textViews[0].getContext().getSharedPreferences("preferences", 0);
+                String prevString = preferences.getString("prevString", "");
+                System.out.println("○" + prevString);
+
+                preferences.edit().putString("prevString", getWays).apply();
+                getWays = getWays.replace(prevString, "");
+
+
+
+
+
                 String[] waysSplit = getWays.split("§");
+
+
+
                 String[][] waysNewSplit = new String[waysSplit.length][14];
 
+
+            String finalGetWays = getWays;
             constraintLayout.setOnClickListener(view -> {
                 Intent intent = new Intent(itemView.getContext(), AfterRoadActivity.class);
-                intent.putExtra("ways", getWays);
+                intent.putExtra("ways", finalGetWays);
                 itemView.getContext().startActivity(intent);
             });
 

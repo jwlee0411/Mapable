@@ -45,10 +45,15 @@ public class AfterSearchActivity extends AppCompatActivity{
     private ODsayService odsayService;
     private JSONObject jsonObject;
 
+    SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_search);
+
+        preferences = getSharedPreferences("preferences", 0);
+        preferences.edit().remove("prevString");
 
 
 

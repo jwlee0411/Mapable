@@ -2,6 +2,7 @@ package app.jw.mapable.gm;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.view.Window;
@@ -29,6 +30,10 @@ public class StartDialog {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_start);
         dialog.show();
+
+        dialog.setOnDismissListener(dialogInterface -> {
+            //TODO : 마커 지우기
+        });
 
 
 
@@ -61,6 +66,7 @@ public class StartDialog {
             preferences.edit().putFloat("startX", (float) x).putFloat("startY", (float)y).apply();
 
             Toast.makeText(dialog.getContext(), "출발지가 설정되었습니다.", Toast.LENGTH_LONG).show();
+
 
 
             if(isEnd) //출발지와 도착지가 모두 정해졌으면
