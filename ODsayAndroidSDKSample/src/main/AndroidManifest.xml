@@ -7,9 +7,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/bus_ganseon"
+        android:icon="@drawable/appicon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/bus_ganseon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data

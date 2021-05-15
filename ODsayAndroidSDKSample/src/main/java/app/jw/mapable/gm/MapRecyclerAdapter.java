@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.appyvet.materialrangebar.RangeBar;
+import com.github.mikephil.charting.charts.BarChart;
+
 import java.util.ArrayList;
 
 public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.ItemViewHolder> {
@@ -20,7 +23,11 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
 
     RecyclerView thisRecyclerView;
     ConstraintLayout constraintLayout;
+    int[] timeValue;
     private ArrayList<Item> listItem = new ArrayList<>();
+
+    BarChart barChart;
+    RangeBar rangeBar;
     public MapRecyclerAdapter2 adapter2;
     SharedPreferences preferences;
 
@@ -34,6 +41,11 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.onBind(listItem.get(position));
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
 
@@ -67,7 +79,11 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
             adapter2 = new MapRecyclerAdapter2();
             recyclerView.setAdapter(adapter2);
 
+            barChart = itemView.findViewById(R.id.barChart);
+
             constraintLayout = itemView.findViewById(R.id.constraintLayout01);
+
+
 
 
         }
@@ -80,6 +96,11 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
             textViews[0].setText(item.getTrafficDistance());
             textViews[1].setText(item.getTotalTime());
             textViews[2].setText(item.getPayment());
+
+            int totalTime = Integer.parseInt(item.getTotalTime().replace("분", ""));
+
+
+
 
 
 
@@ -112,6 +133,8 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                 itemView.getContext().startActivity(intent);
             });
 
+
+
                 for(int i = 0; i<waysSplit.length; i++)
                 {
 
@@ -131,6 +154,10 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                             item2.setTrafficCount("지하철");
                             item2.setStartStation(waysNewSplit[i][6]);
                             item2.setEndStation(waysNewSplit[i][9]);
+
+
+
+
                             adapter2.addItem(item2);
                             break;
                         case "2": //버스
@@ -141,6 +168,9 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                             item2.setTrafficCount("버스");
                             item2.setStartStation(waysNewSplit[i][7]);
                             item2.setEndStation(waysNewSplit[i][10]);
+
+
+
                             adapter2.addItem(item2);
 
                             System.out.println("2");

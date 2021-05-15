@@ -1,9 +1,11 @@
 package app.jw.mapable.gm;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -11,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.odsay.odsayandroidsdk.API;
 import com.odsay.odsayandroidsdk.ODsayData;
@@ -32,6 +35,8 @@ public class AfterSearchActivity extends AppCompatActivity{
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    ProgressDialog progressDialog;
+
     ArrayList<Item> data = new ArrayList<>();
 
     public MapRecyclerAdapter adapter;
@@ -45,6 +50,8 @@ public class AfterSearchActivity extends AppCompatActivity{
     private ODsayService odsayService;
     private JSONObject jsonObject;
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
     SharedPreferences preferences;
 
     @Override
@@ -52,8 +59,18 @@ public class AfterSearchActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_search);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("검색 중...");
+        progressDialog.setMessage("검색 중입니다. 잠시만 기다려 주세요.");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+
+
         preferences = getSharedPreferences("preferences", 0);
-        preferences.edit().remove("prevString");
+        preferences.edit().remove("prevString").apply();
 
 
 
@@ -77,7 +94,7 @@ public class AfterSearchActivity extends AppCompatActivity{
 
     private void init() {
 
-        bt_api_call = (Button) findViewById(R.id.bt_api_call);
+        bt_api_call = findViewById(R.id.bt_api_call);
 
 
 
@@ -85,7 +102,7 @@ public class AfterSearchActivity extends AppCompatActivity{
         odsayService.setReadTimeout(5000);
         odsayService.setConnectionTimeout(5000);
 
-        startX = getIntent().getExtras().getDouble("startX");
+        startX = getIntent().getDoubleExtra("startX", 0.0);
         startY = getIntent().getDoubleExtra("startY", 0.0);
         endX = getIntent().getDoubleExtra("endX", 0.0);
         endY = getIntent().getDoubleExtra("endY", 0.0);
@@ -98,7 +115,22 @@ public class AfterSearchActivity extends AppCompatActivity{
         editor.commit();
 
 
+        odsayService.requestSearchPubTransPath(Double.toString(startY), Double.toString(startX), Double.toString(endY), Double.toString(endX), "0", "0", "0", onResultCallbackListener);
+
+
         bt_api_call.setOnClickListener(v-> odsayService.requestSearchPubTransPath(Double.toString(startY), Double.toString(startX), Double.toString(endY), Double.toString(endX), "0", "0", "0", onResultCallbackListener));
+
+
+
+
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            //odsayService.requestSearchPubTransPath(Double.toString(startY), Double.toString(startX), Double.toString(endY), Double.toString(endX), "0", "0", "0", onResultCallbackListener);
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                swipeRefreshLayout.setRefreshing(false);
+            }, 2000);
+        });
 
     }
 
@@ -307,15 +339,31 @@ public class AfterSearchActivity extends AppCompatActivity{
 
                 }
 
+                Handler handler = new Handler();
+                handler.postDelayed(() -> {
+                    progressDialog.dismiss();
+                    swipeRefreshLayout.setRefreshing(false);
+                }, 1000);
+
+
+
+
+
 
                 adapter.addItem(item);
+
             }
 
             adapter.notifyDataSetChanged();
+
+
+
             System.out.println(pathArray.length());
 
             System.out.println(pathArray.toString());
             //System.out.println(jsonObject.getString("result"));
+
+
 
 
 

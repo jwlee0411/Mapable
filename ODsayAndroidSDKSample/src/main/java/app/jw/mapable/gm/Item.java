@@ -4,6 +4,8 @@ public class Item {
 
     private String trafficDistance, totalWalk, totalTime, payment, ways;
 
+    private int[] timeValue;
+
 
 
 
@@ -27,7 +29,9 @@ public class Item {
         return ways;
     }
 
-
+    public int[] getTimeValue() {
+        return timeValue;
+    }
 
     public void setTrafficDistance(String trafficDistance)
     {
@@ -50,5 +54,7 @@ public class Item {
         this.ways = ways;
     }
 
-
+    public void setTimeValue(int[] timeValue) {
+        this.timeValue = timeValue;
+    }
 }

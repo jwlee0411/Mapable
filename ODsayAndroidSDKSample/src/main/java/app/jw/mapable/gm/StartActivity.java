@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -63,6 +66,10 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_start);
+
+        ConstraintLayout constraintLayout = findViewById(R.id.searchConstraintLayout);
+        constraintLayout.bringToFront();
+
         locationRequest = new LocationRequest()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL_MS)
@@ -190,7 +197,8 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
             {
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_start));
+                Bitmap departBitmap = ((BitmapDrawable)getResources().getDrawable(R.drawable.marker_start)).getBitmap();
+                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(departBitmap, 45, 64, false)));
                 locationTmp = latLng.toString();
                 startX = Double.parseDouble(locationTmp.substring(locationTmp.indexOf("(")+1, locationTmp.indexOf(",")));
                 startY = Double.parseDouble(locationTmp.substring(locationTmp.indexOf(",")+1, locationTmp.length()-1));
@@ -206,6 +214,8 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
             {
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
+                Bitmap endBitmap = ((BitmapDrawable)getResources().getDrawable(R.drawable.marker_end)).getBitmap();
+                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(endBitmap, 45, 64, false)));
                 locationTmp = latLng.toString();
                 endX = Double.parseDouble(locationTmp.substring(locationTmp.indexOf("(")+1, locationTmp.indexOf(",")));
                 endY = Double.parseDouble(locationTmp.substring(locationTmp.indexOf(",")+1, locationTmp.length()-1));

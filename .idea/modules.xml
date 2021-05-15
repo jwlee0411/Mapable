@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mapable.iml" filepath="$PROJECT_DIR$/.idea/modules/Mapable.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ODsayAndroidSDK/Mapable.ODsayAndroidSDK.iml" filepath="$PROJECT_DIR$/.idea/modules/ODsayAndroidSDK/Mapable.ODsayAndroidSDK.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ODsayAndroidSDKSample/Mapable.ODsayAndroidSDKSample.iml" filepath="$PROJECT_DIR$/.idea/modules/ODsayAndroidSDKSample/Mapable.ODsayAndroidSDKSample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mapable-210513.iml" filepath="$PROJECT_DIR$/.idea/modules/Mapable-210513.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ODsayAndroidSDK/Mapable-210513.ODsayAndroidSDK.iml" filepath="$PROJECT_DIR$/.idea/modules/ODsayAndroidSDK/Mapable-210513.ODsayAndroidSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ODsayAndroidSDKSample/Mapable-210513.ODsayAndroidSDKSample.iml" filepath="$PROJECT_DIR$/.idea/modules/ODsayAndroidSDKSample/Mapable-210513.ODsayAndroidSDKSample.iml" />
     </modules>
   </component>
 </project>

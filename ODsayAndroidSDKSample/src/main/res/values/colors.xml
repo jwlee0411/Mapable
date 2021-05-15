@@ -33,7 +33,7 @@
 
     <!-- 전철(수도권) -->
     <color name="line1">#0052A4</color>
-    <color name="line2">#009D3E</color>
+    <color name="line2">#009d3e</color>
     <color name="line3">#EF7C1C</color>
     <color name="line4">#00A5DE</color>
     <color name="line5">#996CAC</color>
@@ -55,9 +55,15 @@
     <color name="lineGyeonggang">#003DA5</color>
     <color name="lineGyeongui">#77C4A3</color>
     <color name="lineGyeongchun">#0C8E72</color>
+    
+    <color name="lineMaglev">#FFCD12</color>
 
-
-
+<!--기본색-->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>
+    <color name="blue">#0000FF</color>
 
 
 </resources>

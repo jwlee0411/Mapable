@@ -28,6 +28,10 @@ public class MapRecyclerAdapter2 extends RecyclerView.Adapter<MapRecyclerAdapter
         holder.onBind(listItem.get(position));
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
     @Override
     public int getItemCount() {
