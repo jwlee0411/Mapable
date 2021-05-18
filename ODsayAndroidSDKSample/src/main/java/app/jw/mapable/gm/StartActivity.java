@@ -7,44 +7,83 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Looper;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
+import android.speech.tts.TextToSpeech;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+
+import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity1;
+import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity2;
+import app.jw.mapable.gm.Info.InfoActivity;
+
 
 public class StartActivity extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
 
     boolean mapStatus = false;
 
+    boolean onTouched = false;
+
+    double prevLatitude = 37.542035, prevLongtitude = 126.966613;
+    LatLng currentPosition;
     double x, y;
+    Location mCurrentLocation;
     String locationTmp;
     private GoogleMap mMap;
 
+    TextToSpeech tts;
+
     //TODO : 테스트용 변수들
     double startX = 0, startY = 0, endX, endY;
-    
+
+    boolean startLocation = false, endLocation = false;
+
+    Button soundButton;
+    SpeechRecognizer recognizer;
 
     SharedPreferences preferences;
+    boolean clicked = false;
+
+    FloatingActionButton floatingLocation, floatingInfo;
 
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -52,10 +91,9 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
     private static final int FASTEST_UPDATE_INTERVAL_MS = 500; // 0.5초
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     boolean needRequest = false;
-    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+    final String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest locationRequest;
-    private Location location;
     private View mLayout;  // Snackbar 사용하기 위해서는 View가 필요합니다.
 
     @Override
@@ -66,6 +104,88 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_start);
+
+
+
+        //설정화면 => 메인화면인 경우 설정화면 종료
+        //다른 액티비티 종료
+        try{
+            FirstSettingEnabledActivity1 firstSettingEnabledActivity1 = (FirstSettingEnabledActivity1)FirstSettingEnabledActivity1.firstSettingEnabledActivity1;
+            FirstSettingEnabledActivity2 firstSettingEnabledActivity2 = (FirstSettingEnabledActivity2)FirstSettingEnabledActivity2.firstSettingEnabledActivity2;
+            firstSettingEnabledActivity1.finish();
+            firstSettingEnabledActivity2.finish();
+        }catch (Exception ignored)
+        {
+
+        }
+
+
+
+        //debug
+        FloatingActionButton floatingDebug = findViewById(R.id.floatingDebug);
+        floatingDebug.setOnClickListener(v -> {
+            SharedPreferences sharedPreferences = getSharedPreferences("preference", 0);
+            sharedPreferences.edit().clear().apply();
+        });
+
+
+
+
+
+
+
+        //DrawerLayout 관련 코드 추가
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+        Button menuButton = findViewById(R.id.menuButton);
+        menuButton.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+        NavigationView navigationView = findViewById(R.id.navigationView);
+        navigationView.setItemIconTintList(null);
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            drawerLayout.closeDrawers();
+
+            int id = item.getItemId();
+
+            switch (id)
+            {
+                case R.id.nav_settings:
+                    startActivity(new Intent(StartActivity.this, SettingActivity.class)); break;
+
+                case R.id.nav_explain:
+                    startActivity(new Intent(StartActivity.this, ExplainActivity.class)); break;
+
+            }
+
+
+            return true;
+        });
+
+        floatingInfo = findViewById(R.id.floatingInfo);
+        floatingLocation = findViewById(R.id.floatingCurrentLocation);
+
+        floatingLocation.setOnClickListener(v -> {
+            onTouched = false;
+            LatLng prevLatLng = new LatLng(prevLatitude, prevLongtitude);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(prevLatLng, 15));
+
+        });
+
+        floatingInfo.setOnClickListener(v -> startActivity(new Intent(StartActivity.this, InfoActivity.class)));
+
+
+//        tts = new TextToSpeech(this, status -> {
+//            if(status != ERROR)
+//            {
+//                tts.setLanguage(Locale.KOREAN);
+//            }
+//        });
+
+        ActivityCompat.requestPermissions(this, new String[]{
+                Manifest.permission.INTERNET, Manifest.permission.RECORD_AUDIO}, 1);
+
+
+
+
 
         ConstraintLayout constraintLayout = findViewById(R.id.searchConstraintLayout);
         constraintLayout.bringToFront();
@@ -98,6 +218,13 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
         mMap.clear();
 
 
+
+        LatLng SEOUL = new LatLng(prevLatitude, prevLongtitude);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 13));
+
+
+
         //런타임 퍼미션 처리
         // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
         int hasFineLocationPermission = ContextCompat.checkSelfPermission(this,
@@ -124,16 +251,12 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
                 // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
                 Snackbar.make(mLayout, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.",
-                        Snackbar.LENGTH_INDEFINITE).setAction("확인", new View.OnClickListener() {
+                        Snackbar.LENGTH_INDEFINITE).setAction("확인", view -> {
 
-                    @Override
-                    public void onClick(View view) {
-
-                        // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
-                        ActivityCompat.requestPermissions( StartActivity.this, REQUIRED_PERMISSIONS,
-                                PERMISSIONS_REQUEST_CODE);
-                    }
-                }).show();
+                            // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
+                            ActivityCompat.requestPermissions( StartActivity.this, REQUIRED_PERMISSIONS,
+                                    PERMISSIONS_REQUEST_CODE);
+                        }).show();
 
 
             } else {
@@ -151,14 +274,111 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
 
 
+        mMap.setOnCameraMoveListener(() -> onTouched = true);
+
         //mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        mMap.setOnMapClickListener(latLng -> {
 
-            @Override
-            public void onMapClick(LatLng latLng) {
 
-                Log.d( TAG, "onMapClick :");
+
+
+            ConstraintLayout searchConstraintLayout = findViewById(R.id.searchConstraintLayout);
+            LinearLayout floatingLinearLayout = findViewById(R.id.floatingLinearLayout);
+            Animation searchLayoutAnimation, floatingLayoutAnimation;
+            if(clicked)
+            {
+                clicked = false;
+                searchLayoutAnimation = AnimationUtils.loadAnimation(StartActivity.this, R.anim.anim_move_top_down);
+                searchConstraintLayout.startAnimation(searchLayoutAnimation);
+
+                floatingLayoutAnimation = AnimationUtils.loadAnimation(StartActivity.this, R.anim.anim_move_bottom_up);
+                floatingLinearLayout.startAnimation(floatingLayoutAnimation);
+
+                searchLayoutAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        searchConstraintLayout.setVisibility(View.VISIBLE);
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+
+                floatingLayoutAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        floatingLinearLayout.setVisibility(View.VISIBLE);
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
             }
+            else
+            {
+                clicked = true;
+                searchLayoutAnimation = AnimationUtils.loadAnimation(StartActivity.this, R.anim.anim_move_top_up);
+                searchConstraintLayout.startAnimation(searchLayoutAnimation);
+
+                floatingLayoutAnimation = AnimationUtils.loadAnimation(StartActivity.this, R.anim.anim_move_bottom_down);
+                floatingLinearLayout.startAnimation(floatingLayoutAnimation);
+
+                searchLayoutAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        searchConstraintLayout.setVisibility(View.GONE);
+
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+
+                floatingLayoutAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        floatingLinearLayout.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+            }
+
+
+
+
         });
 
         mMap.setOnMapLongClickListener(latLng -> {
@@ -225,6 +445,12 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.addMarker(markerOptions);
                 mapStatus = false;
+
+
+
+
+
+
                 Intent intent = new Intent(StartActivity.this, AfterSearchActivity.class);
                 intent.putExtra("startX", startX);
                 intent.putExtra("startY", startY);
@@ -237,7 +463,28 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
         });
 
-        LatLng SEOUL = new LatLng(37.56, 126.97);
+
+
+
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getPackageName());
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR");
+
+        soundButton = findViewById(R.id.soundButton);
+        soundButton.setOnClickListener(v -> {
+            recognizer = SpeechRecognizer.createSpeechRecognizer(StartActivity.this);
+            recognizer.setRecognitionListener(listener);
+            recognizer.startListening(intent);
+            //TODO : 작동 안됨
+        });
+
+
+
+
+
+
+
+//        LatLng SEOUL = new LatLng(37.56, 126.97);
 
 //        MarkerOptions markerOptions = new MarkerOptions();
 //        markerOptions.position(SEOUL);
@@ -247,16 +494,65 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
 
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 13));
+
+    }
+
+    protected void onStart() {
+
+        super.onStart();
+        if(checkPermission())
+        {
+            mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
+        }
+        if(mMap != null) mMap.setMyLocationEnabled(true);
+    }
+
+    protected void onStop()
+    {
+        super.onStop();
+        if(mFusedLocationClient!= null)
+        {
+            mFusedLocationClient.removeLocationUpdates(locationCallback);
+        }
     }
 
     private void startLocationUpdates() {
 
+        if(checkLocationServicesStatus())
+        {
+            int hasFineLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+            int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+            mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+
+            if(checkPermission())
+            {
+                mMap.setMyLocationEnabled(true);
+            }
+
+        }
+
+    }
+
+    private boolean checkPermission()
+    {
+        int hasFineLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        return hasFineLocationPermission == PackageManager.PERMISSION_GRANTED && hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public boolean checkLocationServicesStatus()
+    {
+        LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
     private void setDefaultLocation() {
 
     }
+
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
@@ -265,14 +561,13 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
 
     private long backKeyPressedTime = 0;
-    // 첫 번째 뒤로 가기 버튼을 누를 때 표시
-    private Toast toast;
 
     @Override
     public void onBackPressed() {
         if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
             backKeyPressedTime = System.currentTimeMillis();
-            toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
+            // 첫 번째 뒤로 가기 버튼을 누를 때 표시
+            Toast toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
             toast.show();
             return;
         }
@@ -282,4 +577,97 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
             finish();
         }
     }
+
+    private final RecognitionListener listener = new RecognitionListener() {
+        @Override
+        public void onReadyForSpeech(Bundle params) {
+
+        }
+
+        @Override
+        public void onBeginningOfSpeech() {
+
+        }
+
+        @Override
+        public void onRmsChanged(float rmsdB) {
+
+        }
+
+        @Override
+        public void onBufferReceived(byte[] buffer) {
+
+        }
+
+        @Override
+        public void onEndOfSpeech() {
+
+        }
+
+        @Override
+        public void onError(int error) {
+
+        }
+
+        @Override
+        public void onResults(Bundle results) {
+            //result
+        }
+
+        @Override
+        public void onPartialResults(Bundle partialResults) {
+
+        }
+
+        @Override
+        public void onEvent(int eventType, Bundle params) {
+
+        }
+    };
+
+
+    final LocationCallback locationCallback = new LocationCallback() {
+        @Override
+        public void onLocationResult(@NotNull LocationResult locationResult) {
+            super.onLocationResult(locationResult);
+
+            List<Location> locationList = locationResult.getLocations();
+
+            if(locationList.size() > 0)
+            {
+                Location location = locationList.get(locationList.size() - 1);
+                //location = locationList.get(0);
+                prevLatitude = location.getLatitude();
+                prevLongtitude = location.getLongitude();
+                currentPosition = new LatLng(prevLatitude, prevLongtitude);
+
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(currentPosition);
+                //TODO : 투명 마커로 바꾸거나 없애기
+                Bitmap endBitmap = ((BitmapDrawable)getResources().getDrawable(R.drawable.bus_gbus)).getBitmap();
+                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(endBitmap, 64, 64, false)));
+
+               mMap.addMarker(markerOptions);
+
+                if(!onTouched)
+                {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13));
+                }
+
+
+
+                mCurrentLocation = location;
+
+                mMap.setOnMyLocationButtonClickListener(() -> {
+                    Toast.makeText(StartActivity.this, "현위치 클릭", Toast.LENGTH_LONG).show();
+                    return true;
+                });
+
+
+
+            }
+        }
+    };
+
+
 }

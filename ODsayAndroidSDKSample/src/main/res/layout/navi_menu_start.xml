@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_star"
+        android:icon="@drawable/icon_star"
+        android:title="즐겨찾는 장소" />
+    <item
+
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/icon_setting"
+        android:title="설정" />
+
+    <item
+        android:id="@+id/nav_explain"
+        android:icon="@drawable/icon_question"
+        android:title="출처" />
+</menu>

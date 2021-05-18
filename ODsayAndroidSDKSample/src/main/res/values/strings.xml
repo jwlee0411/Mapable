@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Mapable</string>
     <string name="odsay_key">mYykOJB2mE/kKS4aRmAcGaL6m8tMtye7Har8mhtqekc</string>
+
+    <string name="seoul_bus_key_encoding">sp6SSNzhDBUmWxvdUd28HDDq7E6j98Yvsmenqdy6rOCRyIlv605dNe8Wc7axsHxM759tgGzZpe%2Fr%2BTAb5nq7UA%3D%3D</string>
+    <string name="seoul_bus_key_decoding">sp6SSNzhDBUmWxvdUd28HDDq7E6j98Yvsmenqdy6rOCRyIlv605dNe8Wc7axsHxM759tgGzZpe/r+TAb5nq7UA==</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

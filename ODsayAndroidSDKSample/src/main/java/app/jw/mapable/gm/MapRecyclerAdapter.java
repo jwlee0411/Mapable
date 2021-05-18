@@ -24,7 +24,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
     RecyclerView thisRecyclerView;
     ConstraintLayout constraintLayout;
     int[] timeValue;
-    private ArrayList<Item> listItem = new ArrayList<>();
+    private final ArrayList<Item> listItem = new ArrayList<>();
 
     BarChart barChart;
     RangeBar rangeBar;
@@ -62,7 +62,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
 
     class ItemViewHolder extends RecyclerView.ViewHolder{
 
-        TextView[] textViews = new TextView[3];
+        final TextView[] textViews = new TextView[3];
 
         ItemViewHolder(View itemView) {
             super(itemView);

@@ -41,14 +41,13 @@ public class AfterSearchActivity extends AppCompatActivity{
 
     public MapRecyclerAdapter adapter;
 
-    private Button bt_api_call;
+    Button buttonClose;
 
     RecyclerView recyclerView;
     String setWays = "";
 
 
     private ODsayService odsayService;
-    private JSONObject jsonObject;
 
     SwipeRefreshLayout swipeRefreshLayout;
 
@@ -58,6 +57,14 @@ public class AfterSearchActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_search);
+
+        buttonClose = findViewById(R.id.buttonClose);
+
+        buttonClose.setOnClickListener(v -> {
+            startActivity(new Intent(AfterSearchActivity.this, StartActivity.class));
+            finish();
+        });
+
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("검색 중...");
@@ -94,7 +101,7 @@ public class AfterSearchActivity extends AppCompatActivity{
 
     private void init() {
 
-        bt_api_call = findViewById(R.id.bt_api_call);
+        Button bt_api_call = findViewById(R.id.bt_api_call);
 
 
 
@@ -127,18 +134,16 @@ public class AfterSearchActivity extends AppCompatActivity{
         swipeRefreshLayout.setOnRefreshListener(() -> {
             //odsayService.requestSearchPubTransPath(Double.toString(startY), Double.toString(startX), Double.toString(endY), Double.toString(endX), "0", "0", "0", onResultCallbackListener);
             Handler handler = new Handler();
-            handler.postDelayed(() -> {
-                swipeRefreshLayout.setRefreshing(false);
-            }, 2000);
+            handler.postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 2000);
         });
 
     }
 
 
-    private OnResultCallbackListener onResultCallbackListener = new OnResultCallbackListener() {
+    private final OnResultCallbackListener onResultCallbackListener = new OnResultCallbackListener() {
         @Override
         public void onSuccess(ODsayData oDsayData, API api) {
-            jsonObject = oDsayData.getJson();
+            JSONObject jsonObject = oDsayData.getJson();
             JsonParse(jsonObject);
 
 

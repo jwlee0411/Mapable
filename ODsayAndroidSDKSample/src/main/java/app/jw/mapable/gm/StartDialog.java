@@ -2,7 +2,6 @@ package app.jw.mapable.gm;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.view.Window;
@@ -12,7 +11,7 @@ import android.widget.Toast;
 
 public class StartDialog {
 
-    private Context context;
+    private final Context context;
 
     SharedPreferences preferences;
 

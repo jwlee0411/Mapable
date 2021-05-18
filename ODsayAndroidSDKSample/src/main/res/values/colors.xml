@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF3083</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#FC8FA8</color>
+    <color name="colorPrimaryDark">#FF4081</color>
     <color name="colorAccent">#FF4081</color>
 
-<!-- 테마색 -->
+    <!-- 테마색 -->
     <color name="pink01">#FF3083</color>
     <color name="pink02">#FF508C</color>
     <color name="pink03">#FD7099</color>
@@ -28,7 +28,10 @@
     <color name="redBus">#ff451e</color>
     <color name="greenBus">#47af1b</color>
     <color name="yellowBus">#e5a800</color>
+
     <color name="gBus">#04b0be</color>
+    <color name="busanNormalBus">#3399ff</color>
+
 
 
     <!-- 전철(수도권) -->
@@ -55,10 +58,27 @@
     <color name="lineGyeonggang">#003DA5</color>
     <color name="lineGyeongui">#77C4A3</color>
     <color name="lineGyeongchun">#0C8E72</color>
-    
+
     <color name="lineMaglev">#FFCD12</color>
 
-<!--기본색-->
+    <color name="lineBusan1">#F06A00</color>
+    <color name="lineBusan2">#81BF48</color>
+    <color name="lineBusan3">#BB8C00</color>
+    <color name="lineBusan4">#217DCB</color>
+    <color name="lineGimhae">#8652A1</color>
+
+    <color name="lineDaegu1">#D93F5C</color>
+    <color name="lineDaegu2">#00AA80</color>
+    <color name="lineDaegu3">#FFB100</color>
+
+    <color name="lineGwangju1">#009088</color>
+    <color name="lineDaejeon1">#007448</color>
+
+
+    <color name="korailBlue">#003DA5</color>
+
+
+    <!--기본색-->
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#FF0000</color>

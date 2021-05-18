@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class MapRecyclerAdapter2 extends RecyclerView.Adapter<MapRecyclerAdapter2.ItemViewHolder> {
 
 
-    private ArrayList<Item2> listItem = new ArrayList<>();
+    private final ArrayList<Item2> listItem = new ArrayList<>();
 
     @NonNull
     @Override
@@ -46,9 +46,9 @@ public class MapRecyclerAdapter2 extends RecyclerView.Adapter<MapRecyclerAdapter
         listItem.remove(item);
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder
+    static class ItemViewHolder extends RecyclerView.ViewHolder
     {
-        TextView[] textViews = new TextView[6];
+        final TextView[] textViews = new TextView[6];
 
         ItemViewHolder(View itemView)
         {

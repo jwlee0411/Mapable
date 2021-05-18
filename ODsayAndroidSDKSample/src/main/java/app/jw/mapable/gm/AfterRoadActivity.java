@@ -4,8 +4,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -26,7 +23,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -34,7 +30,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     private LocationRequest locationRequest;
     double startX, startY, endX, endY;
     private static final String TAG = "googlemap_example";
@@ -44,8 +39,6 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
     private static final int PERMISSIONS_REQUEST_CODE = 100;
 
     private FusedLocationProviderClient mFusedLocationClient;
-
-
     SharedPreferences sharedPreferences;
 
     DrawerLayout drawerLayout;
@@ -93,8 +86,6 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
 
 
         String ways = getIntent().getExtras().getString("ways");
@@ -113,13 +104,13 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
         markerDepart.position(new LatLng(startX, startY));
         markerDepart.title("출발");
         markerDepart.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(departBitmap, 45, 64, false)));
-        mMap.addMarker(markerDepart);
+        googleMap.addMarker(markerDepart);
 
         MarkerOptions markerEnd = new MarkerOptions();
         markerEnd.position(new LatLng(endX, endY));
         markerEnd.title("도착");
         markerEnd.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(endBitmap, 45, 64, false)));
-        mMap.addMarker(markerEnd);
+        googleMap.addMarker(markerEnd);
 
 
 
@@ -198,7 +189,7 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
 
 
 
-                        mMap.addMarker(markerOptions);
+                        googleMap.addMarker(markerOptions);
 
                         if(j!=0)
                         {
@@ -206,36 +197,36 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
                             System.out.println("★" + lineNumber);
                             switch (lineNumber)
                             {
-                                case 1: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line1))); System.out.println("success");break;
-                                case 2: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line2))); System.out.println("success2");break;
-                                case 3: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line3))); break;
-                                case 4: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line4))); break;
-                                case 5: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line5))); break;
-                                case 6: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line6))); break;
-                                case 7: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line7))); break;
-                                case 8: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line8))); break;
-                                case 9: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line9))); break;
+                                case 1: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line1))); System.out.println("success");break;
+                                case 2: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line2))); System.out.println("success2");break;
+                                case 3: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line3))); break;
+                                case 4: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line4))); break;
+                                case 5: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line5))); break;
+                                case 6: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line6))); break;
+                                case 7: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line7))); break;
+                                case 8: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line8))); break;
+                                case 9: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.line9))); break;
 
-                                case 101: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineAirport))); break;
-                                case 102: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineMaglev))); break;
-                                case 104: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineGyeongui))); break;
-                                case 107: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineYongin))); break;
-                                case 108: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineGyeongchun))); break;
-                                case 109: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineShinBundang))); break;
-                                case 110: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineUijeongbu))); break;
-                                case 112: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineGyeonggang))); break;
-                                case 113: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineUi))); break;
-                                case 114: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineSeohae))); break;
-                                case 115: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineGimpo))); break;
-                                case 116: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineBundang))); break;
+                                case 101: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineAirport))); break;
+                                case 102: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineMaglev))); break;
+                                case 104: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineGyeongui))); break;
+                                case 107: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineYongin))); break;
+                                case 108: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineGyeongchun))); break;
+                                case 109: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineShinBundang))); break;
+                                case 110: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineUijeongbu))); break;
+                                case 112: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineGyeonggang))); break;
+                                case 113: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineUi))); break;
+                                case 114: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineSeohae))); break;
+                                case 115: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineGimpo))); break;
+                                case 116: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineBundang))); break;
 
 
-                                case 21: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineIncheon1))); break;
-                                case 22: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineIncheon2))); break;
+                                case 21: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineIncheon1))); break;
+                                case 22: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.lineIncheon2))); break;
 
                                 //case 31: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.pink01))); break;
 
-                                default: mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.pink01)));
+                                default: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.pink01)));
 
                             }
 
@@ -250,12 +241,12 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
 
                     if(i==1)
                     {
-                        mMap.addPolyline(new PolylineOptions().add(new LatLng(startX, startY), subwayLatLngs[0]).width(20).color(Color.MAGENTA));
+                        googleMap.addPolyline(new PolylineOptions().add(new LatLng(startX, startY), subwayLatLngs[0]).width(20).color(Color.MAGENTA));
                     }
 
                     if(i==waysSplit.length-2)
                     {
-                        mMap.addPolyline(new PolylineOptions().add(new LatLng(endX, endY), subwayLatLngs[subwayLatLngs.length-1]).width(20).color(Color.MAGENTA));
+                        googleMap.addPolyline(new PolylineOptions().add(new LatLng(endX, endY), subwayLatLngs[subwayLatLngs.length-1]).width(20).color(Color.MAGENTA));
                     }
 
 
@@ -279,11 +270,11 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
                         markerOptions.title(waysFinalNewSplit2[j][0]);
                         //markerOptions.snippet("한국의 수도");
                         markerOptions.snippet(waysNewSplit[i][4]);
-                        mMap.addMarker(markerOptions);
+                        googleMap.addMarker(markerOptions);
 
                         if(j!=0)
                         {
-                            mMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(5).color(Color.BLUE));
+                            googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(5).color(Color.BLUE));
                         }
                         System.out.println(waysFinalNewSplit2[j][1]);
                         System.out.println(waysFinalNewSplit2[j][2]);
@@ -292,12 +283,12 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
 
                     if(i==1)
                     {
-                        mMap.addPolyline(new PolylineOptions().add(new LatLng(startX, startY), subwayLatLngs[0]).width(20).color(Color.MAGENTA));
+                        googleMap.addPolyline(new PolylineOptions().add(new LatLng(startX, startY), subwayLatLngs[0]).width(20).color(Color.MAGENTA));
                     }
 
                     if(i==waysSplit.length-2)
                     {
-                        mMap.addPolyline(new PolylineOptions().add(new LatLng(endX, endY), subwayLatLngs[subwayLatLngs.length-1]).width(20).color(Color.MAGENTA));
+                        googleMap.addPolyline(new PolylineOptions().add(new LatLng(endX, endY), subwayLatLngs[subwayLatLngs.length-1]).width(20).color(Color.MAGENTA));
                     }
 
 
@@ -314,14 +305,12 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
 
         LatLng SEOUL = new LatLng(37.56, 126.97);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 13));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 13));
 
 
-        mMap.setOnMarkerClickListener(marker -> {
-           return false;
-        });
+        googleMap.setOnMarkerClickListener(marker -> false);
 
-        mMap.setOnInfoWindowClickListener(marker -> {
+        googleMap.setOnInfoWindowClickListener(marker -> {
             String markerTitle = marker.getTitle();
             LatLng markerLocation = marker.getPosition();
             String markerSnippet = marker.getSnippet();
@@ -329,7 +318,7 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
             AfterRoadDialog afterRoadDialog = new AfterRoadDialog(AfterRoadActivity.this);
 
             //TODO
-            afterRoadDialog.callFunction("temp");
+            afterRoadDialog.callFunction();
 
 //                Toast.makeText(AfterRoadActivity.this, markerTitle + markerSnippet, Toast.LENGTH_LONG).show();
 
