@@ -6,6 +6,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieView"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/map_loading" />
+
+
+    <com.scwang.wave.MultiWaveHeader
+        android:id="@+id/waveHeader"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:mwhCloseColor="@color/pink01"
+        app:mwhStartColor="@color/pink07"
+        app:mwhWaveHeight="120dp"
+        app:mwhGradientAngle="90"
+        app:mwhProgress="1"
+        app:mwhVelocity="1"
+        app:mwhWaves="PairWave"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/afterSearchConstraintLayout"
         android:layout_width="match_parent"

@@ -112,6 +112,9 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="imagePath" value="C:\Users\jw\Desktop\SVG\자산 1.svg" />
+                                                <entry key="scalingPercent" value="90" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -139,6 +142,17 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="d74081" />
+                                      <entry key="backgroundLayerName" value="app_icon_background" />
+                                      <entry key="foregroundLayerName" value="app_icon_foreground" />
+                                      <entry key="legacyIconShape" value="CIRCLE" />
+                                      <entry key="outputName" value="ic_launcher_appicon" />
+                                      <entry key="previewDensity" value="MEDIUM" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -331,14 +345,37 @@
                                       </entry>
                                     </map>
                                   </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="previewDensity" value="MEDIUM" />
+                                    </map>
+                                  </option>
                                 </PersistentState>
                               </value>
                             </entry>
                           </map>
                         </option>
+                      </PersistentState>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState>
+              <option name="children">
+                <map>
+                  <entry key="vectorAssetStep">
+                    <value>
+                      <PersistentState>
                         <option name="values">
                           <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic____1" />
+                            <entry key="sourceFile" value="C:\Users\jw\Desktop\SVG\자산 1.svg" />
                           </map>
                         </option>
                       </PersistentState>

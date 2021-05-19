@@ -23,7 +23,15 @@ import com.odsay.odsayandroidsdk.OnResultCallbackListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class AfterSearchActivity extends AppCompatActivity{
@@ -136,8 +144,184 @@ public class AfterSearchActivity extends AppCompatActivity{
             Handler handler = new Handler();
             handler.postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 2000);
         });
+        
+
+
+
+
 
     }
+
+
+
+    private String getXmlData(String busStationName, String busStopX, String busStopY, String busNum)
+    {
+        StringBuilder buffer = new StringBuilder();
+
+        String busStationID = null;
+        System.out.println("");
+
+        String firstUrl = "http://ws.bus.go.kr/api/rest/stationinfo/getStationByName?serviceKey=sp6SSNzhDBUmWxvdUd28HDDq7E6j98Yvsmenqdy6rOCRyIlv605dNe8Wc7axsHxM759tgGzZpe%2Fr%2BTAb5nq7UA%3D%3D&stSrch=" + busStationName;
+
+        try{
+            URL url1 = new URL(firstUrl);
+            InputStream inputStream = url1.openStream();
+            System.out.println("◈들어옴");
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser xmlPullParser = factory.newPullParser();
+            xmlPullParser.setInput(new InputStreamReader(inputStream, "UTF-8"));
+
+            String tag;
+
+
+
+                    xmlPullParser.next();
+
+            int eventType = xmlPullParser.getEventType();
+
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+
+                switch (eventType) {
+                    case XmlPullParser.START_DOCUMENT:
+                        buffer.append("start");
+                        break;
+                    case XmlPullParser.START_TAG:
+                        tag = xmlPullParser.getName();
+                        //조건 추가
+
+                        if (tag.equals("arsId")) {
+                            xmlPullParser.next();
+                            buffer.append("정류장아이디" + xmlPullParser.getText()).append("\n");
+
+                            busStationID = xmlPullParser.getText();
+                            System.out.println("◈" + busStationID);
+                        } else if (tag.equals("tmX")) {
+
+
+
+                            xmlPullParser.next();
+
+                            if(busStopX.equals(xmlPullParser.getText())) System.out.println("◈ + 같은정류장");
+                            else System.out.println("\"◈\"" + busStopX + "//" + xmlPullParser.getText());
+
+                            buffer.append("정류장엑스좌표" + xmlPullParser.getText()).append("\n");
+                        } else if (tag.equals("tmY")) {
+                            xmlPullParser.next();
+                            buffer.append("정류장와이좌표" + xmlPullParser.getText()).append("\n");
+                        }
+
+
+                    case XmlPullParser.TEXT:
+                        break;
+                    case XmlPullParser.END_TAG:
+                        tag = xmlPullParser.getName();
+                        if (tag.equals("item")) buffer.append("\n");
+                        break;
+
+                }
+
+                eventType = xmlPullParser.next();
+            }
+
+
+        }
+        catch (IOException | XmlPullParserException e) {
+            System.out.println("◈Error");
+            System.out.println("◈" + e);
+            e.printStackTrace();
+        }
+
+
+
+
+        //String busStationID = "22010"; //TODO
+        System.out.println("◈함수는들어옴" + busStationID);
+
+
+        String url = "http://ws.bus.go.kr/api/rest/stationinfo/getStationByUid?serviceKey=sp6SSNzhDBUmWxvdUd28HDDq7E6j98Yvsmenqdy6rOCRyIlv605dNe8Wc7axsHxM759tgGzZpe%2Fr%2BTAb5nq7UA%3D%3D&arsId=" + busStationID;
+
+        try{
+            URL url1 = new URL(url);
+            InputStream inputStream = url1.openStream();
+            System.out.println("◈들어옴");
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser xmlPullParser = factory.newPullParser();
+            xmlPullParser.setInput(new InputStreamReader(inputStream, "UTF-8"));
+
+            String tag;
+
+            xmlPullParser.next();
+
+            int eventType = xmlPullParser.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT)
+            {
+                switch(eventType)
+                {
+                    case XmlPullParser.START_DOCUMENT: buffer.append("start"); break;
+                    case XmlPullParser.START_TAG:
+                        tag = xmlPullParser.getName();
+                        if(tag.equals("arrmsg1")){
+                            xmlPullParser.next();
+                            System.out.println("◈" + xmlPullParser.getText());
+                            buffer.append("버스도착1").append(xmlPullParser.getText()).append("\n");
+                        }
+                        else if(tag.equals("arrmsg2"))
+                        {
+                            xmlPullParser.next();
+                            buffer.append("버스도착2").append(xmlPullParser.getText()).append("\n");
+                        }
+                        else if(tag.equals("busType1"))
+                        {
+                            xmlPullParser.next();
+                            buffer.append("버스타입1").append(xmlPullParser.getText()).append("\n");
+                        }
+                        else if(tag.equals("busType2"))
+                        {
+                            xmlPullParser.next();
+                            buffer.append("버스타입2").append(xmlPullParser.getText()).append("\n");
+                        }
+                        else if(tag.equals("rtNm"))
+                        {
+                            xmlPullParser.next();
+                            System.out.println("◈" + xmlPullParser.getText());
+                            buffer.append("버스번호").append(xmlPullParser.getText()).append("\n");
+                        }
+                        //arrmsg(1,2) : 버스 도착예정 + n번째 전
+                        //busType(1,2) : 버스종류(0 일반 / 1 저상)
+                        //rtNm : 버스번호
+
+
+
+                        break;
+
+                    case XmlPullParser.TEXT: break;
+                    case XmlPullParser.END_TAG:
+                        tag = xmlPullParser.getName();
+                        if(tag.equals("item")) buffer.append("\n");
+                        break;
+
+
+
+                }
+
+                eventType = xmlPullParser.next();
+            }
+
+
+
+        } catch (IOException | XmlPullParserException e) {
+            System.out.println("◈Error");
+            System.out.println("◈" + e);
+            e.printStackTrace();
+        }
+
+
+        return buffer.toString();
+
+    }
+
+
 
 
     private final OnResultCallbackListener onResultCallbackListener = new OnResultCallbackListener() {
@@ -164,7 +348,7 @@ public class AfterSearchActivity extends AppCompatActivity{
             JSONObject newObject = jsonObject.getJSONObject("result");
             JSONArray pathArray = newObject.getJSONArray("path");
             pathAllLength = pathArray.length();
-            pathAll = new String[pathAllLength][1000][14];
+            pathAll = new String[pathAllLength][1000][16];
 
             for(int i = 0; i<pathArray.length(); i++)
             {
@@ -278,7 +462,7 @@ public class AfterSearchActivity extends AppCompatActivity{
 
                             pathAll[i][j+1][4] = busLaneObject.getString("busNo");//버스번호
                             pathAll[i][j+1][5] = busLaneObject.getString("type");//버스 종류(지선, 간선, ...)
-                            pathAll[i][j+1][6] = busLaneObject.getString("type");//버스ID(필요X)
+                            pathAll[i][j+1][6] = busLaneObject.getString("busID");//버스ID(필요X)
 
                             System.out.println(busLaneObject.getString("busNo")); //버스번호
                             System.out.println(busLaneObject.getString("type")); //버스 종류(지선, 간선, ...)
@@ -290,6 +474,10 @@ public class AfterSearchActivity extends AppCompatActivity{
                             pathAll[i][j+1][10] = subPathObject.getString("endName");
                             pathAll[i][j+1][11] = subPathObject.getString("endX");
                             pathAll[i][j+1][12] = subPathObject.getString("endY");
+
+                            pathAll[i][j+1][14] = subPathObject.getString("startID");
+                            System.out.println("◈" + subPathObject.getString("startID"));
+                            pathAll[i][j+1][15] = subPathObject.getString("endID");
 
                             System.out.println(subPathObject.getString("startName")); //시작 정류소 이름
                             System.out.println(subPathObject.getDouble("startX")); //시작 정류소 좌표
@@ -320,6 +508,29 @@ public class AfterSearchActivity extends AppCompatActivity{
                             setWays = setWays + "§";
                             item.setWays(setWays);
                             System.out.println(setWays);
+
+                            //버스정류장 버스 도착정보
+
+
+                            int finalI = i;
+                            int finalJ = j;
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    String data = getXmlData(pathAll[finalI][finalJ +1][7], pathAll[finalI][finalJ +1][8], pathAll[finalI][finalJ +1][9], pathAll[finalI][finalJ +1][4] );
+                                    System.out.println("◈" + data);
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //UI 설정
+                                        }
+                                    });
+
+                                }
+                            }).start();
+
+
+
 
 
                             break;

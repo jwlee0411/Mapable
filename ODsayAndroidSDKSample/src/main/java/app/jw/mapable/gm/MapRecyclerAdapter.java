@@ -48,8 +48,6 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
         return position;
     }
 
-
-
     @Override
     public int getItemCount() {
         return listItem.size();

@@ -475,6 +475,7 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
             recognizer = SpeechRecognizer.createSpeechRecognizer(StartActivity.this);
             recognizer.setRecognitionListener(listener);
             recognizer.startListening(intent);
+
             //TODO : 작동 안됨
         });
 
