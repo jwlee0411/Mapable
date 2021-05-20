@@ -1,4 +1,4 @@
-package app.jw.mapable.gm;
+package app.jw.mapable.gm.Start;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import app.jw.mapable.gm.FirstSetting.FirstSettingActivity;
+import app.jw.mapable.gm.R;
 
 public class SplashActivity extends AppCompatActivity {
 

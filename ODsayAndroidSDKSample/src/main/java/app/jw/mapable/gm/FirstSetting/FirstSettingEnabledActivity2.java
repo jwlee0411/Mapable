@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import app.jw.mapable.gm.R;
-import app.jw.mapable.gm.StartActivity;
+import app.jw.mapable.gm.Start.StartActivity;
 
 public class FirstSettingEnabledActivity2 extends AppCompatActivity {
 

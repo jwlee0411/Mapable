@@ -1,4 +1,4 @@
-package app.jw.mapable.gm;
+package app.jw.mapable.gm.AfterSearch;
 
 public class Item2 {
 

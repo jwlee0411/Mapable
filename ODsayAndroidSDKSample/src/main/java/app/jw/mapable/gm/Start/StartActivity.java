@@ -1,4 +1,4 @@
-package app.jw.mapable.gm;
+package app.jw.mapable.gm.Start;
 
 import android.Manifest;
 import android.content.Intent;
@@ -14,7 +14,6 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -23,7 +22,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -52,9 +50,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import app.jw.mapable.gm.AfterSearch.AfterSearchActivity;
+import app.jw.mapable.gm.Explain.ExplainActivity;
 import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity1;
 import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity2;
 import app.jw.mapable.gm.Info.InfoActivity;
+import app.jw.mapable.gm.R;
+import app.jw.mapable.gm.Setting.SettingActivity;
 
 
 public class StartActivity extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {

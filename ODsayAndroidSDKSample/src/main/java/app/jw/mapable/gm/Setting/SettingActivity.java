@@ -1,8 +1,10 @@
-package app.jw.mapable.gm;
+package app.jw.mapable.gm.Setting;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import app.jw.mapable.gm.R;
 
 public class SettingActivity extends AppCompatActivity {
     @Override

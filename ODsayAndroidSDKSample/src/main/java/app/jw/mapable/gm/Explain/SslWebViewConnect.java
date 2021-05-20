@@ -1,4 +1,4 @@
-package app.jw.mapable.gm;
+package app.jw.mapable.gm.Explain;
 
 import android.net.http.SslError;
 import android.webkit.SslErrorHandler;

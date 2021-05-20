@@ -1,8 +1,10 @@
-package app.jw.mapable.gm;
+package app.jw.mapable.gm.AfterRoad;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Window;
+
+import app.jw.mapable.gm.R;
 
 public class AfterRoadDialog {
 

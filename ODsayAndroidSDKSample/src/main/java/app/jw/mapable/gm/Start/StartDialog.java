@@ -1,4 +1,4 @@
-package app.jw.mapable.gm;
+package app.jw.mapable.gm.Start;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import app.jw.mapable.gm.R;
 
 public class StartDialog {
 

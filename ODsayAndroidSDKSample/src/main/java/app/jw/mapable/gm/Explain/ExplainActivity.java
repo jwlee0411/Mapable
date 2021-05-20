@@ -1,4 +1,4 @@
-package app.jw.mapable.gm;
+package app.jw.mapable.gm.Explain;
 
 import android.graphics.Point;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import app.jw.mapable.gm.R;
 
 public class ExplainActivity extends AppCompatActivity{
     @Override

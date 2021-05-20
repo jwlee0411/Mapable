@@ -18,7 +18,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDyq2L1lo9PtlnCQKtnvy3FndjjuVNUGio" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".Start.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,23 +26,15 @@
             </intent-filter>
         </activity>
 
-
-        <activity android:name="app.jw.mapable.gm.AfterSearchActivity">
-
-        </activity>
-        <activity android:name="app.jw.mapable.gm.StartActivity"/>
-
-        <activity android:name=".AfterRoadActivity"/>
-
-        <activity android:name=".ExplainActivity"/>
-        <activity android:name=".SettingActivity"/>
-
+        <activity android:name=".AfterSearch.AfterSearchActivity"/>
+        <activity android:name=".Start.StartActivity"/>
+        <activity android:name=".AfterRoad.AfterRoadActivity"/>
+        <activity android:name=".Explain.ExplainActivity"/>
+        <activity android:name=".Setting.SettingActivity"/>
         <activity android:name=".Info.InfoActivity"/>
-
         <activity android:name=".FirstSetting.FirstSettingActivity"/>
         <activity android:name=".FirstSetting.FirstSettingEnabledActivity1"/>
         <activity android:name=".FirstSetting.FirstSettingDisabledActivity"/>
-
         <activity android:name=".FirstSetting.FirstSettingEnabledActivity2"/>
 
 

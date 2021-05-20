@@ -1,10 +1,11 @@
-package app.jw.mapable.gm;
+package app.jw.mapable.gm.AfterSearch;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,9 @@ import com.github.mikephil.charting.charts.BarChart;
 
 import java.util.ArrayList;
 
+import app.jw.mapable.gm.AfterRoad.AfterRoadActivity;
+import app.jw.mapable.gm.R;
+
 public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.ItemViewHolder> {
 
 
@@ -30,6 +34,11 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
     RangeBar rangeBar;
     public MapRecyclerAdapter2 adapter2;
     SharedPreferences preferences;
+    RecyclerView recyclerView;
+
+    //TODO : 210520 추가
+    ImageView imageIcon;
+
 
     @NonNull
     @Override
@@ -60,7 +69,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
 
     class ItemViewHolder extends RecyclerView.ViewHolder{
 
-        final TextView[] textViews = new TextView[3];
+        final TextView[] textViews = new TextView[6];
 
         ItemViewHolder(View itemView) {
             super(itemView);
@@ -70,8 +79,8 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
             textViews[0] = itemView.findViewById(R.id.textTrafficDistance);
             textViews[1] = itemView.findViewById(R.id.textTotalTime);
             textViews[2] = itemView.findViewById(R.id.textPayment);
-            RecyclerView recyclerView = itemView.findViewById(R.id.recyclerView2);
-            recyclerView.addItemDecoration(new DividerItemDecoration(itemView.getContext(), DividerItemDecoration.VERTICAL));
+            recyclerView = itemView.findViewById(R.id.recyclerView2);
+            //recyclerView.addItemDecoration(new DividerItemDecoration(itemView.getContext(), DividerItemDecoration.VERTICAL));
             recyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
 
             adapter2 = new MapRecyclerAdapter2();
@@ -80,6 +89,9 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
             barChart = itemView.findViewById(R.id.barChart);
 
             constraintLayout = itemView.findViewById(R.id.constraintLayout01);
+
+
+
 
 
 
@@ -123,13 +135,30 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
 
                 String[][] waysNewSplit = new String[waysSplit.length][14];
 
+                preferences.edit().putString("finalGetWays", getWays).apply();
 
             String finalGetWays = getWays;
             constraintLayout.setOnClickListener(view -> {
+
+                //TODO : 적용 안됨
+
+//                  if (recyclerView.getVisibility() == View.GONE)
+//                  {
+//                      recyclerView.setVisibility(View.VISIBLE);
+//                  }
+//                  else
+//                  {
+//                      recyclerView.setVisibility(View.GONE);
+//                  }
+
+                //TODO : Temp
                 Intent intent = new Intent(itemView.getContext(), AfterRoadActivity.class);
                 intent.putExtra("ways", finalGetWays);
                 itemView.getContext().startActivity(intent);
             });
+
+
+
 
 
 

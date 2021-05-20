@@ -1,4 +1,4 @@
-package app.jw.mapable.gm;
+package app.jw.mapable.gm.AfterRoad;
 
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -27,6 +27,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.jetbrains.annotations.NotNull;
+
+import app.jw.mapable.gm.R;
 
 public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCallback {
 
