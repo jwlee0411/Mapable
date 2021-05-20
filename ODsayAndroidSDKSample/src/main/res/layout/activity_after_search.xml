@@ -6,60 +6,48 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieView"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="250dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/map_loading" />
-
-
-    <com.scwang.wave.MultiWaveHeader
-        android:id="@+id/waveHeader"
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:mwhCloseColor="@color/pink01"
-        app:mwhStartColor="@color/pink07"
-        app:mwhWaveHeight="120dp"
-        app:mwhGradientAngle="90"
-        app:mwhProgress="1"
-        app:mwhVelocity="1"
-        app:mwhWaves="PairWave"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/afterSearchConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/swipeRefreshLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <com.scwang.wave.MultiWaveHeader
+            android:id="@+id/waveHeader"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mwhCloseColor="@color/pink01"
+            app:mwhColorAlpha="0.3"
+            app:mwhGradientAngle="90"
+            app:mwhProgress="1"
+            app:mwhStartColor="@color/pink07"
+            app:mwhVelocity="1"
+            app:mwhWaveHeight="15dp"
+            app:mwhWaves="PairWave"
+            tools:layout_editor_absoluteX="8dp" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:background="@drawable/after_search_square"
             android:fontFamily="@font/nanum_regular"
             android:paddingLeft="6dp"
             android:paddingTop="8dp"
+
             android:paddingRight="6dp"
             android:paddingBottom="8dp"
-
             android:text="(출발지)"
             android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/buttonClose"
@@ -72,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
 
+            android:layout_marginBottom="16dp"
             android:background="@drawable/after_search_square"
             android:fontFamily="@font/nanum_regular"
             android:paddingLeft="6dp"
@@ -80,6 +69,7 @@
             android:paddingBottom="8dp"
             android:text="(도착지)"
             android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/textView" />

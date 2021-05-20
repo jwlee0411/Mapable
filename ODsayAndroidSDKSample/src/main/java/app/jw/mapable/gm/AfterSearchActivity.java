@@ -4,6 +4,7 @@ package app.jw.mapable.gm;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Button;
@@ -43,7 +44,7 @@ public class AfterSearchActivity extends AppCompatActivity{
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    ProgressDialog progressDialog;
+    //ProgressDialog progressDialog;
 
     ArrayList<Item> data = new ArrayList<>();
 
@@ -53,7 +54,7 @@ public class AfterSearchActivity extends AppCompatActivity{
 
     RecyclerView recyclerView;
     String setWays = "";
-
+    AfterSearchProgressDialog dialog;
 
     private ODsayService odsayService;
 
@@ -74,11 +75,11 @@ public class AfterSearchActivity extends AppCompatActivity{
         });
 
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("검색 중...");
-        progressDialog.setMessage("검색 중입니다. 잠시만 기다려 주세요.");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        //ProgressDialog 초기화 및 실행
+        dialog = new AfterSearchProgressDialog(AfterSearchActivity.this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(false);
+        dialog.show(); // 보여주기
 
 
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
@@ -557,7 +558,7 @@ public class AfterSearchActivity extends AppCompatActivity{
 
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
-                    progressDialog.dismiss();
+                    dialog.dismiss();
                     swipeRefreshLayout.setRefreshing(false);
                 }, 1000);
 

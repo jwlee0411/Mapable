@@ -80,6 +80,10 @@
 
     <!--기본색-->
     <color name="black">#000000</color>
+
+    <color name="gray1">#555555</color>
+    <color name="gray2">#888888</color>
+
     <color name="white">#FFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="green">#00FF00</color>

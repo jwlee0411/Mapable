@@ -10,9 +10,10 @@
         android:id="@+id/textTrafficCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nanum_bold"
+        android:fontFamily="@font/nanum_extra_bold"
         android:text="도보"
-        android:textSize="24dp"
+        android:textColor="@color/black"
+        android:textSize="22dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,33 +21,44 @@
         android:id="@+id/textSectionTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/nanum_regular"
         android:text="소요시간"
-        app:layout_constraintStart_toEndOf="@+id/textTrafficCount"
-        app:layout_constraintTop_toBottomOf="@+id/textName" />
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="@+id/textTrafficCount"
+        app:layout_constraintTop_toBottomOf="@+id/textTrafficCount" />
 
     <TextView
         android:id="@+id/textDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:fontFamily="@font/nanum_regular"
         android:text="거리"
-        app:layout_constraintStart_toEndOf="@+id/textSectionTime"
-        app:layout_constraintTop_toTopOf="@+id/textSectionTime" />
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="@+id/textTrafficCount"
+        app:layout_constraintTop_toBottomOf="@+id/textSectionTime" />
 
     <TextView
         android:id="@+id/textName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/nanum_regular"
         android:text="버스 / 지하철 번호"
-        app:layout_constraintStart_toStartOf="@+id/textStartStation"
+        android:textColor="@color/line1"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/textEndStation"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/textStartStation" />
 
     <TextView
         android:id="@+id/textStartStation"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:text="df"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/nanum_bold"
+        android:text="시작 정류장"
+        android:textSize="16dp"
+        android:textColor="@color/gray1"
         app:layout_constraintStart_toEndOf="@+id/textTrafficCount"
         app:layout_constraintTop_toTopOf="@+id/textTrafficCount" />
 
@@ -54,7 +66,18 @@
         android:id="@+id/textEndStation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/nanum_bold"
         android:text="도착 정류장"
-        app:layout_constraintStart_toStartOf="@+id/textSectionTime"
-        app:layout_constraintTop_toBottomOf="@+id/textSectionTime" />
+        android:textColor="@color/gray1"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="19dp"
+        android:layout_height="17dp"
+        app:layout_constraintStart_toStartOf="@+id/textStartStation"
+        app:layout_constraintTop_toBottomOf="@+id/textStartStation"
+        app:srcCompat="@drawable/train_line1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
