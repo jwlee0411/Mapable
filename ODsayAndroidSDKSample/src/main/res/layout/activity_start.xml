@@ -102,11 +102,42 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
+            <ImageButton
+                android:id="@+id/buttonInfo"
+                android:layout_height="48dp"
+                android:layout_width="48dp"
+                android:background="@drawable/oval_new_01"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+
+                />
+
+            <ImageButton
+                android:id="@+id/buttonCurrentLocation"
+                android:layout_height="48dp"
+                android:layout_width="48dp"
+                android:background="@drawable/oval_new_01"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+
+                />
+
+            <ImageButton
+                android:id="@+id/buttonRoadFound"
+                android:layout_height="48dp"
+                android:layout_width="48dp"
+                android:background="@drawable/oval_new_01"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+
+                />
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingDebug"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"/>
 
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -117,6 +148,9 @@
                 android:backgroundTint="@color/white"
                 android:clickable="true"
                 android:src="@drawable/icon_question"
+                android:background="@drawable/app_logo_transparent"
+                app:borderWidth="0dp"
+                app:rippleColor="@color/pink01"
                 app:fabSize="normal"
                 app:layout_constraintBottom_toTopOf="@+id/floatingCurrentLocation"
                 app:layout_constraintEnd_toEndOf="@+id/floatingCurrentLocation" />
@@ -136,6 +170,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingRoadFound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:src="@drawable/icon_road_found"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toTopOf="@+id/floatingCurrentLocation"
+                app:layout_constraintEnd_toEndOf="@+id/floatingCurrentLocation" />
 
 
         </LinearLayout>

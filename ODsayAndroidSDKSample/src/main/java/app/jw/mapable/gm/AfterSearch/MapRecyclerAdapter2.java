@@ -457,7 +457,14 @@ public class MapRecyclerAdapter2 extends RecyclerView.Adapter<MapRecyclerAdapter
                     colorView.setBackgroundColor(itemView.getResources().getColor(R.color.redBus));
                     imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.bus_red_icon, null));
                 }
-                else //농어촌 / 제주도 시외형 / 경기도 시외형 / 급행간선(농어촌통일)
+                else if(item.getTrafficType().equals("21") | item.getTrafficType().equals("22"))  // 제주도 시외형 / 경기도 시외형 /
+                {
+                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.bus_siwae, null));
+                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.siwaeBus));
+                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.siwaeBus));
+                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.bus_siwae_icon, null));
+                }
+                else //농어촌 /급행간선
                 {
                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.bus_nongcheon, null));
                     textViews[3].setTextColor(itemView.getResources().getColor(R.color.nongcheonBus));
