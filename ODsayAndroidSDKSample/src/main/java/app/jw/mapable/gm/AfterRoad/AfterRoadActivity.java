@@ -45,6 +45,8 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
 
     DrawerLayout drawerLayout;
 
+    Bitmap bitmap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +94,7 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
 
         String ways = getIntent().getExtras().getString("ways");
         System.out.println(ways);
-        Toast.makeText(getApplicationContext(), ways, Toast.LENGTH_LONG).show();
+     //   Toast.makeText(getApplicationContext(), ways, Toast.LENGTH_LONG).show();
 
 
         String[] waysSplit = ways.split("§");
@@ -130,7 +132,7 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
                     subwayLatLngs = new LatLng[waysFinalSplit.length];
                     for(int j = 0; j<waysFinalSplit.length; j++)
                     {
-                        int lineNumber = Integer.parseInt(waysNewSplit[i][5]);
+
                         waysFinalNewSplit[j] = waysFinalSplit[j].split("☆");
                         subwayLatLngs[j] = new LatLng(Double.parseDouble(waysFinalNewSplit[j][2]), Double.parseDouble(waysFinalNewSplit[j][1]));
 
@@ -141,60 +143,56 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
                         markerOptions.snippet(waysNewSplit[i][4]);
 
 
-                        Bitmap bitmap;
 
-                        switch (lineNumber)
-                        {
-                            case 1: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line1))).getBitmap(); break;
-                            case 2: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line2))).getBitmap(); break;
-                            case 3: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line3))).getBitmap(); break;
-                            case 4: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line4))).getBitmap(); break;
-                            case 5: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line5))).getBitmap(); break;
-                            case 6: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line6))).getBitmap(); break;
-                            case 7: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line7))).getBitmap(); break;
-                            case 8: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line8))).getBitmap(); break;
-                            case 9: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line9))).getBitmap(); break;
-
-                            case 101: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineairport))).getBitmap(); break;
-                            //case 102: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line9))).getBitmap(); break; //TODO : 자기부상
-                            case 104: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_linegyeongui))).getBitmap(); break;
-                            case 107: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineyongin))).getBitmap(); break;
-                            case 108: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_linegyeongchun))).getBitmap(); break;
-                            case 109: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineshinbundang))).getBitmap(); break;
-                           // case 110: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineuijeongbu))).getBitmap(); break; //TODO
-                            case 112: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_linegyeonggang))).getBitmap(); break;
-                            //case 113: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineui))).getBitmap(); break; //TODO
-                            case 114: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineseohae))).getBitmap(); break;
-                           // case 115: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_linegimpo))).getBitmap(); break; //TODO
-                            case 116: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_linebundang))).getBitmap(); break;
-
-
-                            case 21: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineincheon1))).getBitmap(); break;
-                            case 22: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineincheon2))).getBitmap(); break;
-
-
-
-
-                            default: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line1))).getBitmap(); break;
-                        }
-
-                        //TODO
-//                        switch (lineNumber)
-//                        {
-//                            case 1: drawable = getDrawable(R.drawable.train_line1);
-//                            default: drawable = getDrawable(R.drawable.bus_gbus);
-//                        }
-
-
-                        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false)));
-
-
-
-
-                        googleMap.addMarker(markerOptions);
 
                         if(j!=0)
                         {
+
+
+
+                            int lineNumber = Integer.parseInt(waysNewSplit[i][5]);
+                            switch (lineNumber)
+                            {
+                                case 1: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line1))).getBitmap(); break;
+                                case 2: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line2))).getBitmap(); break;
+                                case 3: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line3))).getBitmap(); break;
+                                case 4: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line4))).getBitmap(); break;
+                                case 5: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line5))).getBitmap(); break;
+                                case 6: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line6))).getBitmap(); break;
+                                case 7: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line7))).getBitmap(); break;
+                                case 8: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line8))).getBitmap(); break;
+                                case 9: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line9))).getBitmap(); break;
+
+                                case 101: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineairport))).getBitmap(); break;
+                                case 102: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_linemaglev))).getBitmap(); break;
+                                case 104: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_linegyeongui))).getBitmap(); break;
+                                case 107: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineyongin))).getBitmap(); break;
+                                case 108: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_linegyeongchun))).getBitmap(); break;
+                                case 109: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineshinbundang))).getBitmap(); break;
+                                case 110: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineuijeongbu))).getBitmap(); break;
+                                case 112: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_linegyeonggang))).getBitmap(); break;
+                                case 113: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineui))).getBitmap(); break;
+                                case 114: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineseohae))).getBitmap(); break;
+                                case 115: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_linegimpo))).getBitmap(); break;
+                                case 116: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_linebundang))).getBitmap(); break;
+
+
+                                case 21: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineincheon1))).getBitmap(); break;
+                                case 22: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_lineincheon2))).getBitmap(); break;
+
+
+
+
+                                default: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.train_line1))).getBitmap(); break;
+                            }
+
+                            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false)));
+
+
+
+
+                            googleMap.addMarker(markerOptions);
+
 
                             System.out.println("★" + lineNumber);
                             switch (lineNumber)
@@ -234,6 +232,12 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
 
 
                         }
+                        else
+                        {
+                            bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.marker_start_ride))).getBitmap();
+                            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false)));
+                            googleMap.addMarker(markerOptions);
+                        }
 
 
 
@@ -243,12 +247,12 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
 
                     if(i==1)
                     {
-                        googleMap.addPolyline(new PolylineOptions().add(new LatLng(startX, startY), subwayLatLngs[0]).width(20).color(Color.MAGENTA));
+                        googleMap.addPolyline(new PolylineOptions().add(new LatLng(startX, startY), subwayLatLngs[0]).width(10).color(Color.MAGENTA));
                     }
 
                     if(i==waysSplit.length-2)
                     {
-                        googleMap.addPolyline(new PolylineOptions().add(new LatLng(endX, endY), subwayLatLngs[subwayLatLngs.length-1]).width(20).color(Color.MAGENTA));
+                        googleMap.addPolyline(new PolylineOptions().add(new LatLng(endX, endY), subwayLatLngs[subwayLatLngs.length-1]).width(10).color(Color.MAGENTA));
                     }
 
 
@@ -267,17 +271,66 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
 
                         subwayLatLngs[j] = new LatLng(Double.parseDouble(waysFinalNewSplit2[j][2]), Double.parseDouble(waysFinalNewSplit2[j][1]));
 
+
+
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(subwayLatLngs[j]);
                         markerOptions.title(waysFinalNewSplit2[j][0]);
-                        //markerOptions.snippet("한국의 수도");
+
                         markerOptions.snippet(waysNewSplit[i][4]);
-                        googleMap.addMarker(markerOptions);
+
+
 
                         if(j!=0)
                         {
-                            googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(5).color(Color.BLUE));
+                            int lineNumber = Integer.parseInt(waysNewSplit[i][5]);
+                            switch (lineNumber)
+                            {
+                                case 1: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.gBus))); break;
+                                case 2: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.jwaseokBus))); break;
+                                case 3: case 12: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.greenBus))); break;
+                                case 4: case 15: case 6: case 14: case 10: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.redBus))); break;
+                                case 5: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.airportBus))); break;
+                                case 11: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.blueBus))); break;
+                                case 13: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.yellowBus))); break;
+                                case 20: case 26: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.nongcheonBus))); break;
+                                case 21: case 22: googleMap.addPolyline(new PolylineOptions().add(subwayLatLngs[j], subwayLatLngs[j-1]).width(10).color(ContextCompat.getColor(AfterRoadActivity.this, R.color.siwaeBus))); break;
+                            }
+
+
+                            switch (lineNumber)
+                            {
+                                case 1: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.bus_gbus_map))).getBitmap(); break;
+                                case 2: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.bus_seat_map))).getBitmap(); break;
+                                case 3: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.bus_maeul_map))).getBitmap(); break;
+                                case 4: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.bus_jichaeng_map))).getBitmap(); break;
+                                case 5: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.bus_airport_map))).getBitmap(); break;
+
+                                case 11: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.bus_ganseon_map))).getBitmap(); break;
+                                case 12: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.bus_jiseon_map))).getBitmap(); break;
+                                case 13: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.bus_sunhwan_map))).getBitmap(); break;
+                                case 15: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.bus_geuphaeng_map))).getBitmap(); break;
+
+                                case 6: case 14: case 10: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.bus_gwangyeok_map))).getBitmap(); break;
+                                case 20: case 26: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.bus_neongchon_map))).getBitmap(); break;
+                                case 21: case 22 : bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.bus_siwae_map))).getBitmap(); break;
+
+                                default: bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.bus_gbus_map))).getBitmap(); break;
+                            }
+
+                            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false)));
+                            googleMap.addMarker(markerOptions);
+
                         }
+                        else
+                        {
+                            bitmap = ((BitmapDrawable) (getResources().getDrawable(R.drawable.marker_start_ride))).getBitmap();
+                            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false)));
+                            googleMap.addMarker(markerOptions);
+                        }
+
+
+
                         System.out.println(waysFinalNewSplit2[j][1]);
                         System.out.println(waysFinalNewSplit2[j][2]);
 

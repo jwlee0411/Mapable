@@ -181,6 +181,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                             item2.setTrafficCount("지하철");
                             item2.setStartStation(waysNewSplit[i][6]);
                             item2.setEndStation(waysNewSplit[i][9]);
+                            item2.setTrafficType(waysNewSplit[i][5]);
 
 
 
@@ -195,6 +196,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                             item2.setTrafficCount("버스");
                             item2.setStartStation(waysNewSplit[i][7]);
                             item2.setEndStation(waysNewSplit[i][10]);
+                            item2.setTrafficType(waysNewSplit[i][5]);
 
 
 

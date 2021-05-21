@@ -11,7 +11,26 @@
         android:title="설정" />
 
     <item
+        android:id="@+id/nav_bus"
+        android:icon="@drawable/icon_star"
+        android:title="버스 도착정보 조회"
+        />
+
+    <item
+        android:id="@+id/nav_info"
+        android:icon="@drawable/icon_star"
+        android:title="공지사항"
+        />
+
+    <item
+        android:id="@+id/nav_community"
+        android:icon="@drawable/icon_star"
+        android:title="커뮤니티"
+        />
+
+    <item
         android:id="@+id/nav_explain"
         android:icon="@drawable/icon_question"
         android:title="출처" />
+
 </menu>

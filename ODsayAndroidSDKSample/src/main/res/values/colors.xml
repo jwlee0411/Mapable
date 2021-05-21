@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FC8FA8</color>
-    <color name="colorPrimaryDark">#FF4081</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryDark">#d74081</color>
+    <color name="colorAccent">#d74081</color>
 
     <!-- 테마색 -->
     <color name="pink01">#FF3083</color>
@@ -12,6 +12,8 @@
     <color name="pink05">#FAAEBB</color>
     <color name="pink06">#F8CDD2</color>
     <color name="pink07">#F6EBEB</color>
+
+    <color name="appicon">#d74081</color>
 
     <color name="pink01text">#f8afbc</color>
     <color name="pink02text">#f8cfd6</color>
@@ -30,7 +32,11 @@
     <color name="yellowBus">#e5a800</color>
 
     <color name="gBus">#04b0be</color>
-    <color name="busanNormalBus">#3399ff</color>
+
+    <color name="airportBus">#896B57</color>
+    <color name="nongcheonBus">#E47E33</color>
+    <color name="jwaseokBus">#1D8EEE</color>
+    <color name="siwaeBus">#7094E2</color>
 
 
 

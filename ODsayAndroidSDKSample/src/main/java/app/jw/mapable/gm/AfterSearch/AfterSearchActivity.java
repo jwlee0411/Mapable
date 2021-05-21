@@ -7,6 +7,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -48,6 +50,8 @@ public class AfterSearchActivity extends AppCompatActivity{
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    View progressView;
+
     //ProgressDialog progressDialog;
 
     ArrayList<Item> data = new ArrayList<>();
@@ -72,6 +76,7 @@ public class AfterSearchActivity extends AppCompatActivity{
         setContentView(R.layout.activity_after_search);
 
         buttonClose = findViewById(R.id.buttonClose);
+        progressView = findViewById(R.id.view);
 
         buttonClose.setOnClickListener(v -> {
             startActivity(new Intent(AfterSearchActivity.this, StartActivity.class));
@@ -80,10 +85,10 @@ public class AfterSearchActivity extends AppCompatActivity{
 
 
         //ProgressDialog 초기화 및 실행
-        dialog = new AfterSearchProgressDialog(AfterSearchActivity.this);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setCancelable(false);
-        dialog.show(); // 보여주기
+//        dialog = new AfterSearchProgressDialog(AfterSearchActivity.this);
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+//        dialog.setCancelable(false);
+//        dialog.show(); // 보여주기
 
 
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
@@ -562,12 +567,7 @@ public class AfterSearchActivity extends AppCompatActivity{
 
                 }
 
-                Handler handler = new Handler();
-                handler.postDelayed(() -> {
-                    dialog.dismiss();
-                    lottieAnimationView.setVisibility(View.GONE);
-                    swipeRefreshLayout.setRefreshing(false);
-                }, 1000);
+
 
 
 
@@ -578,7 +578,13 @@ public class AfterSearchActivity extends AppCompatActivity{
 
             }
 
+
+
             adapter.notifyDataSetChanged();
+
+            fadeOutAnimation();
+
+            swipeRefreshLayout.setRefreshing(false);
 
 
 
@@ -613,6 +619,32 @@ public class AfterSearchActivity extends AppCompatActivity{
         Intent intent = new Intent(getApplicationContext(), StartActivity.class);
         startActivity(intent);
         finish();
+
+    }
+
+
+    void fadeOutAnimation()
+    {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_fade_out);
+        lottieAnimationView.startAnimation(animation);
+        progressView.startAnimation(animation);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                lottieAnimationView.setVisibility(View.GONE);
+                progressView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
     }
 }

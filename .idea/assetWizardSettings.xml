@@ -24,7 +24,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\baseline_star_24.xml" />
+                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\baseline_accessible_forward_24.xml" />
                                                 <entry key="opacityPercent" value="80" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
@@ -37,7 +37,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/star/baseline_star_24.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/accessible_forward/baseline_accessible_forward_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -82,7 +82,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="icon_star" />
+                                      <entry key="outputName" value="icon_disabled" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="000000" />
                                     </map>
@@ -147,12 +147,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="d74081" />
-                                      <entry key="backgroundLayerName" value="app_icon_background" />
-                                      <entry key="foregroundLayerName" value="app_icon_foreground" />
-                                      <entry key="legacyIconShape" value="CIRCLE" />
                                       <entry key="outputName" value="ic_launcher_appicon" />
-                                      <entry key="previewDensity" value="MEDIUM" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -213,7 +208,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\baseline_mic_24.xml" />
+                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\baseline_accessible_forward_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -224,7 +219,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/mic/baseline_mic_24.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/accessible_forward/baseline_accessible_forward_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -345,14 +340,14 @@
                                       </entry>
                                     </map>
                                   </option>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="previewDensity" value="MEDIUM" />
-                                    </map>
-                                  </option>
                                 </PersistentState>
                               </value>
                             </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>

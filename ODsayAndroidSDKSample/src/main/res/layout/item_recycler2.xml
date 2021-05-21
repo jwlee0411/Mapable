@@ -18,7 +18,7 @@
         android:textColor="@color/gray1"
         android:textSize="16dp"
         app:layout_constraintStart_toEndOf="@+id/textSectionTime"
-        app:layout_constraintTop_toTopOf="@+id/textTrafficCount" />
+        app:layout_constraintTop_toTopOf="@+id/textSectionTime" />
 
     <TextView
         android:id="@+id/textTrafficCount"
@@ -26,8 +26,9 @@
         android:layout_height="22dp"
         android:fontFamily="@font/nanum_extra_bold"
         android:text="도보"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="22dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,8 +42,9 @@
         android:text="69분"
         android:textColor="@color/gray1"
         android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewMainIcon"
         app:layout_constraintStart_toEndOf="@+id/textTrafficCount"
-        app:layout_constraintTop_toTopOf="@+id/textTrafficCount" />
+        app:layout_constraintTop_toTopOf="@+id/imageViewMainIcon" />
 
     <TextView
         android:id="@+id/textDistance"
@@ -93,7 +95,7 @@
         android:textColor="@color/gray1"
         android:textSize="16dp"
         app:layout_constraintStart_toEndOf="@+id/textSection"
-        app:layout_constraintTop_toTopOf="@+id/textTrafficCount" />
+        app:layout_constraintTop_toTopOf="@+id/textSectionTime" />
 
     <TextView
         android:id="@+id/textEndStation"
@@ -162,4 +164,23 @@
 
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageViewMainIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="@+id/textTrafficCount"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_disabled" />
+
+    <View
+        android:id="@+id/lineView"
+        android:layout_width="3.5dp"
+        android:layout_height="0dp"
+        android:background="@color/gray1"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewMainIcon"
+        app:layout_constraintStart_toStartOf="@+id/imageViewMainIcon"
+        app:layout_constraintTop_toBottomOf="@id/imageViewMainIcon" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

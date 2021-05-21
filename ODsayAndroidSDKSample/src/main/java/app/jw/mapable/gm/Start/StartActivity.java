@@ -74,6 +74,9 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
     TextToSpeech tts;
 
+    boolean isStart = false, isEnd = false;
+
+
     //TODO : 테스트용 변수들
     double startX = 0, startY = 0, endX, endY;
 
@@ -82,7 +85,7 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
     Button soundButton;
     SpeechRecognizer recognizer;
 
-    SharedPreferences preferences;
+    SharedPreferences sharedPreferences;
     boolean clicked = false;
 
     FloatingActionButton floatingLocation, floatingInfo;
@@ -108,6 +111,8 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
         setContentView(R.layout.activity_start);
 
 
+        sharedPreferences = getSharedPreferences("preference", 0);
+
 
         //설정화면 => 메인화면인 경우 설정화면 종료
         //다른 액티비티 종료
@@ -126,7 +131,6 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
         //debug
         FloatingActionButton floatingDebug = findViewById(R.id.floatingDebug);
         floatingDebug.setOnClickListener(v -> {
-            SharedPreferences sharedPreferences = getSharedPreferences("preference", 0);
             sharedPreferences.edit().clear().apply();
         });
 
@@ -406,6 +410,16 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 //            startDialog.callFunction(x, y, "TODO", "TODO", false, false);
 
 
+//
+//            StartDialog startDialog = new StartDialog(StartActivity.this);
+//
+//
+//            // 0 : 출발, 도착 X
+//            // 1: 출발O, 도착X
+//            // 2 : 출발X, 도착O
+//            // 3 : 모두 정해짐
+//
+//            startDialog.callFunction(x, y, "TODO");
 
 
 
@@ -427,7 +441,7 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
                 System.out.println(startX);
                 System.out.println(startY);
                 markerOptions.title("출발");
-                Toast.makeText(StartActivity.this, "출발위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(StartActivity.this, "출발위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.addMarker(markerOptions);
                 mapStatus = true;
@@ -443,15 +457,10 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
                 endY = Double.parseDouble(locationTmp.substring(locationTmp.indexOf(",")+1, locationTmp.length()-1));
                 System.out.println(latLng);
                 markerOptions.title("도착");
-                Toast.makeText(StartActivity.this, "도착위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(StartActivity.this, "도착위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.addMarker(markerOptions);
                 mapStatus = false;
-
-
-
-
-
 
                 Intent intent = new Intent(StartActivity.this, AfterSearchActivity.class);
                 intent.putExtra("startX", startX);
@@ -499,6 +508,8 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
 
     }
+
+
 
     protected void onStart() {
 
@@ -639,18 +650,13 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
             if(locationList.size() > 0)
             {
                 Location location = locationList.get(locationList.size() - 1);
-                //location = locationList.get(0);
                 prevLatitude = location.getLatitude();
                 prevLongtitude = location.getLongitude();
                 currentPosition = new LatLng(prevLatitude, prevLongtitude);
 
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(currentPosition);
-                //TODO : 투명 마커로 바꾸거나 없애기
-                Bitmap endBitmap = ((BitmapDrawable)getResources().getDrawable(R.drawable.bus_gbus)).getBitmap();
-                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(endBitmap, 64, 64, false)));
+                sharedPreferences.edit().putString("latitudeNow", String.valueOf(prevLatitude)).apply();
+                sharedPreferences.edit().putString("longtitudeNow", String.valueOf(prevLongtitude)).apply();
 
-               mMap.addMarker(markerOptions);
 
                 if(!onTouched)
                 {
@@ -658,15 +664,7 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
                 }
 
 
-
                 mCurrentLocation = location;
-
-                mMap.setOnMyLocationButtonClickListener(() -> {
-                    Toast.makeText(StartActivity.this, "현위치 클릭", Toast.LENGTH_LONG).show();
-                    return true;
-                });
-
-
 
             }
         }

@@ -2,6 +2,7 @@ package app.jw.mapable.gm.Start;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.view.Window;
@@ -11,7 +12,7 @@ import android.widget.Toast;
 
 import app.jw.mapable.gm.R;
 
-public class StartDialog {
+public class StartDialog implements DialogInterface.OnDismissListener {
 
     private final Context context;
 
@@ -25,7 +26,7 @@ public class StartDialog {
         this.context = context;
     }
 
-    public void callFunction(double x, double y, String locationName, String locationAddress, boolean isStart, boolean isEnd)
+    public void callFunction(double x, double y, String locationName)
     {
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -33,7 +34,7 @@ public class StartDialog {
         dialog.show();
 
         dialog.setOnDismissListener(dialogInterface -> {
-            //TODO : 마커 지우기
+
         });
 
 
@@ -46,21 +47,14 @@ public class StartDialog {
         textLocationAddress = dialog.findViewById(R.id.textLocationAddress);
 
 
+
         preferences = context.getSharedPreferences("preference", 0);
 
 
         textLocationName.setText(locationName);
-        textLocationAddress.setText(locationAddress);
 
 
-        if(isStart)
-        {
-            buttonStart.setVisibility(View.INVISIBLE);
-        }
-        else if(isEnd)
-        {
-            buttonEnd.setVisibility(View.INVISIBLE);
-        }
+
 
         buttonStart.setOnClickListener(v -> {
             preferences.edit().putBoolean("start", true).apply();
@@ -70,14 +64,6 @@ public class StartDialog {
 
 
 
-            if(isEnd) //출발지와 도착지가 모두 정해졌으면
-            {
-
-            }
-            else
-            {
-
-            }
 
 
         });
@@ -88,21 +74,18 @@ public class StartDialog {
 
             Toast.makeText(dialog.getContext(), "도착지가 설정되었습니다.", Toast.LENGTH_LONG).show();
 
-            if(isStart)//출발지와 도착지가 모두 정해졌으면
-            {
-
-            }
-            else
-            {
-
-            }
-
         });
 
         buttonCancel.setOnClickListener(v -> {
+
             dialog.cancel();
         });
 
+
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
 
     }
 }
