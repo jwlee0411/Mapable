@@ -1,2 +1,2 @@
-include ':ODsayAndroidSDK'
-include ':ODsayAndroidSDKSample'
+include ':app'
+include ':app_main'
