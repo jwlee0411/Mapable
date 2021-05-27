@@ -357,7 +357,7 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
 
 
         }
-
+        //TODO : 카메라 위치를 경로에 맞추기
         LatLng SEOUL = new LatLng(37.56, 126.97);
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 13));
@@ -374,8 +374,6 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
 
             //TODO
             afterRoadDialog.callFunction();
-
-//                Toast.makeText(AfterRoadActivity.this, markerTitle + markerSnippet, Toast.LENGTH_LONG).show();
 
         });
     }

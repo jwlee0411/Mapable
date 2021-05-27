@@ -19,7 +19,6 @@ public class ExplainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_explain);
 
         WebView webView = findViewById(R.id.webView);
-       // webView.getSettings().setJavaScriptEnabled(true);
 
 
         Display display = getWindowManager().getDefaultDisplay();

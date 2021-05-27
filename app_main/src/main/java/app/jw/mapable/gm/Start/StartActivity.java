@@ -13,7 +13,6 @@ import android.os.Looper;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -63,58 +62,35 @@ import app.jw.mapable.gm.Setting.SettingActivity;
 
 public class StartActivity extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
 
-    boolean mapStatus = false;
+    boolean mapStatus = false, onTouched = false, clicked = false;
+    double prevLatitude = 37.542035, prevLongtitude = 126.966613, startX = 0, startY = 0, endX, endY;
+    int UPDATE_INTERVAL_MS = 1000, FASTEST_UPDATE_INTERVAL_MS = 500, PERMISSIONS_REQUEST_CODE = 100;
+    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.RECORD_AUDIO};
 
-    boolean onTouched = false;
+    NavigationView navigationView;
 
-    double prevLatitude = 37.542035, prevLongtitude = 126.966613;
     LatLng currentPosition;
-    double x, y;
     Location mCurrentLocation;
+    LinearLayout floatingLinearLayout;
     String locationTmp;
     private GoogleMap mMap;
-
-    TextToSpeech tts;
-
-    boolean isStart = false, isEnd = false;
-
+    ConstraintLayout constraintLayout;
     TextView textSearch;
-
-    //TODO : 테스트용 변수들
-    double startX = 0, startY = 0, endX, endY;
-
-    boolean startLocation = false, endLocation = false;
-
-    Button soundButton;
+    Button soundButton, menuButton;
+    DrawerLayout drawerLayout;
     SpeechRecognizer recognizer;
-
+    Animation searchLayoutAnimation, floatingLayoutAnimation;
     SharedPreferences sharedPreferences;
-    boolean clicked = false;
-
-    FloatingActionButton floatingLocation, floatingInfo, floatingRoadFound;
-
-    private static final String TAG = "googlemap_example";
-    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
-    private static final int UPDATE_INTERVAL_MS = 1000;  // 1초
-    private static final int FASTEST_UPDATE_INTERVAL_MS = 500; // 0.5초
-    private static final int PERMISSIONS_REQUEST_CODE = 100;
-    boolean needRequest = false;
-    final String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+    FloatingActionButton floatingLocation, floatingInfo, floatingRoadFound, floatingDebug;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest locationRequest;
-    private View mLayout;  // Snackbar 사용하기 위해서는 View가 필요합니다.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_start);
 
-
-        sharedPreferences = getSharedPreferences("preference", 0);
 
 
         //설정화면 => 메인화면인 경우 설정화면 종료
@@ -131,43 +107,74 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
 
 
-        //debug
-        FloatingActionButton floatingDebug = findViewById(R.id.floatingDebug);
+
+        findView();
+
+        sharedPreferences = getSharedPreferences("preference", 0);
+        constraintLayout.bringToFront();
+
+    }
+
+    void findView()
+    {
+        floatingDebug = findViewById(R.id.floatingDebug);
+        floatingInfo = findViewById(R.id.floatingInfo);
+        floatingLocation = findViewById(R.id.floatingCurrentLocation);
+
+        textSearch = findViewById(R.id.textViewSearch);
+        navigationView = findViewById(R.id.navigationView);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        menuButton = findViewById(R.id.menuButton);
+        floatingRoadFound = findViewById(R.id.floatingRoadFound);
+        constraintLayout = findViewById(R.id.searchConstraintLayout);
+
+
+        floatingLinearLayout = findViewById(R.id.floatingLinearLayout);
+
+        setOnClick();
+    }
+
+    void setOnClick()
+    {
+        //debug : 기존 DB를 지우기 위한 디버그용 버튼
+
         floatingDebug.setOnClickListener(v -> {
             sharedPreferences.edit().clear().apply();
         });
 
 
-        floatingRoadFound = findViewById(R.id.floatingRoadFound);
+
         floatingRoadFound.setOnClickListener(v -> {
             startActivity(new Intent(this, AfterSearchActivity.class));
-           finish();
+            finish();
             overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none);
         });
 
-        textSearch = findViewById(R.id.textViewSearch);
+
         textSearch.setOnClickListener(v -> {
             startActivity(new Intent(this, SearchActivity.class));
             finish();
             overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none);
         });
 
+        floatingLocation.setOnClickListener(v -> {
+            onTouched = false;
+            LatLng prevLatLng = new LatLng(prevLatitude, prevLongtitude);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(prevLatLng, 15));
 
+        });
 
+        floatingInfo.setOnClickListener(v ->
+        {
+            startActivity(new Intent(StartActivity.this, InfoActivity.class));
 
+        });
 
-
-
-        //DrawerLayout 관련 코드 추가
-        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
-        Button menuButton = findViewById(R.id.menuButton);
+        //Menu 부분 관련 설정 코드
         menuButton.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
-        NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setItemIconTintList(null);
-
         navigationView.setNavigationItemSelectedListener(item -> {
             drawerLayout.closeDrawers();
-
             int id = item.getItemId();
 
             switch (id)
@@ -184,140 +191,65 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
             return true;
         });
 
-        floatingInfo = findViewById(R.id.floatingInfo);
-        floatingLocation = findViewById(R.id.floatingCurrentLocation);
+        setMap();
+    }
 
-        floatingLocation.setOnClickListener(v -> {
-            onTouched = false;
-            LatLng prevLatLng = new LatLng(prevLatitude, prevLongtitude);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(prevLatLng, 15));
-
-        });
-
-        floatingInfo.setOnClickListener(v ->
-        {
-            startActivity(new Intent(StartActivity.this, InfoActivity.class));
-
-        });
-
-
-//        tts = new TextToSpeech(this, status -> {
-//            if(status != ERROR)
-//            {
-//                tts.setLanguage(Locale.KOREAN);
-//            }
-//        });
-
-        ActivityCompat.requestPermissions(this, new String[]{
-                Manifest.permission.INTERNET, Manifest.permission.RECORD_AUDIO}, 1);
-
-
-
-
-
-        ConstraintLayout constraintLayout = findViewById(R.id.searchConstraintLayout);
-        constraintLayout.bringToFront();
-
-        locationRequest = new LocationRequest()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(UPDATE_INTERVAL_MS)
-                .setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);
-
-
-        LocationSettingsRequest.Builder builder =
-                new LocationSettingsRequest.Builder();
-
+    void setMap()
+    {
+        ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, 1);
+        locationRequest = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(UPDATE_INTERVAL_MS).setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(locationRequest);
-
-
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
 
+    void checkPermissionGranted()
+    {
+        int hasFineLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED && hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED   ) {
+            startLocationUpdates();
+        }
+        else
+        {
+            ActivityCompat.requestPermissions( this, REQUIRED_PERMISSIONS, PERMISSIONS_REQUEST_CODE);
+        }
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        setDefaultLocation();
-
         mMap.clear();
+        setDefaultLocation();
+        checkPermissionGranted();
 
 
 
         LatLng SEOUL = new LatLng(prevLatitude, prevLongtitude);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 13));
-
-
-
-        //런타임 퍼미션 처리
-        // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
-        int hasFineLocationPermission = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION);
-
-
-
-        if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
-                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED   ) {
-
-            // 2. 이미 퍼미션을 가지고 있다면
-            // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
-
-
-            startLocationUpdates(); // 3. 위치 업데이트 시작
-
-
-        }else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
-
-            // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])) {
-
-                // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
-                Snackbar.make(mLayout, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.",
-                        Snackbar.LENGTH_INDEFINITE).setAction("확인", view -> {
-
-                            // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
-                            ActivityCompat.requestPermissions( StartActivity.this, REQUIRED_PERMISSIONS,
-                                    PERMISSIONS_REQUEST_CODE);
-                        }).show();
-
-
-            } else {
-                // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
-                // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
-                ActivityCompat.requestPermissions( this, REQUIRED_PERMISSIONS,
-                        PERMISSIONS_REQUEST_CODE);
-            }
-
-        }
-
-
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        // 현재 오동작을 해서 주석처리
-
-
-
         mMap.setOnCameraMoveListener(() -> onTouched = true);
 
-        //mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        setOnMapClick();
+
+
+
+    }
+
+    void setOnMapClick()
+    {
         mMap.setOnMapClickListener(latLng -> {
 
 
-
-
-            ConstraintLayout searchConstraintLayout = findViewById(R.id.searchConstraintLayout);
-            LinearLayout floatingLinearLayout = findViewById(R.id.floatingLinearLayout);
-            Animation searchLayoutAnimation, floatingLayoutAnimation;
             if(clicked)
             {
                 clicked = false;
                 searchLayoutAnimation = AnimationUtils.loadAnimation(StartActivity.this, R.anim.anim_move_top_down);
-                searchConstraintLayout.startAnimation(searchLayoutAnimation);
+                constraintLayout.startAnimation(searchLayoutAnimation);
 
                 floatingLayoutAnimation = AnimationUtils.loadAnimation(StartActivity.this, R.anim.anim_move_bottom_up);
                 floatingLinearLayout.startAnimation(floatingLayoutAnimation);
@@ -325,7 +257,7 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
                 searchLayoutAnimation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
-                        searchConstraintLayout.setVisibility(View.VISIBLE);
+                        constraintLayout.setVisibility(View.VISIBLE);
 
                     }
 
@@ -362,7 +294,7 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
             {
                 clicked = true;
                 searchLayoutAnimation = AnimationUtils.loadAnimation(StartActivity.this, R.anim.anim_move_top_up);
-                searchConstraintLayout.startAnimation(searchLayoutAnimation);
+                constraintLayout.startAnimation(searchLayoutAnimation);
 
                 floatingLayoutAnimation = AnimationUtils.loadAnimation(StartActivity.this, R.anim.anim_move_bottom_down);
                 floatingLinearLayout.startAnimation(floatingLayoutAnimation);
@@ -375,7 +307,7 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
-                        searchConstraintLayout.setVisibility(View.GONE);
+                        constraintLayout.setVisibility(View.GONE);
 
 
                     }
@@ -444,13 +376,6 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 //            startDialog.callFunction(x, y, "TODO");
 
 
-
-
-
-
-            
-
-            
             if(!mapStatus)
             {
                 MarkerOptions markerOptions = new MarkerOptions();
@@ -463,7 +388,7 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
                 System.out.println(startX);
                 System.out.println(startY);
                 markerOptions.title("출발");
-               // Toast.makeText(StartActivity.this, "출발위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(StartActivity.this, "출발위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.addMarker(markerOptions);
                 mapStatus = true;
@@ -479,7 +404,7 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
                 endY = Double.parseDouble(locationTmp.substring(locationTmp.indexOf(",")+1, locationTmp.length()-1));
                 System.out.println(latLng);
                 markerOptions.title("도착");
-             //   Toast.makeText(StartActivity.this, "도착위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(StartActivity.this, "도착위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 mMap.addMarker(markerOptions);
                 mapStatus = false;
@@ -512,24 +437,6 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
             //TODO : 작동 안됨
         });
-
-
-
-
-
-
-
-//        LatLng SEOUL = new LatLng(37.56, 126.97);
-
-//        MarkerOptions markerOptions = new MarkerOptions();
-//        markerOptions.position(SEOUL);
-//        markerOptions.title("서울");
-//        markerOptions.snippet("한국의 수도");
-//        mMap.addMarker(markerOptions);
-
-
-
-
     }
 
 

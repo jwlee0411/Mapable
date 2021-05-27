@@ -1,6 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8">
+
+        <CheckBox
+            android:id="@+id/checkBus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_regular"
+            android:text="버스 경로 보기"
+            android:textSize="24dp" />
+
+        <View style="@style/Divider" />
+
+        <CheckBox
+            android:id="@+id/checkBusLow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="저상버스만 안내" />
+
+        <View style="@style/Divider2" />
+
+        <CheckBox
+            android:id="@+id/checkBusWait30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="30분 이상 대기하는 경로 안내하지 않음" />
+
+        <View style="@style/Divider2" />
+
+        <CheckBox
+            android:id="@+id/checkBusWait60"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="60분 이상 대기하는 경로 안내하지 않음" />
+
+        <View style="@style/Divider2" />
+
+        <CheckBox
+            android:id="@+id/checkSubway"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="지하철 경로 보기"
+            android:textSize="24dp" />
+
+        <View style="@style/Divider" />
+
+        <CheckBox
+            android:id="@+id/checkSubwayElevator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="엘리베이터 있는 역만 안내" />
+
+        <View style="@style/Divider2" />
+
+        <CheckBox
+            android:id="@+id/checkSubwayWheelchairStation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="휠체어 탑승 가능 역만 안내" />
+
+        <View style="@style/Divider2" />
+
+        <CheckBox
+            android:id="@+id/checkSubwayWheelchairOn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="휠체어 거치 공간 있는 경로만 안내" />
+
+        <View style="@style/Divider" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_regular"
+            android:text="우선 탐색"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <RadioGroup
+            android:id="@+id/radioSearchWayCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioBest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="추천 경로" />
+
+            <RadioButton
+                android:id="@+id/radioBus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="버스 우선" />
+
+            <RadioButton
+                android:id="@+id/radioSubway"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="지하철 우선" />
+
+            <RadioButton
+                android:id="@+id/radioWalk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="도보 적은 경로" />
+        </RadioGroup>
+
+
+        <View style="@style/Divider2" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_regular"
+            android:text="기타"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <View style="@style/Divider" />
+
+        <CheckBox
+            android:id="@+id/checkDisabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="시각장애인 모드" />
+
+        <CheckBox
+            android:id="@+id/checkNoInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="도움말 보지 않기" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonSet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="적용"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nanum_regular"
+        android:text="설정"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="내용을 확인하고 설정을 적용해주세요."
+        app:layout_constraintEnd_toEndOf="@+id/textView7"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 </androidx.constraintlayout.widget.ConstraintLayout>

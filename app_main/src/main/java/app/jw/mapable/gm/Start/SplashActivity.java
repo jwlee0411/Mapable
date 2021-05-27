@@ -26,26 +26,6 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         splashAnimation();
 
-
-//
-//        Handler handler = new Handler();
-//        handler.postDelayed(() -> {
-//
-//        }, 2000);
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        finish();
-//    }
-//
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        finish();
-//    }
-
     }
 
     private void splashAnimation()
