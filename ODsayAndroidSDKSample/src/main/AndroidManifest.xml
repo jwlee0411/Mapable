@@ -36,6 +36,7 @@
         <activity android:name=".FirstSetting.FirstSettingEnabledActivity1"/>
         <activity android:name=".FirstSetting.FirstSettingDisabledActivity"/>
         <activity android:name=".FirstSetting.FirstSettingEnabledActivity2"/>
+        <activity android:name=".SearchActivity"/>
 
 
     </application>

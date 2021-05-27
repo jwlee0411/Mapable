@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import app.jw.mapable.gm.R;
+import app.jw.mapable.gm.SearchActivity;
 import app.jw.mapable.gm.Start.StartActivity;
 
 public class AfterSearchActivity extends AppCompatActivity{
@@ -51,6 +53,8 @@ public class AfterSearchActivity extends AppCompatActivity{
     SharedPreferences.Editor editor;
 
     View progressView;
+
+    TextView textViewStart, textViewEnd;
 
     //ProgressDialog progressDialog;
 
@@ -93,6 +97,9 @@ public class AfterSearchActivity extends AppCompatActivity{
 
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
+        textViewStart = findViewById(R.id.textViewStart);
+        textViewEnd = findViewById(R.id.textViewEnd);
+
 
         preferences = getSharedPreferences("preferences", 0);
         preferences.edit().remove("prevString").apply();
@@ -116,46 +123,67 @@ public class AfterSearchActivity extends AppCompatActivity{
 
 
 
+
+
         init();
     }
 
     private void init() {
 
-        Button bt_api_call = findViewById(R.id.bt_api_call);
-
-
-
-        odsayService = ODsayService.init(AfterSearchActivity.this, getString(R.string.odsay_key));
-        odsayService.setReadTimeout(5000);
-        odsayService.setConnectionTimeout(5000);
-
         startX = getIntent().getDoubleExtra("startX", 0.0);
         startY = getIntent().getDoubleExtra("startY", 0.0);
         endX = getIntent().getDoubleExtra("endX", 0.0);
         endY = getIntent().getDoubleExtra("endY", 0.0);
-        System.out.println("☆" + startX);
 
-        editor.putString("startX", String.valueOf(startX));
-        editor.putString("startY", String.valueOf(startY));
-        editor.putString("endX", String.valueOf(endX));
-        editor.putString("endY", String.valueOf(endY));
-        editor.commit();
+        String locationStart = getIntent().getStringExtra("locationNameStart");
+        String locationEnd = getIntent().getStringExtra("locationNameEnd");
 
+        textViewStart.setText(locationStart);
+        textViewEnd.setText(locationEnd);
 
-        odsayService.requestSearchPubTransPath(Double.toString(startY), Double.toString(startX), Double.toString(endY), Double.toString(endX), "0", "0", "0", onResultCallbackListener);
-
-
-        bt_api_call.setOnClickListener(v-> odsayService.requestSearchPubTransPath(Double.toString(startY), Double.toString(startX), Double.toString(endY), Double.toString(endX), "0", "0", "0", onResultCallbackListener));
-
-
-
-
-
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            //odsayService.requestSearchPubTransPath(Double.toString(startY), Double.toString(startX), Double.toString(endY), Double.toString(endX), "0", "0", "0", onResultCallbackListener);
-            Handler handler = new Handler();
-            handler.postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 2000);
+        textViewStart.setOnClickListener(v -> {
+            Intent intent = new Intent(AfterSearchActivity.this, SearchActivity.class);
+            startActivity(intent);
         });
+
+        textViewEnd.setOnClickListener(v -> {
+            Intent intent = new Intent(AfterSearchActivity.this, SearchActivity.class);
+            startActivity(intent);
+        });
+
+
+        if(startX!=0.0)
+        {
+
+            odsayService = ODsayService.init(AfterSearchActivity.this, getString(R.string.odsay_key));
+            odsayService.setReadTimeout(5000);
+            odsayService.setConnectionTimeout(5000);
+
+            lottieAnimationView.setVisibility(View.VISIBLE);
+            progressView.setVisibility(View.VISIBLE);
+
+            editor.putString("startX", String.valueOf(startX));
+            editor.putString("startY", String.valueOf(startY));
+            editor.putString("endX", String.valueOf(endX));
+            editor.putString("endY", String.valueOf(endY));
+            editor.commit();
+
+
+            odsayService.requestSearchPubTransPath(Double.toString(startY), Double.toString(startX), Double.toString(endY), Double.toString(endX), "0", "0", "0", onResultCallbackListener);
+
+
+
+
+
+            swipeRefreshLayout.setOnRefreshListener(() -> {
+                //odsayService.requestSearchPubTransPath(Double.toString(startY), Double.toString(startX), Double.toString(endY), Double.toString(endX), "0", "0", "0", onResultCallbackListener);
+                Handler handler = new Handler();
+                handler.postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 2000);
+            });
+        }
+
+
+
         
 
 
@@ -242,6 +270,8 @@ public class AfterSearchActivity extends AppCompatActivity{
             System.out.println("◈Error");
             System.out.println("◈" + e);
             e.printStackTrace();
+            Toast.makeText(this, "알 수 없는 오류가 발생하였습니다.\n" + e, Toast.LENGTH_LONG).show();
+            fadeOutAnimation();
         }
 
 
@@ -326,6 +356,10 @@ public class AfterSearchActivity extends AppCompatActivity{
             System.out.println("◈Error");
             System.out.println("◈" + e);
             e.printStackTrace();
+            Toast.makeText(this, "알 수 없는 오류가 발생하였습니다.\n" + e, Toast.LENGTH_LONG).show();
+            fadeOutAnimation();
+
+
         }
 
 
@@ -430,6 +464,10 @@ public class AfterSearchActivity extends AppCompatActivity{
                             System.out.println(subPathObject.getDouble("endY"));
 
 
+                            pathAll[i][j+1][14] = subPathObject.getString("startID");
+                            System.out.println("◈" + subPathObject.getString("startID"));
+                            pathAll[i][j+1][15] = subPathObject.getString("endID");
+
                             //way : 방향
                             //waycode
                             //door ; 빠른하차
@@ -448,7 +486,8 @@ public class AfterSearchActivity extends AppCompatActivity{
                             }
                             pathAll[i][j+1][12] = subwayStopList;
 
-                            for(int l = 1; l<13; l++)
+                            for(int l = 1; l<16; l++) //TODO : 추후 에러날 수 있음
+
                             {
                                 setWays = setWays + pathAll[i][j+1][l] + "※";
                             }
@@ -488,6 +527,7 @@ public class AfterSearchActivity extends AppCompatActivity{
                             pathAll[i][j+1][12] = subPathObject.getString("endY");
 
                             pathAll[i][j+1][14] = subPathObject.getString("startID");
+                            System.out.println("◈" +subPathObject.get("startID"));
                             System.out.println("◈" + subPathObject.getString("startID"));
                             pathAll[i][j+1][15] = subPathObject.getString("endID");
 
@@ -513,7 +553,7 @@ public class AfterSearchActivity extends AppCompatActivity{
                             pathAll[i][j+1][13] = busStopList;
 
 
-                            for(int l = 1; l<14; l++)
+                            for(int l = 1; l<16; l++)
                             {
                                 setWays = setWays + pathAll[i][j+1][l] + "※";
                             }
@@ -606,11 +646,16 @@ public class AfterSearchActivity extends AppCompatActivity{
             try {
                 JSONObject errorObject = jsonObject.getJSONObject("error");
                 Toast.makeText(this, errorObject.getString("msg") + "\n출발지와 도착지를 올바른 곳으로 설정했는지 다시 한 번 확인해 주세요.", Toast.LENGTH_LONG).show();
+               fadeOutAnimation();
 
             } catch (JSONException jsonException) {
                 jsonException.printStackTrace();
+                Toast.makeText(this, "알 수 없는 오류가 발생하였습니다.\n" + e, Toast.LENGTH_LONG).show();
+                fadeOutAnimation();
             }
-            e.printStackTrace();
+
+//            Toast.makeText(this, "알 수 없는 오류가 발생하였습니다.\n" + e, Toast.LENGTH_LONG).show();
+//            e.printStackTrace();
         }
     }
 

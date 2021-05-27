@@ -29,8 +29,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <EditText
-                android:id="@+id/editText"
+            <TextView
+                android:id="@+id/textViewSearch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
@@ -38,7 +38,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@null"
-                android:hint="여기서 검색"
+                android:text="여기서 검색"
+                android:fontFamily="@font/nanum_bold"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/soundButton"
@@ -51,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:text="검색"
                 android:visibility="gone"
-                app:layout_constraintStart_toEndOf="@+id/editText"
+                app:layout_constraintStart_toEndOf="@+id/textViewSearch"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
@@ -109,6 +110,7 @@
                 android:background="@drawable/oval_new_01"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:visibility="gone"
 
                 />
 
@@ -119,6 +121,7 @@
                 android:background="@drawable/oval_new_01"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:visibility="gone"
 
                 />
 
@@ -129,6 +132,7 @@
                 android:background="@drawable/oval_new_01"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:visibility="gone"
 
                 />
 

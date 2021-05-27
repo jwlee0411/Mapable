@@ -20,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,6 +57,7 @@ import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity1;
 import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity2;
 import app.jw.mapable.gm.Info.InfoActivity;
 import app.jw.mapable.gm.R;
+import app.jw.mapable.gm.SearchActivity;
 import app.jw.mapable.gm.Setting.SettingActivity;
 
 
@@ -76,6 +78,7 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
     boolean isStart = false, isEnd = false;
 
+    TextView textSearch;
 
     //TODO : 테스트용 변수들
     double startX = 0, startY = 0, endX, endY;
@@ -88,7 +91,7 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
     SharedPreferences sharedPreferences;
     boolean clicked = false;
 
-    FloatingActionButton floatingLocation, floatingInfo;
+    FloatingActionButton floatingLocation, floatingInfo, floatingRoadFound;
 
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -135,6 +138,21 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
         });
 
 
+        floatingRoadFound = findViewById(R.id.floatingRoadFound);
+        floatingRoadFound.setOnClickListener(v -> {
+            startActivity(new Intent(this, AfterSearchActivity.class));
+           finish();
+            overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none);
+        });
+
+        textSearch = findViewById(R.id.textViewSearch);
+        textSearch.setOnClickListener(v -> {
+            startActivity(new Intent(this, SearchActivity.class));
+            finish();
+            overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none);
+        });
+
+
 
 
 
@@ -176,7 +194,11 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
 
         });
 
-        floatingInfo.setOnClickListener(v -> startActivity(new Intent(StartActivity.this, InfoActivity.class)));
+        floatingInfo.setOnClickListener(v ->
+        {
+            startActivity(new Intent(StartActivity.this, InfoActivity.class));
+
+        });
 
 
 //        tts = new TextToSpeech(this, status -> {
@@ -469,6 +491,7 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
                 intent.putExtra("endY", endY);
                 startActivity(intent);
                 finish();
+                overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none);
             }
 
 
