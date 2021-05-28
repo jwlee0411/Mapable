@@ -66,6 +66,11 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler1, parent, false);
+
+        odsayService = ODsayService.init(context, context.getString(R.string.odsay_key));
+        odsayService.setReadTimeout(5000);
+        odsayService.setConnectionTimeout(5000);
+
         return new ItemViewHolder(view);
     }
 
@@ -130,11 +135,6 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
 
                 prePosition = position;
             });
-
-
-            odsayService = ODsayService.init(context, context.getString(R.string.odsay_key));
-            odsayService.setReadTimeout(5000);
-            odsayService.setConnectionTimeout(5000);
 
 
         }
@@ -203,6 +203,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                     item2.setStartStation(waysNewSplit[i][7]);
                     item2.setEndStation(waysNewSplit[i][10]);
                     item2.setTrafficType(waysNewSplit[i][5]);
+
 
                     odsayService.requestBusStationInfo(waysNewSplit[i][14], onBusStopIdResultCallbackListener);
 

@@ -21,7 +21,7 @@ public class FirstSettingActivity extends AppCompatActivity {
             Intent intent = new Intent(FirstSettingActivity.this, FirstSettingDisabledActivity.class);
             startActivity(intent);
             finish();
-        }, 10000);
+        }, 1000);
 
         Button button = findViewById(R.id.buttonSettingStart);
         button.setOnClickListener(v -> {

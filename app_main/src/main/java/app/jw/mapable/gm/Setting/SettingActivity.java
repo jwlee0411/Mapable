@@ -1,6 +1,7 @@
 package app.jw.mapable.gm.Setting;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,8 +9,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import app.jw.mapable.gm.Explain.ExplainActivity;
@@ -29,8 +32,12 @@ public class SettingActivity extends AppCompatActivity {
     int searchWay;
 
 
+
+
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+
+    AlertDialog.Builder dlg;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -145,35 +152,46 @@ public class SettingActivity extends AppCompatActivity {
             }
             else if(checkBoxes[8].isChecked())
             {
-                //TODO : 정말 이 모드로 설정할 것인지 다시 한 번 확인하는 Dialog 띄우기
+                dlg = new AlertDialog.Builder(SettingActivity.this);
+                dlg.setTitle("시각장애인 모드로 설정하시겠어요?");
+                dlg.setMessage("시각장애인이 아니라면, 해당 모드를 사용하지 않는 것을 추천합니다.");
+                dlg.setPositiveButton("확인", (dialog, which) -> applySetting());
+                dlg.setNegativeButton("아니오", (dialog, which) ->{});
+                dlg.show();
+
             }
             else
             {
-                editor.putBoolean("busRoadFound", checkBoxes[0].isChecked());
-                editor.putBoolean("busLowOnly", checkBoxes[1].isChecked());
-                editor.putBoolean("busWait30", checkBoxes[2].isChecked());
-                editor.putBoolean("busWait60", checkBoxes[3].isChecked());
-                editor.putBoolean("subwayRoadFound", checkBoxes[4].isChecked());
-                editor.putBoolean("subwayElevator", checkBoxes[5].isChecked());
-                editor.putBoolean("subwayWheelchairStation", checkBoxes[6].isChecked());
-                editor.putBoolean("subwayWheelchairOn", checkBoxes[7].isChecked());
-                editor.putBoolean("disabled", checkBoxes[8].isChecked());
-                editor.putBoolean("noInfo", checkBoxes[9].isChecked());
-
-
-                switch (radioSearchWaySet.getCheckedRadioButtonId())
-                {
-                    case R.id.radioBest : editor.putInt("searchWay", 0); break;
-                    case R.id.radioBus : editor.putInt("searchWay", 1); break;
-                    case R.id.radioSubway:  editor.putInt("searchWay", 2); break;
-                    case R.id.radioWalk:  editor.putInt("searchWay", 3); break;
-                }
-
-                editor.apply();
-                startActivity(new Intent(this, StartActivity.class));
+                applySetting();
             }
 
         });
+    }
+
+    void applySetting()
+    {
+        editor.putBoolean("busRoadFound", checkBoxes[0].isChecked());
+        editor.putBoolean("busLowOnly", checkBoxes[1].isChecked());
+        editor.putBoolean("busWait30", checkBoxes[2].isChecked());
+        editor.putBoolean("busWait60", checkBoxes[3].isChecked());
+        editor.putBoolean("subwayRoadFound", checkBoxes[4].isChecked());
+        editor.putBoolean("subwayElevator", checkBoxes[5].isChecked());
+        editor.putBoolean("subwayWheelchairStation", checkBoxes[6].isChecked());
+        editor.putBoolean("subwayWheelchairOn", checkBoxes[7].isChecked());
+        editor.putBoolean("disabled", checkBoxes[8].isChecked());
+        editor.putBoolean("noInfo", checkBoxes[9].isChecked());
+
+
+        switch (radioSearchWaySet.getCheckedRadioButtonId())
+        {
+            case R.id.radioBest : editor.putInt("searchWay", 0); break;
+            case R.id.radioBus : editor.putInt("searchWay", 1); break;
+            case R.id.radioSubway:  editor.putInt("searchWay", 2); break;
+            case R.id.radioWalk:  editor.putInt("searchWay", 3); break;
+        }
+
+        editor.apply();
+        startActivity(new Intent(this, StartActivity.class));
     }
 
 

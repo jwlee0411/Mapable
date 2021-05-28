@@ -102,7 +102,8 @@ public class AfterSearchActivity extends AppCompatActivity {
 
 
         preferences = getSharedPreferences("preferences", 0);
-        preferences.edit().remove("prevString").apply();
+        editor = preferences.edit();
+        editor.remove("prevString").apply();
 
 
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
@@ -226,12 +227,32 @@ public class AfterSearchActivity extends AppCompatActivity {
                             pathAll[i][j + 1][15] = subPathObject.getString("endID");
                             pathAll[i][j + 1][16] = subPathObject.getString("wayCode"); //방향 정보 => 1 상행, 2 하행
                             pathAll[i][j + 1][17] = subPathObject.getString("door");
-                            pathAll[i][j + 1][18] = subPathObject.getString("startExitNo"); //시작 정류소 출입구 번호
-                            pathAll[i][j + 1][19] = subPathObject.getString("startExitX"); //시작 정류소 출입구 좌표
-                            pathAll[i][j + 1][20] = subPathObject.getString("startExitY");
-                            pathAll[i][j + 1][21] = subPathObject.getString("endExitNo"); //도착 정류소 출입구 번호
-                            pathAll[i][j + 1][22] = subPathObject.getString("endExitX"); //도착 정류소 출입구 좌표
-                            pathAll[i][j + 1][23] = subPathObject.getString("endExitY");
+
+                            //아래 데이터가 없는 경우가 있기 때문에 try-catch문 사용해서 exception 처리
+                            try
+                            {
+                                pathAll[i][j + 1][18] = subPathObject.getString("startExitNo"); //시작 정류소 출입구 번호
+                                pathAll[i][j + 1][19] = subPathObject.getString("startExitX"); //시작 정류소 출입구 좌표
+                                pathAll[i][j + 1][20] = subPathObject.getString("startExitY");
+                            }
+                            catch (JSONException e)
+                            {
+                                pathAll[i][j + 1][18] = "0"; pathAll[i][j + 1][19] = "0"; pathAll[i][j + 1][20] = "0";
+                                e.printStackTrace();
+                            }
+
+                            try
+                            {
+                                pathAll[i][j + 1][21] = subPathObject.getString("endExitNo"); //도착 정류소 출입구 번호
+                                pathAll[i][j + 1][22] = subPathObject.getString("endExitX"); //도착 정류소 출입구 좌표
+                                pathAll[i][j + 1][23] = subPathObject.getString("endExitY");
+                            }
+                            catch (JSONException e)
+                            {
+                                pathAll[i][j + 1][21] = "0"; pathAll[i][j + 1][22] = "0"; pathAll[i][j + 1][23] = "0";
+                                e.printStackTrace();
+                            }
+
 
 
                             JSONObject subwayStopObject = subPathObject.getJSONObject("passStopList");

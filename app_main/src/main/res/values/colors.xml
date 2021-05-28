@@ -87,6 +87,8 @@
     <!--기본색-->
     <color name="black">#000000</color>
 
+    <color name="transparent">#00000000</color>
+
     <color name="gray1">#555555</color>
     <color name="gray2">#888888</color>
 

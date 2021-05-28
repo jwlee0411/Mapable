@@ -54,16 +54,13 @@ public class SplashActivity extends AppCompatActivity {
                 newImageView2.setVisibility(View.GONE);
 
                 Handler handler = new Handler(); // Handler 사용해 1초가 지나면 MainActivity 열기
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        textView.setVisibility(View.GONE);
-                        textView1.setVisibility(View.GONE);
-                        imageView1.setVisibility(View.GONE);
-                        imageView.setVisibility(View.GONE);
-                        newImageView.setVisibility(View.VISIBLE);
-                        newImageView2.setVisibility(View.VISIBLE);
-                    }
+                handler.postDelayed(() -> {
+                    textView.setVisibility(View.GONE);
+                    textView1.setVisibility(View.GONE);
+                    imageView1.setVisibility(View.GONE);
+                    imageView.setVisibility(View.GONE);
+                    newImageView.setVisibility(View.VISIBLE);
+                    newImageView2.setVisibility(View.VISIBLE);
                 }, 2300);
 
                 Handler handler2 = new Handler(); // Handler 사용해 1초가 지나면 MainActivity 열기

@@ -10,9 +10,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import app.jw.mapable.gm.R;
+import app.jw.mapable.gm.Setting.SettingActivity;
 import app.jw.mapable.gm.Start.StartActivity;
 
 public class FirstSettingEnabledActivity2 extends AppCompatActivity {
@@ -21,6 +23,13 @@ public class FirstSettingEnabledActivity2 extends AppCompatActivity {
 
     CheckBox[] checkBoxes;
     RadioGroup radioSearchWaySet;
+
+    int SettingDefault;
+
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+
+    AlertDialog.Builder dlg;
 
     RadioButton[] radioButtons;
 
@@ -32,8 +41,18 @@ public class FirstSettingEnabledActivity2 extends AppCompatActivity {
 
         firstSettingEnabledActivity2 = FirstSettingEnabledActivity2.this;
 
-        int SettingDefault = getIntent().getIntExtra("defaultSetting", 4);
-        System.out.println(getIntent().getIntExtra("defaultSetting", 4));
+        preferences = getSharedPreferences("preference", 0);
+        editor = preferences.edit();
+
+        findView();
+
+        SettingDefault = getIntent().getIntExtra("defaultSetting", 4);
+
+    }
+
+
+    void findView()
+    {
         button = findViewById(R.id.buttonSet);
 
         checkBoxes = new CheckBox[10];
@@ -59,10 +78,12 @@ public class FirstSettingEnabledActivity2 extends AppCompatActivity {
         radioButtons[3] = findViewById(R.id.radioWalk);
 
 
+        setDefaultSetting();
+        setonClick();
+    }
 
-
-
-
+    void setDefaultSetting()
+    {
         switch (SettingDefault)
         {
             case 1: //휠체어
@@ -119,8 +140,11 @@ public class FirstSettingEnabledActivity2 extends AppCompatActivity {
                 radioButtons[0].setChecked(true);
                 break;
         }
+    }
 
 
+    void setonClick()
+    {
         checkBoxes[0].setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked)
             {
@@ -168,19 +192,53 @@ public class FirstSettingEnabledActivity2 extends AppCompatActivity {
             {
                 Toast.makeText(FirstSettingEnabledActivity2.this, "버스와 지하철 중 적어도 하나의 옵션을 선택해 주세요.", Toast.LENGTH_LONG).show();
             }
+            else if(checkBoxes[8].isChecked())
+            {
+                dlg = new AlertDialog.Builder(this);
+                dlg.setTitle("시각장애인 모드로 설정하시겠어요?");
+                dlg.setMessage("시각장애인이 아니라면, 해당 모드를 사용하지 않는 것을 추천합니다.");
+                dlg.setPositiveButton("확인", (dialog, which) -> applySetting());
+                dlg.setNegativeButton("아니오", (dialog, which) ->{});
+                dlg.show();
+
+            }
             else
             {
-                //TODO : 설정 적용
+               applySetting();
 
-                SharedPreferences preferences = getSharedPreferences("preference", 0);
-                preferences.edit().putBoolean("settingAvailable", true).apply();
-                startActivity(new Intent(FirstSettingEnabledActivity2.this, StartActivity.class));
             }
 
         });
-
-
-
-
     }
+
+    void applySetting()
+    {
+        editor.putBoolean("busRoadFound", checkBoxes[0].isChecked());
+        editor.putBoolean("busLowOnly", checkBoxes[1].isChecked());
+        editor.putBoolean("busWait30", checkBoxes[2].isChecked());
+        editor.putBoolean("busWait60", checkBoxes[3].isChecked());
+        editor.putBoolean("subwayRoadFound", checkBoxes[4].isChecked());
+        editor.putBoolean("subwayElevator", checkBoxes[5].isChecked());
+        editor.putBoolean("subwayWheelchairStation", checkBoxes[6].isChecked());
+        editor.putBoolean("subwayWheelchairOn", checkBoxes[7].isChecked());
+        editor.putBoolean("disabled", checkBoxes[8].isChecked());
+        editor.putBoolean("noInfo", checkBoxes[9].isChecked());
+
+        switch (radioSearchWaySet.getCheckedRadioButtonId())
+        {
+            case R.id.radioBest : editor.putInt("searchWay", 0); break;
+            case R.id.radioBus : editor.putInt("searchWay", 1); break;
+            case R.id.radioSubway:  editor.putInt("searchWay", 2); break;
+            case R.id.radioWalk:  editor.putInt("searchWay", 3); break;
+        }
+
+        editor.putBoolean("settingAvailable", true).apply();
+
+        editor.apply();
+
+        startActivity(new Intent(FirstSettingEnabledActivity2.this, StartActivity.class));
+        startActivity(new Intent(this, StartActivity.class));
+    }
+
+
 }
