@@ -122,6 +122,8 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
             changeVisibility(selectedItems.get(position));
             constraintLayout.setOnClickListener(view -> {
 
+                System.out.println("§" + position);
+
                 if (selectedItems.get(position)) {
                     selectedItems.delete(position);
                 } else {

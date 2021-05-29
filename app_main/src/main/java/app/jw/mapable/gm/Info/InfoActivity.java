@@ -9,9 +9,6 @@ import app.jw.mapable.gm.R;
 
 public class InfoActivity extends FragmentActivity {
 
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {

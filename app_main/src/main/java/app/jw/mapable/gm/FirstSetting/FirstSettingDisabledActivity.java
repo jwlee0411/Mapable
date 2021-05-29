@@ -137,6 +137,9 @@ public class FirstSettingDisabledActivity extends AppCompatActivity{
 
                 switch (settingProgress)
                 {
+                    case 0:
+
+                        break;
                     case 1: //버스 경로 설정
                         if(result.equals("예") || result.equals("네") || result.equals("1") || result.equals("일번") || result.equals("1번")|| result.contains("하나"))
                         {
@@ -156,6 +159,14 @@ public class FirstSettingDisabledActivity extends AppCompatActivity{
             }
         }
 
+    }
+
+    void setting00_TTS() { //처음 설정 소개
+        tts.speak("안녕하세요! 지금부터 어플리케이션 설정을 진행하겠습니다.\n" +
+                "휴대폰의 미디어 음량을 키워 주시고, 화면을 클릭하지 마세요.\n" +
+                "중간에 어플리케이션을 종료하면 설정이 저장되지 않습니다.\n" +
+                "그래도 중간에 설정을 종료하고 싶으면 \"종료\" 라고 말해주세요.", TextToSpeech.QUEUE_FLUSH, params, "setting00");
+        settingProgress = 1;
     }
 
     void setting01_TTS() { //처음 설정 소개 + 버스 경로 보기

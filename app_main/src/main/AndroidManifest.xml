@@ -17,6 +17,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDyq2L1lo9PtlnCQKtnvy3FndjjuVNUGio" />
+        <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing"
+            android:value="false" />
         <activity android:name=".Start.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

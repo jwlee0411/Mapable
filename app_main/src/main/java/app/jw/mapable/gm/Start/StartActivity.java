@@ -167,6 +167,7 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
         floatingInfo.setOnClickListener(v ->
         {
             startActivity(new Intent(StartActivity.this, InfoActivity.class));
+            finish();
 
         });
 
