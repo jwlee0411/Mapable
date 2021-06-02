@@ -3,6 +3,7 @@ package app.jw.mapable.gm.AfterSearch;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -59,6 +62,8 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
     private SparseBooleanArray selectedItems = new SparseBooleanArray();
     // 직전에 클릭됐던 Item의 position
     private int prePosition = -1;
+
+
 
 
     @NonNull
@@ -117,26 +122,41 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
         }
 
         void onBind(Item item, int position) {
+
             recyclerItem = item;
             setRouteArray();
-            changeVisibility(selectedItems.get(position));
-            constraintLayout.setOnClickListener(view -> {
+            constraintLayout.setOnClickListener(v -> {
+                System.out.println("○" + getAbsoluteAdapterPosition());
+                //System.out.println(getBindingAdapterPosition());
+                System.out.println("○" +position);
+                constraintLayout.setVisibility(View.GONE);
 
-                System.out.println("§" + position);
-
-                if (selectedItems.get(position)) {
-                    selectedItems.delete(position);
-                } else {
-                    selectedItems.delete(prePosition);
-                    selectedItems.put(position, true);
-                }
-                if (prePosition != -1) {
-                    notifyItemChanged(prePosition);
-                }
-                notifyItemChanged(position);
-
-                prePosition = position;
             });
+
+
+
+//TODO : 테스트용
+
+
+//
+//            changeVisibility(selectedItems.get(position));
+//            constraintLayout.setOnClickListener(view -> {
+//                setRouteArray();
+//                System.out.println("§" + position);
+//
+//                if (selectedItems.get(position)) {
+//                    selectedItems.delete(position);
+//                } else {
+//                    selectedItems.delete(prePosition);
+//                    selectedItems.put(position, true);
+//                }
+//                if (prePosition != -1) {
+//                    notifyItemChanged(prePosition);
+//                }
+//                notifyItemChanged(position);
+//
+//                prePosition = position;
+//            });
 
 
         }
@@ -172,6 +192,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
     }
 
     void setRecyclerView() {
+
         for (int i = 0; i < waysSplit.length; i++) {
 
             waysNewSplit[i] = waysSplit[i].split("※");
@@ -197,6 +218,9 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                     break;
 
                 case "2": //버스
+
+
+
                     distance = (float) (Math.round((Integer.parseInt(waysNewSplit[i][1]) / 10)) / 100.0);
                     item2.setDistance(distance + "km");
                     item2.setSectionTime(waysNewSplit[i][2] + "분");
@@ -207,17 +231,29 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                     item2.setTrafficType(waysNewSplit[i][5]);
 
 
-                    odsayService.requestBusStationInfo(waysNewSplit[i][14], onBusStopIdResultCallbackListener);
+//TODO : 아직 값을 집어넣지는 않았어
+                    if(i==1)
+                    {
+                        odsayService.requestBusStationInfo(waysNewSplit[i][14], onBusStopIdResultCallbackListener);
+                    }
+
+
 
 
                     adapter2.addItem(item2);
                     break;
                 case "3": //도보
                     distance = (float) (Math.round((Integer.parseInt(waysNewSplit[i][1]) / 10)) / 100.0);
-                    item2.setDistance(distance + "km");
-                    item2.setSectionTime(waysNewSplit[i][2] + "분");
-                    item2.setTrafficCount("도보");
-                    adapter2.addItem(item2);
+
+                    //도보 거리가 0.0이 아닌 경우(동일 정류장인 경우) 도보 옵션을 RecyclerView에 띄우지 않기
+                    if( distance != 0.0 && distance != 0)
+                    {
+                        item2.setDistance(distance + "km");
+                        item2.setSectionTime(waysNewSplit[i][2] + "분");
+                        item2.setTrafficCount("도보");
+                        adapter2.addItem(item2);
+                    }
+
                     break;
 
             }
@@ -251,63 +287,122 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
 
         String firstUrl = "http://swopenAPI.seoul.go.kr/api/subway/sample/xml/realtimeStationArrival/0/5/" + stationName;
 
-        try {
-            URL url1 = new URL(firstUrl);
-            InputStream inputStream = url1.openStream();
-            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-            XmlPullParser xmlPullParser = factory.newPullParser();
-            xmlPullParser.setInput(new InputStreamReader(inputStream, "UTF-8"));
 
-            String tag;
+        //TODO : 이렇게 고치는게 아닌듯..?
+        AsyncTask<String, Void, String> asyncTask = new AsyncTask<String, Void, String>()
+        {
 
+            @Override
+            protected String doInBackground(String... strings) {
 
-            xmlPullParser.next();
-
-            int eventType = xmlPullParser.getEventType();
-
-
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-
-                switch (eventType) {
-                    case XmlPullParser.START_DOCUMENT:
-                        buffer.append("start");
-                        break;
-                    case XmlPullParser.START_TAG:
-                        tag = xmlPullParser.getName();
-                        //조건 추가
-
-
-                        if (tag.equals("subwayId")) {
-                            xmlPullParser.next();
-                            buffer.append("노선번호").append(xmlPullParser.getText()).append("\n");
-                        }
-
-                        //updnLine : 상행 / 하행
-                        //trainLineNm : XX행 - XX방면
-                        //arvlMsg2 : 현위치(전역 출발 / 2분 35초 후)
-
-
-                        break;
-
-
-                    case XmlPullParser.TEXT:
-                        break;
-                    case XmlPullParser.END_TAG:
-                        tag = xmlPullParser.getName();
-                        if (tag.equals("row")) buffer.append("\n");
-                        break;
-
+                URL url1 = null;
+                try {
+                    url1 = new URL(firstUrl);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                InputStream inputStream = null;
+                try {
+                    inputStream = url1.openStream();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                XmlPullParserFactory factory = null;
+                try {
+                    factory = XmlPullParserFactory.newInstance();
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                }
+                XmlPullParser xmlPullParser = null;
+                try {
+                    xmlPullParser = factory.newPullParser();
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    xmlPullParser.setInput(new InputStreamReader(inputStream, "UTF-8"));
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                 }
 
-                eventType = xmlPullParser.next();
+                String tag;
+
+
+                try {
+                    xmlPullParser.next();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                }
+
+                int eventType = 0;
+                try {
+                    eventType = xmlPullParser.getEventType();
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                }
+
+
+                while (eventType != XmlPullParser.END_DOCUMENT) {
+
+                    switch (eventType) {
+                        case XmlPullParser.START_DOCUMENT:
+                            buffer.append("start");
+                            break;
+                        case XmlPullParser.START_TAG:
+                            tag = xmlPullParser.getName();
+                            //조건 추가
+
+
+                            if (tag.equals("subwayId")) {
+                                try {
+                                    xmlPullParser.next();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                } catch (XmlPullParserException e) {
+                                    e.printStackTrace();
+                                }
+                                buffer.append("노선번호").append(xmlPullParser.getText()).append("\n");
+                            }
+
+                            //updnLine : 상행 / 하행
+                            //trainLineNm : XX행 - XX방면
+                            //arvlMsg2 : 현위치(전역 출발 / 2분 35초 후)
+
+
+                            break;
+
+
+                        case XmlPullParser.TEXT:
+                            break;
+                        case XmlPullParser.END_TAG:
+                            tag = xmlPullParser.getName();
+                            if (tag.equals("row")) buffer.append("\n");
+                            break;
+
+                    }
+
+                    try {
+                        eventType = xmlPullParser.next();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (XmlPullParserException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return null;
             }
 
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
 
-        } catch (IOException | XmlPullParserException e) {
-            System.out.println("◈Error");
-            System.out.println("◈" + e);
-            e.printStackTrace();
-        }
+            }
+        };
+
 
     }
 

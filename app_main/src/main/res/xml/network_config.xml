@@ -3,5 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">openapi.airkorea.or.kr</domain>
         <domain includeSubdomains="true">ws.bus.go.kr</domain>
+        <domain includeSubdomains="true">swopenapi.seoul.go.kr</domain>
     </domain-config>
 </network-security-config>

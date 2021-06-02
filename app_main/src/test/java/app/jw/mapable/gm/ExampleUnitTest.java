@@ -1,4 +1,4 @@
-package app.odsay.odsayandroidsdksample.gm;
+package app.jw.mapable.gm;
 
 import org.junit.Test;
 

@@ -44,7 +44,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -56,7 +55,7 @@ import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity1;
 import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity2;
 import app.jw.mapable.gm.Info.InfoActivity;
 import app.jw.mapable.gm.R;
-import app.jw.mapable.gm.SearchActivity;
+import app.jw.mapable.gm.Search.SearchActivity;
 import app.jw.mapable.gm.Setting.SettingActivity;
 
 

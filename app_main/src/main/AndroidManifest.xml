@@ -19,7 +19,7 @@
             android:value="AIzaSyDyq2L1lo9PtlnCQKtnvy3FndjjuVNUGio" />
         <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing"
             android:value="false" />
-        <activity android:name=".Start.SplashActivity">
+        <activity android:name=".Splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +37,7 @@
         <activity android:name=".FirstSetting.FirstSettingEnabledActivity1"/>
         <activity android:name=".FirstSetting.FirstSettingDisabledActivity"/>
         <activity android:name=".FirstSetting.FirstSettingEnabledActivity2"/>
-        <activity android:name=".SearchActivity"/>
+        <activity android:name=".Search.SearchActivity"/>
 
 
     </application>

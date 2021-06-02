@@ -29,7 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import app.jw.mapable.gm.R;
-import app.jw.mapable.gm.SearchActivity;
+import app.jw.mapable.gm.Search.SearchActivity;
 import app.jw.mapable.gm.Start.StartActivity;
 
 public class AfterSearchActivity extends AppCompatActivity {

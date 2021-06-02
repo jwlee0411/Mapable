@@ -1,4 +1,4 @@
-package app.odsay.odsayandroidsdksample.gm;
+package app.jw.mapable.gm;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
