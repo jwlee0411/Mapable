@@ -65,25 +65,22 @@ public class SplashActivity extends AppCompatActivity {
                 }, 2300);
 
                 Handler handler2 = new Handler(); // Handler 사용해 1초가 지나면 MainActivity 열기
-                handler2.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        preferences = getSharedPreferences("preference", 0);
-                        if(preferences.getBoolean("settingAvailable", false))
-                        {
-                            Intent intent = new Intent(SplashActivity.this, StartActivity.class);
-                            startActivity(intent);
+                handler2.postDelayed(() -> {
+                    preferences = getSharedPreferences("preference", 0);
+                    if(preferences.getBoolean("settingAvailable", false))
+                    {
+                        Intent intent = new Intent(SplashActivity.this, StartActivity.class);
+                        startActivity(intent);
 
-                            finish();
-                            overridePendingTransition(R.anim.anim_none, R.anim.anim_zoom_in);
-                        }
-                        else
-                        {
-                            Intent intent = new Intent(SplashActivity.this, FirstSettingActivity.class);
-                            startActivity(intent);
-                            finish();
-                            overridePendingTransition(R.anim.anim_none, R.anim.anim_none);
-                        }
+                        finish();
+                        overridePendingTransition(R.anim.anim_none, R.anim.anim_zoom_in);
+                    }
+                    else
+                    {
+                        Intent intent = new Intent(SplashActivity.this, FirstSettingActivity.class);
+                        startActivity(intent);
+                        finish();
+                        overridePendingTransition(R.anim.anim_none, R.anim.anim_none);
                     }
                 }, 3700);
 
