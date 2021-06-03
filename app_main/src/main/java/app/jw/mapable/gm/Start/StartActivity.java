@@ -51,10 +51,12 @@ import java.util.List;
 
 import app.jw.mapable.gm.AfterSearch.AfterSearchActivity;
 import app.jw.mapable.gm.Explain.ExplainActivity;
+import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity1;
 import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity2;
 import app.jw.mapable.gm.Info.InfoActivity;
 import app.jw.mapable.gm.R;
 import app.jw.mapable.gm.Search.SearchActivity;
+import app.jw.mapable.gm.Setting.SettingActivity;
 
 
 public class StartActivity extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
