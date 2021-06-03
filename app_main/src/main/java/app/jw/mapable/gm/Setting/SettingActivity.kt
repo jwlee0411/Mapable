@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.CompoundButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.Start.StartActivity
@@ -78,17 +79,64 @@ class SettingActivity : AppCompatActivity(){
     {
         checkBus.setOnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
 
+            if(isChecked)
+            {
+                checkBusLow.isEnabled = true
+                checkBusWait30.isEnabled = true
+                checkBusWait60.isEnabled = true
+            }
+            else
+            {
+                checkBusLow.isEnabled = false
+                checkBusWait30.isEnabled = false
+                checkBusWait60.isEnabled = false
+            }
+
 
 
         }
 
         checkSubway.setOnCheckedChangeListener{ buttonView: CompoundButton?, isChecked: Boolean ->
 
+            if(isChecked)
+            {
+                checkSubwayElevator.isEnabled = true
+                checkSubwayWheelchairStation.isEnabled = true
+                checkSubwayWheelchairOn.isEnabled = true
+            }
+            else
+            {
+                checkSubwayElevator.isEnabled = false
+                checkSubwayWheelchairStation.isEnabled = false
+                checkSubwayWheelchairOn.isEnabled = false
+            }
+
 
         }
 
         buttonSet.setOnClickListener {
-
+            if (!checkBus.isChecked&&radioSearchWayCheck.checkedRadioButtonId == R.id.radioBus)
+            {
+                Toast.makeText(this, "'버스 경로 보기' 를 선택하지 않고 '버스 우선 탐색' 을 선택할 수 없습니다.", Toast.LENGTH_LONG).show()
+            }
+            else if(!checkSubway.isChecked && radioSearchWayCheck.checkedRadioButtonId == R.id.radioSubway)
+            {
+                Toast.makeText(this, "'지하철 경로 보기' 를 선택하지 않고 '지하철 우선 탐색' 을 선택할 수 없습니다.", Toast.LENGTH_LONG).show()
+            }
+            else if(!checkBus.isChecked && !checkSubway.isChecked)
+            {
+                Toast.makeText(this, "버스와 지하철 중 적어도 하나의 옵션을 선택해 주세요.", Toast.LENGTH_LONG).show()
+            }
+            else if(checkDisabled.isChecked)
+            {
+                val dlg = AlertDialog.Builder(this)
+                dlg.setTitle("시각장애인 모드로 설정하시겠어요?")
+                dlg.setMessage("시각장애인이 아니라면, 해당 모드를 사용하지 않는 것을 추천합니다.")
+                dlg.setPositiveButton("확인") { _, _ -> applySetting() }
+                dlg.setNegativeButton("아니오") { _, _-> }
+                dlg.show()
+            }
+            else applySetting()
         }
 
     }

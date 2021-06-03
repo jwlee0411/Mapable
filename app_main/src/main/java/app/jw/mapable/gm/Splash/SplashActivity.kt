@@ -1,12 +1,16 @@
 package app.jw.mapable.gm.Splash
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import app.jw.mapable.gm.FirstSetting.FirstSettingActivity
 import app.jw.mapable.gm.R
+import app.jw.mapable.gm.Start.StartActivity
 import kotlinx.android.synthetic.main.activity_after_search.*
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.android.synthetic.main.dialog_start.*
@@ -16,6 +20,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        splashAnimation()
 
 
 
@@ -42,14 +47,34 @@ class SplashActivity : AppCompatActivity() {
                 val handler : Handler = Handler()
 
                 handler.postDelayed({
-                    //TODO
+                    textView3.visibility = View.GONE
+                    textView10.visibility = View.GONE
+                    imageView.visibility = View.GONE
+                    imageView2.visibility = View.GONE
+
+                    imageView4.visibility = View.VISIBLE
+                    imageView5.visibility = View.VISIBLE
+
 
                 }, 2300)
 
                 val handler2 : Handler = Handler()
 
                 handler2.postDelayed({
-                                     //TODO
+
+                         val preferences : SharedPreferences = getSharedPreferences("preferences", 0)
+                    if (preferences.getBoolean("settingAvailable", false)) {
+                        val intent = Intent(this@SplashActivity, StartActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                        overridePendingTransition(R.anim.anim_none, R.anim.anim_zoom_in)
+                    } else {
+                        val intent = Intent(this@SplashActivity, FirstSettingActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                        overridePendingTransition(R.anim.anim_none, R.anim.anim_none)
+                    }
+
                 }, 3700)
 
 

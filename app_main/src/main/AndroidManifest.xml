@@ -19,22 +19,12 @@
             android:value="AIzaSyDyq2L1lo9PtlnCQKtnvy3FndjjuVNUGio" />
         <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing"
             android:value="false" />
-        <activity android:name=".Splash.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <activity android:name=".AfterSearch.AfterSearchActivity"/>
         <activity android:name=".Start.StartActivity"/>
         <activity android:name=".AfterRoad.AfterRoadActivity"/>
         <activity android:name=".Explain.ExplainActivity"/>
-        <activity android:name=".Setting.SettingActivity"/>
         <activity android:name=".Info.InfoActivity"/>
-        <activity android:name=".FirstSetting.FirstSettingActivity"/>
-        <activity android:name=".FirstSetting.FirstSettingEnabledActivity1"/>
         <activity android:name=".FirstSetting.FirstSettingDisabledActivity"/>
         <activity android:name=".FirstSetting.FirstSettingEnabledActivity2"/>
         <activity android:name=".Search.SearchActivity"/>

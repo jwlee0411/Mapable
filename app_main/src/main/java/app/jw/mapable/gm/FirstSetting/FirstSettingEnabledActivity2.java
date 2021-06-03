@@ -14,7 +14,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import app.jw.mapable.gm.R;
-import app.jw.mapable.gm.Setting.SettingActivity;
 import app.jw.mapable.gm.Start.StartActivity;
 
 public class FirstSettingEnabledActivity2 extends AppCompatActivity {
