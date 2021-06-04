@@ -44,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
                 imageView4.visibility = View.GONE
                 imageView5.visibility = View.GONE
 
-                val handler : Handler = Handler()
+                val handler = Handler()
 
                 handler.postDelayed({
                     textView3.visibility = View.GONE
@@ -58,11 +58,11 @@ class SplashActivity : AppCompatActivity() {
 
                 }, 2300)
 
-                val handler2 : Handler = Handler()
+                val handler2 = Handler()
 
                 handler2.postDelayed({
 
-                         val preferences : SharedPreferences = getSharedPreferences("preferences", 0)
+                    val preferences : SharedPreferences = getSharedPreferences("preferences", 0)
                     if (preferences.getBoolean("settingAvailable", false)) {
                         val intent = Intent(this@SplashActivity, StartActivity::class.java)
                         startActivity(intent)

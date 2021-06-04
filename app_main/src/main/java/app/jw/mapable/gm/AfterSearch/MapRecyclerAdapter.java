@@ -25,6 +25,9 @@ import com.odsay.odsayandroidsdk.OnResultCallbackListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -35,6 +38,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import app.jw.mapable.gm.R;
@@ -58,6 +62,11 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
     public MapRecyclerAdapter2 adapter2;
     SharedPreferences preferences;
     RecyclerView recyclerView;
+
+
+
+    StringBuilder buffer;
+    String firstUrl, firstUrl2;
 
     private SparseBooleanArray selectedItems = new SparseBooleanArray();
     // 직전에 클릭됐던 Item의 position
@@ -126,10 +135,12 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
             recyclerItem = item;
             setRouteArray();
             constraintLayout.setOnClickListener(v -> {
+
+                //TODO : 작동안됨(오류 해결 못함)
                 System.out.println("○" + getAbsoluteAdapterPosition());
                 //System.out.println(getBindingAdapterPosition());
                 System.out.println("○" +position);
-                constraintLayout.setVisibility(View.GONE);
+//                constraintLayout.setVisibility(View.GONE);
 
             });
 
@@ -174,9 +185,18 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
         preferences.edit().putString("prevString", getWays).apply();
         getWays = getWays.replace(prevString, "");
 
+
+        preferences.edit().putString("finalGetWays", getWays).apply();
+
+
         waysSplit = getWays.split("§");
         waysNewSplit = new String[waysSplit.length][16];
-        preferences.edit().putString("finalGetWays", getWays).apply();
+        for(int i = 0; i<waysSplit.length; i++)
+        {
+            waysNewSplit[i] = waysSplit[i].split("※");
+        }
+
+
 
 
         setAdapter();
@@ -193,11 +213,8 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
 
     void setRecyclerView() {
 
+
         for (int i = 0; i < waysSplit.length; i++) {
-
-            waysNewSplit[i] = waysSplit[i].split("※");
-            System.out.println("★" + waysSplit[i]);
-
 
             Item2 item2 = new Item2();
             switch (waysNewSplit[i][0]) {
@@ -231,7 +248,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                     item2.setTrafficType(waysNewSplit[i][5]);
 
 
-//TODO : 아직 값을 집어넣지는 않았어
+                    //TODO : 아직 값을 집어넣지는 않았어
                     if(i==1)
                     {
                         odsayService.requestBusStationInfo(waysNewSplit[i][14], onBusStopIdResultCallbackListener);
@@ -266,6 +283,8 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
     }
 
 
+
+
     OnResultCallbackListener onBusStopIdResultCallbackListener = new OnResultCallbackListener() {
         @Override
         public void onSuccess(ODsayData oDsayData, API api) {
@@ -282,68 +301,47 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
 
     void seoulSubwayLocationSearch(String stationName, String updnLine, String subwayCode) //지하철번호 + 역명 + 상하행정보(상행 : 1, 하행 : 2)
     {
-        StringBuilder buffer = new StringBuilder();
+        buffer = new StringBuilder();
+        System.out.println("@함수 호출");
+
+        firstUrl = "http://swopenAPI.seoul.go.kr/api/subway/sample/xml/realtimeStationArrival/0/5/" + stationName;
+
+        firstUrl2 = "http://swopenAPI.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/" + stationName;
 
 
-        String firstUrl = "http://swopenAPI.seoul.go.kr/api/subway/sample/xml/realtimeStationArrival/0/5/" + stationName;
+        new seoulSubwayLocationSearch().execute();
 
 
-        //TODO : 이렇게 고치는게 아닌듯..?
-        AsyncTask<String, Void, String> asyncTask = new AsyncTask<String, Void, String>()
-        {
+    }
 
-            @Override
-            protected String doInBackground(String... strings) {
 
-                URL url1 = null;
-                try {
-                    url1 = new URL(firstUrl);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                InputStream inputStream = null;
-                try {
-                    inputStream = url1.openStream();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                XmlPullParserFactory factory = null;
-                try {
-                    factory = XmlPullParserFactory.newInstance();
-                } catch (XmlPullParserException e) {
-                    e.printStackTrace();
-                }
-                XmlPullParser xmlPullParser = null;
-                try {
-                    xmlPullParser = factory.newPullParser();
-                } catch (XmlPullParserException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    xmlPullParser.setInput(new InputStreamReader(inputStream, "UTF-8"));
-                } catch (XmlPullParserException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+    private class seoulSubwayLocationSearch extends AsyncTask{
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+
+            System.out.println("@asynctask 호출");
+
+            try
+            {
+
 
                 String tag;
+                URL url1 = new URL(firstUrl);
+
+                Connection.Response response = Jsoup.connect(firstUrl2).method(Connection.Method.GET).execute();
+                Document document = response.parse();
+                System.out.println("@" + document);
 
 
-                try {
-                    xmlPullParser.next();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (XmlPullParserException e) {
-                    e.printStackTrace();
-                }
 
+                InputStream inputStream = url1.openStream();
+                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                XmlPullParser xmlPullParser = factory.newPullParser();
+                xmlPullParser.setInput(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+                xmlPullParser.next();
                 int eventType = 0;
-                try {
-                    eventType = xmlPullParser.getEventType();
-                } catch (XmlPullParserException e) {
-                    e.printStackTrace();
-                }
+                eventType = xmlPullParser.getEventType();
 
 
                 while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -354,18 +352,32 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                             break;
                         case XmlPullParser.START_TAG:
                             tag = xmlPullParser.getName();
+                            System.out.println("@" + tag);
+                            System.out.println("＠" + xmlPullParser.getText());
                             //조건 추가
 
 
                             if (tag.equals("subwayId")) {
-                                try {
-                                    xmlPullParser.next();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                } catch (XmlPullParserException e) {
-                                    e.printStackTrace();
-                                }
+
+                                xmlPullParser.next();
+
+                                System.out.println("＠" + xmlPullParser.getText());
                                 buffer.append("노선번호").append(xmlPullParser.getText()).append("\n");
+                            }
+
+                            if(tag.equals("trainLineNm"))
+                            {
+
+                            }
+
+                            if(tag.equals("updnLine"))
+                            {
+
+                            }
+
+                            if(tag.equals("arvlMsg2"))
+                            {
+
                             }
 
                             //updnLine : 상행 / 하행
@@ -385,23 +397,16 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
 
                     }
 
-                    try {
-                        eventType = xmlPullParser.next();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (XmlPullParserException e) {
-                        e.printStackTrace();
-                    }
+                    eventType = xmlPullParser.next();
+
                 }
-                return null;
+            }catch (XmlPullParserException | IOException e)
+            {
+                e.printStackTrace();
             }
 
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-
-            }
-        };
+            return null;
+        }
 
 
     }

@@ -16,16 +16,15 @@ class FirstSettingActivity : AppCompatActivity() {
 
         val handler = Handler()
         handler.postDelayed({
-            val intent =
-                Intent(this@FirstSettingActivity, FirstSettingDisabledActivity::class.java)
+            val intent = Intent(this@FirstSettingActivity, FirstSettingDisabledActivity::class.java)
             startActivity(intent)
             finish()
-        }, 1000)
+        }, 10000)
 
 
 
-        buttonSettingStart.setOnClickListener { v: View? ->
-
+        buttonSettingStart.setOnClickListener {
+            handler.removeMessages(0)
             startActivity(Intent(this@FirstSettingActivity, FirstSettingEnabledActivity1::class.java))
             finish()
         }

@@ -30,13 +30,14 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(path: ':app')
-    implementation 'androidx.recyclerview:recyclerview:1.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation platform('com.google.firebase:firebase-bom:27.1.0')
     implementation 'com.google.firebase:firebase-database:20.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.android.material:material:1.4.0-beta01'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
