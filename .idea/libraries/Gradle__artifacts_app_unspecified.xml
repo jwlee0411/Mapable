@@ -1,16 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: artifacts:app:unspecified">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/app/build/.transforms/aed3cef07e09d8fa88b065b99d9dad72/jetified-ODsayAndroidSDK/res" />
-      <root url="file://$PROJECT_DIR$/app/build/.transforms/784fe56e26dec2ad1f8073891fde722c/jetified-ODsayAndroidSDK/res" />
-      <root url="file://$PROJECT_DIR$/app/build/.transforms/784fe56e26dec2ad1f8073891fde722c/jetified-ODsayAndroidSDK/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/app/build/.transforms/784fe56e26dec2ad1f8073891fde722c/jetified-ODsayAndroidSDK/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/app/build/.transforms/26afecbeddd462adc1172ebca8e352ae/jetified-ODsayAndroidSDK/res" />
-      <root url="jar://$PROJECT_DIR$/app/build/.transforms/26afecbeddd462adc1172ebca8e352ae/jetified-ODsayAndroidSDK/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/app/build/.transforms/26afecbeddd462adc1172ebca8e352ae/jetified-ODsayAndroidSDK/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/app/build/.transforms/11f1f68d2be1843ee0e87e5afc8e8ec9/jetified-ODsayAndroidSDK/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/app/build/.transforms/11f1f68d2be1843ee0e87e5afc8e8ec9/jetified-ODsayAndroidSDK/AndroidManifest.xml" />
-      <root url="file://$PROJECT_DIR$/app/build/.transforms/11f1f68d2be1843ee0e87e5afc8e8ec9/jetified-ODsayAndroidSDK/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/.transforms/dd88ff08a3ab77fca31675700144ae29/jetified-ODsayAndroidSDK/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/.transforms/dd88ff08a3ab77fca31675700144ae29/jetified-ODsayAndroidSDK/res" />
+      <root url="file://$PROJECT_DIR$/app/build/.transforms/dd88ff08a3ab77fca31675700144ae29/jetified-ODsayAndroidSDK/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

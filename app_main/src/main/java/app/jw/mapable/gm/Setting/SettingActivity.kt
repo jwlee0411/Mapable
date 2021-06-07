@@ -24,7 +24,7 @@ class SettingActivity : AppCompatActivity(){
     {
         super.onCreate(savedinstancestate)
         setContentView(R.layout.activity_setting)
-        preferences = getSharedPreferences("preference", 0)
+        preferences = getSharedPreferences("preferences", 0)
         editor = preferences.edit()
 
 
@@ -37,26 +37,49 @@ class SettingActivity : AppCompatActivity(){
     fun getPreviousSettings()
     {
         settings[0] = preferences.getBoolean("busRoadFound", false)
-        settings[1] = preferences.getBoolean("busLowOnly", false)
-        settings[2] = preferences.getBoolean("busWait30", false)
-        settings[3] = preferences.getBoolean("busWait60", false)
+
         settings[4] = preferences.getBoolean("subwayRoadFound", false)
-        settings[5] = preferences.getBoolean("subwayElevator", false)
-        settings[6] = preferences.getBoolean("subwayWheelchairStation", false)
-        settings[7] = preferences.getBoolean("subwayWheelchairOn", false)
-        settings[8] = preferences.getBoolean("disabled", false)
-        settings[9] = preferences.getBoolean("noInfo", false)
+
 
 
         checkBus.isChecked = settings[0]
-        checkBusLow.isChecked = settings[1]
-        checkBusWait30.isChecked = settings[2]
-        checkBusWait60.isChecked = settings[3]
+        if(settings[0])
+        {
+            checkBusLow.isEnabled = true
+            checkBusWait30.isEnabled = true
+            checkBusWait60.isEnabled = true
+
+            settings[1] = preferences.getBoolean("busLowOnly", false)
+            settings[2] = preferences.getBoolean("busWait30", false)
+            settings[3] = preferences.getBoolean("busWait60", false)
+
+
+            checkBusLow.isChecked = settings[1]
+            checkBusWait30.isChecked = settings[2]
+            checkBusWait60.isChecked = settings[3]
+        }
+
 
         checkSubway.isChecked = settings[4]
-        checkSubwayElevator.isChecked = settings[5]
-        checkSubwayWheelchairStation.isChecked = settings[6]
-        checkSubwayWheelchairOn.isChecked = settings[7]
+        if(settings[4])
+        {
+            checkSubwayElevator.isEnabled = true
+            checkSubwayWheelchairStation.isEnabled = true
+            checkSubwayWheelchairOn.isEnabled = true
+
+            settings[5] = preferences.getBoolean("subwayElevator", false)
+            settings[6] = preferences.getBoolean("subwayWheelchairStation", false)
+            settings[7] = preferences.getBoolean("subwayWheelchairOn", false)
+
+            checkSubwayElevator.isChecked = settings[5]
+            checkSubwayWheelchairStation.isChecked = settings[6]
+            checkSubwayWheelchairOn.isChecked = settings[7]
+        }
+
+
+
+        settings[8] = preferences.getBoolean("disabled", false)
+        settings[9] = preferences.getBoolean("noInfo", false)
 
         checkDisabled.isChecked = settings[8]
         checkNoInfo.isChecked = settings[9]

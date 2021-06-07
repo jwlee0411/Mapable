@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -39,16 +41,27 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_start.*
+import java.io.IOException
+import java.util.*
+
 
 class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
+
+
+   lateinit var currentLocationMarker : Marker
+
 
 
     var mapStatus = false
     var onTouched = false
     var clicked = false
 
+    var settings = BooleanArray(10)
+
+    lateinit var tempMarker : Marker
 
     var prevLatitude : Double = 37.542035
     var prevLongtitude : Double = 126.966613
@@ -104,7 +117,9 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             val firstSettingEnabledActivity2 = FirstSettingEnabledActivity2.firstSettingEnabledActivity2 as FirstSettingEnabledActivity2
             firstSettingEnabledActivity1.finish()
             firstSettingEnabledActivity2.finish()
-        } catch (ignored: Exception) {
+        } catch (ignored: Exception)
+        {
+
         }
 
         sharedPreferences = getSharedPreferences("preferences", 0)
@@ -119,7 +134,27 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             setOnClick()
         }
 
+        getSettings()
 
+
+    }
+
+    fun getSettings()
+    {
+        settings[0] = sharedPreferences.getBoolean("busRoadFound", false)
+        settings[1] = sharedPreferences.getBoolean("busLowOnly", false)
+        settings[2] = sharedPreferences.getBoolean("busWait30", false)
+        settings[3] = sharedPreferences.getBoolean("busWait60", false)
+        settings[4] = sharedPreferences.getBoolean("subwayRoadFound", false)
+        settings[5] = sharedPreferences.getBoolean("subwayElevator", false)
+        settings[6] = sharedPreferences.getBoolean("subwayWheelchairStation", false)
+        settings[7] = sharedPreferences.getBoolean("subwayWheelchairOn", false)
+        settings[8] = sharedPreferences.getBoolean("disabled", false)
+        settings[9] = sharedPreferences.getBoolean("noInfo", false)
+
+        println("§" + settings[9])
+
+        if(settings[9]) floatingInfo.visibility = View.GONE
     }
 
 
@@ -144,14 +179,33 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
 
         textViewSearch.setOnClickListener {
-            startActivity(Intent(this, SearchActivity::class.java))
-            finish()
-            overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none)
+
+            Toast.makeText(this, "장소 검색 기능은 추후 제공 예정입니다.", Toast.LENGTH_LONG).show()
+//            startActivity(Intent(this, SearchActivity::class.java))
+//            finish()
+//            overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none)
         }
 
         floatingCurrentLocation.setOnClickListener {
-            onTouched = false
-            val prevLatLng = LatLng(prevLatitude, prevLongtitude)
+            val gpsTracker = GpsTracker(this)
+            val latitude : Double = gpsTracker.getLatitude()
+            val longtitude : Double = gpsTracker.getLongtitude()
+
+            val prevLatLng = LatLng(latitude, longtitude)
+
+            try{ currentLocationMarker.remove() }
+            catch (e : Exception)
+            {
+                e.printStackTrace()
+            }
+
+            currentLocationMarker = mMap.addMarker(MarkerOptions().position(prevLatLng))
+
+
+
+
+
+
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(prevLatLng, 15f))
         }
 
@@ -275,14 +329,55 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         mMap.uiSettings.isMyLocationButtonEnabled = true
         mMap.setOnCameraMoveListener { onTouched = true }
 
+
+
+
+
         setOnMapClick()
 
     }
 
 
+    fun getCurrentAddress(latitude: Double, longitude: Double): String {
+
+        //지오코더... GPS를 주소로 변환
+        val geocoder = Geocoder(this, Locale.getDefault())
+        val addresses: List<Address>?
+        addresses = try {
+            geocoder.getFromLocation(
+                latitude,
+                longitude,
+                7
+            )
+        } catch (ioException: IOException) {
+            //네트워크 문제
+            Toast.makeText(this, "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show()
+            return "지오코더 서비스 사용불가"
+        } catch (illegalArgumentException: IllegalArgumentException) {
+            Toast.makeText(this, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show()
+            return "잘못된 GPS 좌표"
+        }
+        if (addresses == null || addresses.size == 0) {
+            Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show()
+            return "주소 미발견"
+        }
+        val address: Address = addresses[0]
+        textViewSearch.text = address.getAddressLine(0).toString()
+        return address.getAddressLine(0).toString()
+
+
+    }
+
     fun setOnMapClick()
     {
         mMap.setOnMapClickListener {
+
+            val gpsTracker = GpsTracker(this)
+            val latitude : Double = gpsTracker.getLatitude()
+            val longtitude : Double = gpsTracker.getLongtitude()
+
+            getCurrentAddress(latitude, longtitude)
+
             if(clicked)
             {
                 clicked = false
@@ -370,91 +465,82 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         }
 
 
+
         mMap.setOnMapLongClickListener {
             //TODO : 기존 코드 갈아엎고 새로운 방식으로 출발 도착 등 결정
+
+
+           // mMap.addMarker(MarkerOptions().position(it))
+            val locationString : String = getCurrentAddress(it.latitude, it.longitude)
+
+
+            val startDialog = StartDialog(this)
+
+            startDialog.callFunction(it.latitude, it.longitude, locationString)
+
+
+
+
+
+
+
+//            val markerOptions = MarkerOptions()
 //
-//                MarkerOptions markerOptions = new MarkerOptions();
-//                markerOptions.position(latLng);
-//                locationTmp = latLng.toString();
-//                x = Double.parseDouble(locationTmp.substring(locationTmp.indexOf("(")+1, locationTmp.indexOf(",")));
-//                y = Double.parseDouble(locationTmp.substring(locationTmp.indexOf(",")+1, locationTmp.length()-1));
-//                System.out.println(x);
-//                System.out.println(y);
-////                markerOptions.title("출발");
-////                Toast.makeText(StartActivity.this, "출발위치 :" +  latLng.toString(), Toast.LENGTH_SHORT).show();
+//            markerOptions.position(it)
+//            val departBitmap = (ResourcesCompat.getDrawable(resources, R.drawable.marker_start, null) as BitmapDrawable).bitmap
+//            val endBitmap = (ResourcesCompat.getDrawable(resources, R.drawable.marker_end, null) as BitmapDrawable).bitmap
+//            locationTmp = it.toString()
 //
 //
-//                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-//                mMap.addMarker(markerOptions);
-//                mapStatus = true;
-//
-//            StartDialog startDialog = new StartDialog(StartActivity.this);
-//            startDialog.callFunction(x, y, "TODO", "TODO", false, false);
-
-
-//
-//            StartDialog startDialog = new StartDialog(StartActivity.this);
+//            if (!mapStatus) {
+//                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(departBitmap, 45, 64, false)))
+//                startX = locationTmp.substring(locationTmp.indexOf("(") + 1, locationTmp.indexOf(",")).toDouble()
+//                startY = locationTmp.substring(locationTmp.indexOf(",") + 1, locationTmp.length - 1).toDouble()
 //
 //
-//            // 0 : 출발, 도착 X
-//            // 1: 출발O, 도착X
-//            // 2 : 출발X, 도착O
-//            // 3 : 모두 정해짐
+//                markerOptions.title("출발")
+//                mMap.animateCamera(CameraUpdateFactory.newLatLng(it))
+//                mMap.addMarker(markerOptions)
+//                mapStatus = true
 //
-//            startDialog.callFunction(x, y, "TODO");
+//            }
+//            else
+//            {
+//                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(endBitmap, 45, 64, false)))
+//                endX = locationTmp.substring(locationTmp.indexOf("(") + 1, locationTmp.indexOf(",")).toDouble()
+//                endY = locationTmp.substring(locationTmp.indexOf(",") + 1, locationTmp.length - 1).toDouble()
+//                markerOptions.title("도착")
+//                mMap.animateCamera(CameraUpdateFactory.newLatLng(it))
+//                mMap.addMarker(markerOptions)
+//                mapStatus = false
+//
+//                val intent = Intent(this@StartActivity, AfterSearchActivity::class.java)
+//                intent.putExtra("startX", startX)
+//                intent.putExtra("startY", startY)
+//                intent.putExtra("endX", endX)
+//                intent.putExtra("endY", endY)
+//                startActivity(intent)
+//                finish()
+//                overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none)
+//            }
+//
+//            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+//            intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, packageName)
+//            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
+//
+//            soundButton.setOnClickListener {
+//                recognizer = SpeechRecognizer.createSpeechRecognizer(this@StartActivity)
+//                recognizer.setRecognitionListener(listener)
+//                recognizer.startListening(intent)
+//            }
 
 
-            val markerOptions = MarkerOptions()
-
-            markerOptions.position(it)
-            val departBitmap = (ResourcesCompat.getDrawable(resources, R.drawable.marker_start, null) as BitmapDrawable).bitmap
-            val endBitmap = (ResourcesCompat.getDrawable(resources, R.drawable.marker_end, null) as BitmapDrawable).bitmap
-            locationTmp = it.toString()
+        }
 
 
-            if (!mapStatus) {
-                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(departBitmap, 45, 64, false)))
-                startX = locationTmp.substring(locationTmp.indexOf("(") + 1, locationTmp.indexOf(",")).toDouble()
-                startY = locationTmp.substring(locationTmp.indexOf(",") + 1, locationTmp.length - 1).toDouble()
+        soundButton.setOnClickListener {
 
-
-                markerOptions.title("출발")
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(it))
-                mMap.addMarker(markerOptions)
-                mapStatus = true
-
-            }
-            else
-            {
-                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(endBitmap, 45, 64, false)))
-                endX = locationTmp.substring(locationTmp.indexOf("(") + 1, locationTmp.indexOf(",")).toDouble()
-                endY = locationTmp.substring(locationTmp.indexOf(",") + 1, locationTmp.length - 1).toDouble()
-                markerOptions.title("도착")
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(it))
-                mMap.addMarker(markerOptions)
-                mapStatus = false
-
-                val intent = Intent(this@StartActivity, AfterSearchActivity::class.java)
-                intent.putExtra("startX", startX)
-                intent.putExtra("startY", startY)
-                intent.putExtra("endX", endX)
-                intent.putExtra("endY", endY)
-                startActivity(intent)
-                finish()
-                overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none)
-            }
-
-            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, packageName)
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
-
-            soundButton.setOnClickListener {
-                recognizer = SpeechRecognizer.createSpeechRecognizer(this@StartActivity)
-                recognizer.setRecognitionListener(listener)
-                recognizer.startListening(intent)
-            }
-
-
+            Toast.makeText(this, "장소 검색 기능은 추후 제공 예정입니다.", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -470,6 +556,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         override fun onPartialResults(partialResults: Bundle) {}
         override fun onEvent(eventType: Int, params: Bundle) {}
     }
+
 
 
 

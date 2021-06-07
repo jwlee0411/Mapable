@@ -22,6 +22,9 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         splashAnimation()
 
+        val preferences : SharedPreferences = getSharedPreferences("preferences", 0)
+        preferences.edit().putBoolean("start", false).apply()
+        preferences.edit().putBoolean("end", false).apply()
 
 
     }
@@ -60,6 +63,7 @@ class SplashActivity : AppCompatActivity() {
 
                 val handler2 = Handler()
 
+                //TODO : 애니메이션 오류로 Zoom In 비활성화
                 handler2.postDelayed({
 
                     val preferences : SharedPreferences = getSharedPreferences("preferences", 0)
@@ -75,7 +79,7 @@ class SplashActivity : AppCompatActivity() {
                         overridePendingTransition(R.anim.anim_none, R.anim.anim_none)
                     }
 
-                }, 3700)
+                }, 2300)
 
 
 

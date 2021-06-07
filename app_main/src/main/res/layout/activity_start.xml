@@ -168,6 +168,8 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/white"
+                app:borderWidth="0dp"
+                app:rippleColor="@color/pink01"
                 android:clickable="true"
                 android:src="@drawable/icon_current_location"
                 app:fabSize="normal"
@@ -176,11 +178,14 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingRoadFound"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/white"
                 android:clickable="true"
+                app:borderWidth="0dp"
+                app:rippleColor="@color/pink01"
                 android:src="@drawable/icon_road_found"
                 app:fabSize="normal"
                 app:layout_constraintBottom_toTopOf="@+id/floatingCurrentLocation"

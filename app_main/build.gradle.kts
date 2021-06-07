@@ -9,7 +9,7 @@ plugins{
 }
 
 android {
-    compileSdkVersion(28)
+    compileSdkVersion(30)
     defaultConfig {
         minSdkVersion (28)
         targetSdkVersion (30)
@@ -34,7 +34,7 @@ android {
 dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-//    implementation (project(path = ":app"))
+    implementation (project(path = ":app"))
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
     implementation (platform ("com.google.firebase:firebase-bom:27.1.0"))
     implementation ("com.google.firebase:firebase-database:20.0.0")

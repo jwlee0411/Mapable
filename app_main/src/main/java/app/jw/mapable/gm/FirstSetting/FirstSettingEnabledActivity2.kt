@@ -169,6 +169,7 @@ class FirstSettingEnabledActivity2 : AppCompatActivity(){
         editor.putBoolean("subwayWheelchairOn", checkSubwayWheelchairOn.isChecked)
         editor.putBoolean("disabled", checkDisabled.isChecked)
         editor.putBoolean("noInfo", checkNoInfo.isChecked)
+        editor.putBoolean("settingAvailable", true)
         when (radioSearchWayCheck.checkedRadioButtonId) {
             R.id.radioBest -> editor.putInt("searchWay", 0)
             R.id.radioBus -> editor.putInt("searchWay", 1)

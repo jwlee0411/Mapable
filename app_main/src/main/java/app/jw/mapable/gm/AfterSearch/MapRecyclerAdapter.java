@@ -137,10 +137,12 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
             constraintLayout.setOnClickListener(v -> {
 
                 //TODO : 작동안됨(오류 해결 못함)
-                System.out.println("○" + getAbsoluteAdapterPosition());
-                //System.out.println(getBindingAdapterPosition());
-                System.out.println("○" +position);
-//                constraintLayout.setVisibility(View.GONE);
+//                System.out.println("○" + getAbsoluteAdapterPosition());
+//                //System.out.println(getBindingAdapterPosition());
+//                System.out.println("○" +position);
+
+
+//              constraintLayout.setVisibility(View.GONE);
 
             });
 

@@ -55,7 +55,7 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        sharedPreferences = getSharedPreferences("location", 0);
+        sharedPreferences = getSharedPreferences("preferences", 0);
         startX = Double.parseDouble(sharedPreferences.getString("startX", ""));
         startY = Double.parseDouble(sharedPreferences.getString("startY", ""));
         endX = Double.parseDouble(sharedPreferences.getString("endX", ""));
