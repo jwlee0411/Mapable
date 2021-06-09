@@ -40,7 +40,7 @@ public class AfterSearchActivity extends AppCompatActivity {
     int pathAllLength, MAX_PATHALL_SIZE = 24;
     double startX, startY, endX, endY;
 
-
+    String startLocation, endLocation;
 
     LottieAnimationView lottieAnimationView;
     View progressView;
@@ -111,13 +111,23 @@ public class AfterSearchActivity extends AppCompatActivity {
         adapter = new MapRecyclerAdapter();
         recyclerView.setAdapter(adapter);
 
-        startX = getIntent().getDoubleExtra("startX", 0.0);
-        startY = getIntent().getDoubleExtra("startY", 0.0);
-        endX = getIntent().getDoubleExtra("endX", 0.0);
-        endY = getIntent().getDoubleExtra("endY", 0.0);
 
-        locationStart = getIntent().getStringExtra("locationNameStart");
-        locationEnd = getIntent().getStringExtra("locationNameEnd");
+        startX = preferences.getFloat("startX", 0.0F);
+        startY = preferences.getFloat("startY", 0.0F);
+        endX = preferences.getFloat("endX", 0.0F);
+        endY = preferences.getFloat("endY", 0.0F);
+
+        startLocation = preferences.getString("startLocation", "");
+        endLocation = preferences.getString("endLocation", "");
+
+        System.out.println("㉿"+startLocation);
+        textViewStart.setText(startLocation);
+        textViewEnd.setText(endLocation);
+
+
+
+        locationStart = preferences.getString("startLocation", "");
+        locationEnd = preferences.getString("endLocation", "");
 
         textViewStart.setText(locationStart);
         textViewEnd.setText(locationEnd);

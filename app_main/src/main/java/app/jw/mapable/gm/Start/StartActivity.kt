@@ -44,6 +44,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_start.*
+import kotlinx.android.synthetic.main.dialog_start.*
 import java.io.IOException
 import java.util.*
 
@@ -477,6 +478,10 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             val startDialog = StartDialog(this)
 
             startDialog.callFunction(it.latitude, it.longitude, locationString)
+
+
+
+
 
 
 

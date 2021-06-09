@@ -1,47 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp">
+
+    <ImageButton
+        android:id="@+id/buttonStar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+
+        android:visibility="gone"
+        android:background="@drawable/icon_star"
+
+        android:fontFamily="@font/nanum_bold"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLocationName" />
+
+    <ImageButton
+        android:id="@+id/buttonShare"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+
+        android:background="@drawable/icon_share"
+
+        android:fontFamily="@font/nanum_bold"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/buttonStar"
+        app:layout_constraintTop_toTopOf="@+id/buttonStar" />
 
     <Button
         android:id="@+id/buttonStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/nanum_bold"
         android:text="출발"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/buttonShare"
+        app:layout_constraintTop_toTopOf="@+id/buttonStar" />
 
     <Button
         android:id="@+id/buttonEnd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/nanum_bold"
         android:text="도착"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/buttonStart"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/buttonStar" />
 
     <Button
         android:id="@+id/buttonCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/nanum_bold"
         android:text="취소"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/buttonEnd"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/buttonStar" />
 
     <TextView
         android:id="@+id/textLocationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="장소명"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonStart" />
-
-    <TextView
-        android:id="@+id/textLocationAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:fontFamily="@font/nanum_bold"
         android:text="주소"
+        android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLocationName" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
