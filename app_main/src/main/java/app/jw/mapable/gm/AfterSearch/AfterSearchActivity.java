@@ -46,7 +46,7 @@ public class AfterSearchActivity extends AppCompatActivity {
     View progressView;
     TextView textViewStart, textViewEnd;
     MapRecyclerAdapter adapter;
-    Button buttonClose;
+    Button buttonClose, buttonOpposite;
     RecyclerView recyclerView;
     ODsayService odsayService;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -71,6 +71,7 @@ public class AfterSearchActivity extends AppCompatActivity {
         textViewStart = findViewById(R.id.textViewStart);
         textViewEnd = findViewById(R.id.textViewEnd);
         lottieAnimationView = findViewById(R.id.lottieView2);
+        buttonOpposite = findViewById(R.id.buttonOpposite);
 
 
         setonClick();
@@ -92,6 +93,8 @@ public class AfterSearchActivity extends AppCompatActivity {
             Intent intent = new Intent(AfterSearchActivity.this, SearchActivity.class);
             startActivity(intent);
         });
+
+
 
         getPath();
 
@@ -119,18 +122,25 @@ public class AfterSearchActivity extends AppCompatActivity {
 
         startLocation = preferences.getString("startLocation", "");
         endLocation = preferences.getString("endLocation", "");
+        startLocation = startLocation.replace("대한민국 ", "");
+        endLocation = endLocation.replace("대한민국 ", "");
 
-        System.out.println("㉿"+startLocation);
+
         textViewStart.setText(startLocation);
         textViewEnd.setText(endLocation);
 
+        buttonOpposite.setOnClickListener(v -> {
+            editor.putFloat("endX", (float) startX);
+            editor.putFloat("endY", (float) startY);
+            editor.putFloat("startX", (float)endX);
+            editor.putFloat("startY", (float)endY);
+            editor.putString("startLocation", endLocation);
+            editor.putString("endLocation", startLocation);
+            editor.apply();
 
-
-        locationStart = preferences.getString("startLocation", "");
-        locationEnd = preferences.getString("endLocation", "");
-
-        textViewStart.setText(locationStart);
-        textViewEnd.setText(locationEnd);
+            startActivity(new Intent(this, AfterSearchActivity.class));
+            finish();
+        });
 
 
         if (startX != 0.0) {

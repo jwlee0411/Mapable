@@ -19,7 +19,7 @@ class FirstSettingActivity : AppCompatActivity() {
             val intent = Intent(this@FirstSettingActivity, FirstSettingDisabledActivity::class.java)
             startActivity(intent)
             finish()
-        }, 10000)
+        }, 3000)
 
 
 

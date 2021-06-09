@@ -42,7 +42,7 @@ class StartDialog(val context : Context) : DialogInterface.OnDismissListener{
             preferences.edit().putBoolean("start", true).apply()
 
             preferences.edit().putFloat("startX", x.toFloat()).putFloat("startY", y.toFloat()).apply()
-            preferences.edit().putString("startLocation", locationName)
+            preferences.edit().putString("startLocation", locationName).apply()
 
             //TODO
             println(locationName)
@@ -66,7 +66,7 @@ class StartDialog(val context : Context) : DialogInterface.OnDismissListener{
         dialog.buttonEnd.setOnClickListener {
             preferences.edit().putBoolean("end", true).apply()
             preferences.edit().putFloat("endX", x.toFloat()).putFloat("endY", y.toFloat()).apply()
-            preferences.edit().putString("endLocation", locationName)
+            preferences.edit().putString("endLocation", locationName).apply()
             if(start)
             {
                 //출발지, 도착지 모두 정해짐

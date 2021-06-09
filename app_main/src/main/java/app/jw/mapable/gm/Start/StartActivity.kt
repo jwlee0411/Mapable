@@ -13,7 +13,6 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.speech.RecognitionListener
-import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.view.MenuItem
 import android.view.View
@@ -24,7 +23,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import app.jw.mapable.gm.AfterSearch.AfterSearchActivity
 import app.jw.mapable.gm.Explain.ExplainActivity
@@ -32,7 +30,6 @@ import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity1
 import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity2
 import app.jw.mapable.gm.Info.InfoActivity
 import app.jw.mapable.gm.R
-import app.jw.mapable.gm.Search.SearchActivity
 import app.jw.mapable.gm.Setting.SettingActivity
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -200,7 +197,9 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
                 e.printStackTrace()
             }
 
-            currentLocationMarker = mMap.addMarker(MarkerOptions().position(prevLatLng))
+
+            val bitmap = (resources.getDrawable(R.drawable.marker_start_ride) as BitmapDrawable).bitmap
+            currentLocationMarker = mMap.addMarker(MarkerOptions().position(prevLatLng).icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false))))
 
 
 
@@ -214,8 +213,6 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             startActivity(Intent(this@StartActivity, InfoActivity::class.java))
             finish()
         }
-
-        //Menu 부분 관련 설정 코드
 
         //Menu 부분 관련 설정 코드
         menuButton.setOnClickListener {
@@ -476,7 +473,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
 
             val startDialog = StartDialog(this)
-
+            println(locationString)
             startDialog.callFunction(it.latitude, it.longitude, locationString)
 
 
