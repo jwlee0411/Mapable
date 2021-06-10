@@ -12,6 +12,7 @@ import android.speech.tts.UtteranceProgressListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
+import app.jw.mapable.gm.Start.StartDisabledActivity
 import kotlinx.android.synthetic.main.activity_first_setting_disabled.*
 import java.util.*
 
@@ -117,6 +118,16 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
                     "지하철 길찾기 설정",
 
                     "저상버스 이용 가능 경로로 안내할까요?"
+
+
+            ),
+
+            //settingEnd
+            arrayOf<String>("이제 모든 설정이 끝났습니다. 지도를 실행합니다.",
+
+                    "감사합니다.",
+
+                    "설정이 끝났습니다.\n지도를 실행합니다."
 
 
             ),
@@ -267,6 +278,15 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
         settingProgress = 8
     }
 
+    private fun settingEnd_TTS()
+    {
+        getSettingInput(0)
+        tts.speak(settingTTSStr[9][0], TextToSpeech.QUEUE_FLUSH, params, "settingEnd")
+        textViewSettingDisabledTitle.text = settingTTSStr[9][1]
+        textViewSettingDisabledDescription.text = settingTTSStr[9][2]
+        settingProgress = 9
+    }
+
 
     fun setting_STT() {
         startActivityForResult(Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM).putExtra(RecognizerIntent.EXTRA_PROMPT, "Speech Recognition"), 1003)
@@ -372,7 +392,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
                                 editor.putBoolean("subwayWheelchairStation", false)
                                 editor.putBoolean("subwayWheelchairOn", false)
                                 editor.apply()
-                                //바로 끝내기
+                                settingEnd_TTS()
 
                             }
                             else -> ttsNotRecognized(5)
@@ -419,12 +439,12 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
                             getTTSResultYes(result) -> {
                                 editor.putBoolean("subwayWheelchairOn", true)
                                 editor.apply()
-                                //끝내기
+                                settingEnd_TTS()
                             }
                             getTTSResultNo(result) -> {
                                 editor.putBoolean("subwayWheelchairOn", false)
                                 editor.apply()
-                                //끝내기
+                                settingEnd_TTS()
                             }
                             else -> ttsNotRecognized(8)
                         }
@@ -473,6 +493,8 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
                         6 -> setting06_TTS()
                         7 -> setting07_TTS()
                         8 -> setting08_TTS()
+                        9 -> startActivity(Intent(applicationContext, StartDisabledActivity::class.java))
+
 
                     }
 

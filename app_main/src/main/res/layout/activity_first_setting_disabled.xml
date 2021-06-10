@@ -48,9 +48,9 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewStartDisabled"
+        app:layout_constraintStart_toEndOf="@+id/imageViewStartDisabled"
+        app:layout_constraintTop_toTopOf="@+id/imageViewStartDisabled" />
 
     <TextView
         android:id="@+id/textView15"
@@ -69,7 +69,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/imageViewStartDisabled"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
