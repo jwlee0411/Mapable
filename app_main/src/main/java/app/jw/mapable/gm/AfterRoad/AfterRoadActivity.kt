@@ -63,8 +63,8 @@ class AfterRoadActivity : AppCompatActivity(), OnMapReadyCallback{
 
 
         //   Toast.makeText(getApplicationContext(), ways, Toast.LENGTH_LONG).show();
-        val waysSplit = ways!!.split("§".toRegex()).toTypedArray()
-        val waysNewSplit = Array(waysSplit.size) { arrayOfNulls<String>(14) }
+        val waysSplit : Array<String> = ways!!.split("§".toRegex()).toTypedArray()
+        val waysNewSplit : Array<Array<String?>> = Array(waysSplit.size) { arrayOfNulls<String>(14) }
 
         var subwayLatLngs: Array<LatLng?>
 
@@ -100,16 +100,16 @@ class AfterRoadActivity : AppCompatActivity(), OnMapReadyCallback{
                 when(trafficType)
                 {
                     1->{
-                        val waysFinalSplit = waysNewSplit[i][12]?.split("★".toRegex())?.toTypedArray()
-                        val waysFinalNewSplit: Array<Array<String>> = arrayOfNulls(waysFinalSplit.size)
+                        val waysFinalSplit : Array<String> = waysNewSplit[i][12]!!.split("★".toRegex()).toTypedArray()
+                        val waysFinalNewSplit: Array<Array<String>?> = arrayOfNulls(waysFinalSplit.size)
 
                         subwayLatLngs = arrayOfNulls(waysFinalSplit.size)
                         for (j in waysFinalSplit.indices) {
                             waysFinalNewSplit[j] = waysFinalSplit[j].split("☆".toRegex()).toTypedArray()
-                            subwayLatLngs[j] = LatLng(waysFinalNewSplit[j][2].toDouble(), waysFinalNewSplit[j][1].toDouble())
+                            subwayLatLngs[j] = LatLng(waysFinalNewSplit[j]?.get(2)!!.toDouble(), waysFinalNewSplit[j]?.get(1)!!.toDouble())
                             val markerOptions = MarkerOptions()
                             markerOptions.position(subwayLatLngs[j])
-                            markerOptions.title(waysFinalNewSplit[j][0])
+                            markerOptions.title(waysFinalNewSplit[j]?.get(1)!!)
                             //markerOptions.snippet("한국의 수도");
                             markerOptions.snippet(waysNewSplit[i][4])
                             if (j != 0) {
@@ -188,16 +188,16 @@ class AfterRoadActivity : AppCompatActivity(), OnMapReadyCallback{
                     2->{
 
                         val waysFinalSplit2 = waysNewSplit[i][13]!!.split("★".toRegex()).toTypedArray()
-                        val waysFinalNewSplit2: Array<Array<String>> = arrayOfNulls(waysFinalSplit2.size)
+                        val waysFinalNewSplit2: Array<Array<String>?> = arrayOfNulls(waysFinalSplit2.size)
 
                         subwayLatLngs = arrayOfNulls(waysFinalSplit2.size)
 
                         for (j in waysFinalSplit2.indices) {
                             waysFinalNewSplit2[j] = waysFinalSplit2[j].split("☆".toRegex()).toTypedArray()
-                            subwayLatLngs[j] = LatLng(waysFinalNewSplit2[j][2].toDouble(), waysFinalNewSplit2[j][1].toDouble())
+                            subwayLatLngs[j] = LatLng(waysFinalNewSplit2[j]?.get(2)!!.toDouble(), waysFinalNewSplit2[j]?.get(1)!!.toDouble())
                             val markerOptions = MarkerOptions()
                             markerOptions.position(subwayLatLngs[j])
-                            markerOptions.title(waysFinalNewSplit2[j][0])
+                            markerOptions.title(waysFinalNewSplit2[j]?.get(0)!!)
                             markerOptions.snippet(waysNewSplit[i][4])
                             if (j != 0) {
                                 val lineNumber = waysNewSplit[i][5]!!.toInt()
@@ -234,8 +234,8 @@ class AfterRoadActivity : AppCompatActivity(), OnMapReadyCallback{
                                 markerOptions.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false)))
                                 googleMap.addMarker(markerOptions)
                             }
-                            println(waysFinalNewSplit2[j][1])
-                            println(waysFinalNewSplit2[j][2])
+                            println(waysFinalNewSplit2[j]?.get(1))
+                            println(waysFinalNewSplit2[j]?.get(2))
                         }
 
                         if (i == 1) {
