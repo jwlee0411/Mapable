@@ -108,6 +108,9 @@ public class AfterSearchActivity extends AppCompatActivity {
         editor = preferences.edit();
         editor.remove("prevString").apply();
 
+        editor.putBoolean("start", false);
+        editor.putBoolean("end", false);
+        editor.apply();
 
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
