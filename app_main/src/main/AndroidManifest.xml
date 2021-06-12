@@ -31,6 +31,7 @@
         <activity android:name=".AfterSearch.AfterSearchActivity"/>
         <activity android:name=".AfterSearch.AfterSearchDisabledActivity"/>
         <activity android:name=".Start.StartActivity"/>
+        <activity android:name=".Start.StartDisabledActivity"/>
         <activity android:name=".AfterRoad.AfterRoadActivity"/>
         <activity android:name=".Setting.SettingActivity"/>
         <activity android:name=".FirstSetting.FirstSettingActivity"/>

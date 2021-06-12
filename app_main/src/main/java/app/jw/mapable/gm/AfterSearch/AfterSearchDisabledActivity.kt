@@ -13,10 +13,10 @@ import org.json.JSONObject
 class AfterSearchDisabledActivity : AppCompatActivity(){
 
 
-    lateinit var sharedPreferences: SharedPreferences
-    lateinit var editor : SharedPreferences.Editor
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor : SharedPreferences.Editor
 
-    lateinit var odsayService: ODsayService
+    private lateinit var odsayService: ODsayService
 
     var startX : Double = 0.0
     var startY : Double = 0.0
@@ -51,7 +51,7 @@ class AfterSearchDisabledActivity : AppCompatActivity(){
             odsayService.setReadTimeout(5000)
             odsayService.setConnectionTimeout(5000)
 
-            editor.commit()
+
             odsayService.requestSearchPubTransPath(startY.toString(), startX.toString(), endY.toString(), endX.toString(), "0", "0", "0", onRoadFoundResultCallbackListener)
 
 

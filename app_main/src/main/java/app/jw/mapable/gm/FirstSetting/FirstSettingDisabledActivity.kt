@@ -61,22 +61,22 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
 
             ),
 
-            //setting03 : TODO
-            arrayOf<String>("저상버스를 이용 가능한 경로로만 안내할까요?",
+            //setting03
+            arrayOf<String>("30분 이상 대기하는 경로를 길찾기에 포함하지 않을까요?",
 
                     "버스 길찾기 설정",
 
-                    "저상버스 이용 가능 경로로 안내할까요?"
+                    "30분 이상 대기하는 경로를 안내하지 않을까요?"
 
 
             ),
 
-            //setting04 : TODO
-            arrayOf<String>("저상버스를 이용 가능한 경로로만 안내할까요?",
+            //setting04
+            arrayOf<String>("1시간 이상 대기하는 경로를 길찾기에 포함하지 않을까요?",
 
                     "버스 길찾기 설정",
 
-                    "저상버스 이용 가능 경로로 안내할까요?"
+                    "1시간 이상 대기하는 경로를 안내하지 않을까요?"
 
 
             ),
@@ -93,34 +93,51 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
 
             ),
 
-            //setting06 : TODO
-            arrayOf<String>("저상버스를 이용 가능한 경로로만 안내할까요?",
+            //setting06
+            arrayOf<String>("엘리베이터를 이용 가능한 역으로만 안내할까요?",
 
                     "지하철 길찾기 설정",
 
-                    "저상버스 이용 가능 경로로 안내할까요?"
+                    "엘리베이터를 이용 가능한 역으로만 안내할까요?"
 
 
             ),
 
-            //setting07 : TODO
-            arrayOf<String>("저상버스를 이용 가능한 경로로만 안내할까요?",
+            //setting07
+            arrayOf<String>("엘리베이터를 이용 가능한 역으로만 안내할까요?",
 
                     "지하철 길찾기 설정",
 
-                    "저상버스 이용 가능 경로로 안내할까요?"
+                    "엘리베이터를 이용 가능한 역으로만 안내할까요?"
 
 
             ),
-            //setting08 : TODO
-            arrayOf<String>("저상버스를 이용 가능한 경로로만 안내할까요?",
+            //setting08
+            arrayOf<String>("지하철에 휠체어 거치 공간이 있는 노선으로만 안내할까요?",
 
                     "지하철 길찾기 설정",
 
-                    "저상버스 이용 가능 경로로 안내할까요?"
+                    "지하철에 휠체어 거치 공간이 있는 노선으로만 안내할까요?"
 
 
             ),
+
+        //setting09
+        arrayOf<String>("다음은 경로 설정 모드입니다.\n" +
+                "잘 듣고, 설정하고 싶은 번호를 알려주세요.\n" +
+                "다시 듣고 싶으시면 아무 말이나 해주세요." +
+                "\n\n" +
+                "1번, 추천 경로\n" +
+                "2번, 버스 경로 우선\n" +
+                "3번, 지하철 경로 우선\n" +
+                "4번, 도보 적은 경로 우선",
+
+            "길찾기 경로 설정",
+
+            "1. 추천 경로 \n2. 버스 경로 우선 \n3. 지하철 경로 우선 \n4. 도보 적은 경로 우선"
+
+
+        ),
 
             //settingEnd
             arrayOf<String>("이제 모든 설정이 끝났습니다. 지도를 실행합니다.",
@@ -172,7 +189,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
                 }
                 else {
                     tts.setPitch(1.0f)
-                    tts.setSpeechRate(3.0f)
+                    tts.setSpeechRate(5.0f)
                     params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "")
 
                     setting00_TTS()
@@ -278,13 +295,22 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
         settingProgress = 8
     }
 
-    private fun settingEnd_TTS()
+    fun setting09_TTS()
     {
         getSettingInput(0)
-        tts.speak(settingTTSStr[9][0], TextToSpeech.QUEUE_FLUSH, params, "settingEnd")
+        tts.speak(settingTTSStr[9][0], TextToSpeech.QUEUE_FLUSH, params, "setting09")
         textViewSettingDisabledTitle.text = settingTTSStr[9][1]
         textViewSettingDisabledDescription.text = settingTTSStr[9][2]
         settingProgress = 9
+    }
+
+    private fun settingEnd_TTS()
+    {
+        getSettingInput(10)
+        tts.speak(settingTTSStr[10][0], TextToSpeech.QUEUE_FLUSH, params, "settingEnd")
+        textViewSettingDisabledTitle.text = settingTTSStr[10][1]
+        textViewSettingDisabledDescription.text = settingTTSStr[10][2]
+        settingProgress = 10
     }
 
 
@@ -451,6 +477,14 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
 
                     }
 
+                    9 -> {
+                        when {
+                            //TODO
+                            else -> ttsNotRecognized(9)
+                        }
+
+                    }
+
 
 
 
@@ -459,6 +493,18 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    fun getTTSResultOne(result : String): Boolean {
+        return result == "일" || result == "첫번째" || result == "1" || result == "일번" || result == "1번" || result.contains("하나")
+    }
+
+    fun getTTSResultTwo(result : String): Boolean {
+        return result == "이" || result == "두번째" || result == "2" || result == "이번" || result == "2번" || result.contains("둘")
+    }
+
+    fun getTTSResultThree(result : String): Boolean {
+        return result == "삼" || result == "두번째" || result == "2" || result == "이번" || result == "2번" || result.contains("둘")
     }
 
     fun getTTSResultYes(result : String): Boolean {
@@ -472,7 +518,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
     fun ttsNotRecognized(settingNum: Int)
     {
         getSettingInput(settingNum)
-        tts.speak("무슨 말인지 모르겠어요. 다시 한 번 알려주시겠어요?", TextToSpeech.QUEUE_FLUSH, params, "setting02")
+        tts.speak("무슨 말인지 모르겠어요. 다시 한 번 알려주시겠어요?", TextToSpeech.QUEUE_FLUSH, params, "settingNotRecognized")
     }
 
     fun getSettingInput(settingNum : Int)
@@ -493,7 +539,8 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
                         6 -> setting06_TTS()
                         7 -> setting07_TTS()
                         8 -> setting08_TTS()
-                        9 -> startActivity(Intent(applicationContext, StartDisabledActivity::class.java))
+                        9 -> setting09_TTS()
+                        10 -> startActivity(Intent(applicationContext, StartDisabledActivity::class.java))
 
 
                     }

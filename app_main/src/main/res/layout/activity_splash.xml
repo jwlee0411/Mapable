@@ -11,11 +11,12 @@
         android:id="@+id/imageView2"
         android:layout_width="160dp"
         android:layout_height="160dp"
+        android:background="@drawable/oval"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/oval"/>
+        app:layout_constraintVertical_bias="0.400" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -26,7 +27,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.400"/>
 
     <ImageView
         android:id="@+id/imageView"
@@ -36,7 +38,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/app_logo_transparent" />
+        app:srcCompat="@drawable/app_logo_transparent"
+        app:layout_constraintVertical_bias="0.400"/>
 
     <ImageView
         android:id="@+id/imageView4"
@@ -47,7 +50,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/app_logo_transparent" />
+        app:srcCompat="@drawable/app_logo_transparent"
+        app:layout_constraintVertical_bias="0.400"/>
 
     <TextView
         android:id="@+id/textView3"

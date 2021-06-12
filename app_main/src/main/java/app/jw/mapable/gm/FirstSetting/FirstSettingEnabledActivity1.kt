@@ -18,22 +18,22 @@ class FirstSettingEnabledActivity1 : AppCompatActivity() {
 
         var intent = Intent(this, FirstSettingEnabledActivity2::class.java)
 
-        buttonSetting1.setOnClickListener {
+        lottieSetting1.setOnClickListener {
             intent.putExtra("defaultSetting", 1)
             startActivity(intent)
         }
 
-        buttonSetting2.setOnClickListener {
+        lottieSetting2.setOnClickListener {
             intent.putExtra("defaultSetting", 2)
             startActivity(intent)
         }
 
-        buttonSetting3.setOnClickListener {
+        lottieSetting3.setOnClickListener {
             intent.putExtra("defaultSetting", 3)
             startActivity(intent)
         }
 
-        buttonSetting4.setOnClickListener {
+        lottieSetting4.setOnClickListener {
             intent.putExtra("defaultSetting", 4)
             startActivity(intent)
         }

@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
+
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="wrap_content"
@@ -16,39 +19,110 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieSetting1"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/wheelchair_normal_anim"
+            />
 
-            <Button
-                android:id="@+id/buttonSetting1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="휠체어" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieSetting2"
+                android:layout_marginStart="16dp"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/wheelchair_auto_anim"
+           />
 
-            <Button
-                android:id="@+id/buttonSetting2"
-                android:layout_width="wrap_content"
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="96dp"
                 android:layout_height="wrap_content"
-                android:text="전동휠체어" />
+                android:textColor="@color/black"
+                android:text="휠체어"
+                android:textAlignment="center"
+                android:fontFamily="@font/nanum_bold"
+                />
+            <TextView
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginStart="16dp"
+                android:text="전동휠체어"
+                android:textAlignment="center"
+                android:fontFamily="@font/nanum_bold"
+                />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieSetting3"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/walk_disabled_anim"
+                />
 
-            <Button
-                android:id="@+id/buttonSetting3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="거동이 불편" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieSetting4"
+                android:layout_marginStart="16dp"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/setting_grey_anim"
+                />
 
-            <Button
-                android:id="@+id/buttonSetting4"
-                android:layout_width="wrap_content"
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="96dp"
                 android:layout_height="wrap_content"
-                android:text="직접 설정" />
+                android:textColor="@color/black"
+                android:text="거동이 불편"
+                android:textAlignment="center"
+                android:fontFamily="@font/nanum_bold"
+                />
+            <TextView
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="직접 설정"
+                android:layout_marginStart="16dp"
+                android:textAlignment="center"
+                android:fontFamily="@font/nanum_bold"
+                />
         </TableRow>
 
     </TableLayout>
+
+
+
 
     <TextView
         android:id="@+id/textView4"
