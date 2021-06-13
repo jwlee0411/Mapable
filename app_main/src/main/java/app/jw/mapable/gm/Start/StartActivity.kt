@@ -113,8 +113,10 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         try {
             val firstSettingEnabledActivity1 = FirstSettingEnabledActivity1.firstSettingEnabledActivity1 as FirstSettingEnabledActivity1
             val firstSettingEnabledActivity2 = FirstSettingEnabledActivity2.firstSettingEnabledActivity2 as FirstSettingEnabledActivity2
+            val infoActivity = InfoActivity.infoActivity as InfoActivity //TODO : InfoActivity 적용X
             firstSettingEnabledActivity1.finish()
             firstSettingEnabledActivity2.finish()
+            infoActivity.finish()
         } catch (ignored: Exception)
         {
 
@@ -211,7 +213,6 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
         floatingInfo.setOnClickListener { v: View? ->
             startActivity(Intent(this@StartActivity, InfoActivity::class.java))
-            finish()
         }
 
         //Menu 부분 관련 설정 코드

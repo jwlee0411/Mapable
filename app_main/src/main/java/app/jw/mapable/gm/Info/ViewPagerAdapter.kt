@@ -7,7 +7,7 @@ import java.util.*
 
 class ViewPagerAdapter(fragmentManager: FragmentManager?, behavior: Int) :
     FragmentStatePagerAdapter(fragmentManager!!, behavior) {
-    val items = ArrayList<Fragment>()
+    private val items = ArrayList<Fragment>()
     fun addItem(item: Fragment) {
         items.add(item)
     }
