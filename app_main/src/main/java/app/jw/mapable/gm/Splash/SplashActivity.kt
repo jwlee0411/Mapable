@@ -95,6 +95,11 @@ class SplashActivity : AppCompatActivity() {
         })
 
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        android.os.Process.killProcess(android.os.Process.myPid())
+    }
 }
 
 

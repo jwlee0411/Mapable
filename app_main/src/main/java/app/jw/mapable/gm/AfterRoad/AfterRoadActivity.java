@@ -102,6 +102,7 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
         markerDepart.title("출발");
         markerDepart.icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(departBitmap, 45, 64, false)));
         googleMap.addMarker(markerDepart);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(startX, startY), 15));
 
         MarkerOptions markerEnd = new MarkerOptions();
         markerEnd.position(new LatLng(endX, endY));
@@ -353,7 +354,7 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
         //TODO : 카메라 위치를 경로에 맞추기
         LatLng SEOUL = new LatLng(37.56, 126.97);
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 13));
+
 
 
         googleMap.setOnMarkerClickListener(marker -> false);

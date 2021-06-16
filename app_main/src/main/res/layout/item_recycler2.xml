@@ -80,6 +80,7 @@
         android:text="6분 9초[7번째 전]"
         android:textColor="@color/red"
         android:textSize="12dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/textEndStation"
         app:layout_constraintStart_toEndOf="@+id/imageViewTransportationType"
         app:layout_constraintTop_toBottomOf="@+id/textStartStation"

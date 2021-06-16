@@ -79,7 +79,10 @@ public class AfterSearchActivity extends AppCompatActivity {
 
     private void setonClick() {
         buttonClose.setOnClickListener(v -> {
-            startActivity(new Intent(AfterSearchActivity.this, StartActivity.class));
+
+            Intent intent = new Intent(AfterSearchActivity.this, StartActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         });
 
@@ -114,6 +117,7 @@ public class AfterSearchActivity extends AppCompatActivity {
 
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setNestedScrollingEnabled(false);
         adapter = new MapRecyclerAdapter();
         recyclerView.setAdapter(adapter);
 
@@ -141,7 +145,10 @@ public class AfterSearchActivity extends AppCompatActivity {
             editor.putString("endLocation", startLocation);
             editor.apply();
 
-            startActivity(new Intent(this, AfterSearchActivity.class));
+
+            Intent intent = new Intent(this, AfterSearchActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         });
 
@@ -167,6 +174,22 @@ public class AfterSearchActivity extends AppCompatActivity {
 
             //TODO : 추후 수정 예정, swiperefreshlayout 사용해서 실제 새로고침이 가능하도록
             swipeRefreshLayout.setOnRefreshListener(() -> {
+
+                editor.putFloat("endX", (float) endX);
+                editor.putFloat("endY", (float) endY);
+                editor.putFloat("startX", (float)startX);
+                editor.putFloat("startY", (float)startY);
+                editor.putString("startLocation", startLocation);
+                editor.putString("endLocation", endLocation);
+                editor.apply();
+
+
+                Intent intent = new Intent(this, AfterSearchActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+
+
                 Handler handler = new Handler();
                 handler.postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 2000);
             });
@@ -396,6 +419,7 @@ public class AfterSearchActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
 

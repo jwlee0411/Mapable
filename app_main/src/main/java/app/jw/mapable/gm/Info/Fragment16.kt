@@ -21,7 +21,9 @@ class Fragment16 : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         layoutFragment16.setOnClickListener{
-            startActivity(Intent(context, StartActivity::class.java))
+            val intent:Intent = Intent(context, StartActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
         }
 
     }

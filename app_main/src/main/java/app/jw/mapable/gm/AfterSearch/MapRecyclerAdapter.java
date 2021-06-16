@@ -2,6 +2,7 @@ package app.jw.mapable.gm.AfterSearch;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.SparseBooleanArray;
@@ -41,6 +42,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import app.jw.mapable.gm.AfterRoad.AfterRoadActivity;
 import app.jw.mapable.gm.R;
 
 public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.ItemViewHolder> {
@@ -136,6 +138,9 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
             setRouteArray();
             constraintLayout.setOnClickListener(v -> {
 
+                Intent intent = new Intent(itemView.getContext(), AfterRoadActivity.class);
+                intent.putExtra("ways", preferences.getString("finalGetWays", ""));
+                itemView.getContext().startActivity(intent);
                 //TODO : 작동안됨(오류 해결 못함)
 //                System.out.println("○" + getAbsoluteAdapterPosition());
 //                //System.out.println(getBindingAdapterPosition());

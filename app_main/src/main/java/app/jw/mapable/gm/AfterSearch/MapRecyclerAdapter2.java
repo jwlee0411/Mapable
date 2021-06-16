@@ -128,7 +128,8 @@ public class MapRecyclerAdapter2 extends RecyclerView.Adapter<MapRecyclerAdapter
                 textViews[5].setText(item.getEndStation());
 
                 textViews[9].setVisibility(View.VISIBLE);
-                textViews[10].setVisibility(View.VISIBLE);
+                //TODO : REMIND ==> 실시간 정보를 아직 불러오지 않았음
+              //  textViews[10].setVisibility(View.VISIBLE);
 
 
                 if(item.getName().equals("수도권 1호선") || item.getName().equals("수도권 1호선(급행)"))
@@ -367,7 +368,8 @@ public class MapRecyclerAdapter2 extends RecyclerView.Adapter<MapRecyclerAdapter
                 textViews[5].setText(item.getEndStation());
 
                 textViews[9].setVisibility(View.VISIBLE);
-                textViews[10].setVisibility(View.VISIBLE);
+                //TODO : REMIND ==> 실시간 정보를 아직 불러오지 않았음
+                //  textViews[10].setVisibility(View.VISIBLE);
 
 
 

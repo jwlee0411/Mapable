@@ -67,6 +67,7 @@
         android:fontFamily="@font/nanum_regular"
         android:text="|"
         android:textSize="12sp"
+        android:visibility="gone"
         app:layout_constraintStart_toEndOf="@+id/textTrafficDistance"
         app:layout_constraintTop_toTopOf="@+id/textPayment" />
 
@@ -79,6 +80,7 @@
         android:fontFamily="@font/nanum_regular"
         android:text="도보 0.04km"
         android:textSize="12sp"
+        android:visibility="gone"
         app:layout_constraintStart_toEndOf="@+id/textPayment3"
         app:layout_constraintTop_toTopOf="@+id/textTrafficDistance" />
 

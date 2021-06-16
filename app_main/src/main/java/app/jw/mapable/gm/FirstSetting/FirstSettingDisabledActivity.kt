@@ -12,6 +12,7 @@ import android.speech.tts.UtteranceProgressListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
+import app.jw.mapable.gm.Start.StartActivity
 import app.jw.mapable.gm.Start.StartDisabledActivity
 import kotlinx.android.synthetic.main.activity_first_setting_disabled.*
 import java.util.*
@@ -189,7 +190,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
                 }
                 else {
                     tts.setPitch(1.0f)
-                    tts.setSpeechRate(5.0f)
+                    tts.setSpeechRate(1.0f)
                     params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "")
 
                     setting00_TTS()
@@ -313,6 +314,21 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
         settingProgress = 10
     }
 
+    private fun settingNoSet_TTS()
+    {
+        tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+            override fun onStart(utteranceId: String) {}
+            override fun onDone(utteranceId: String) {
+                val mHandler = Handler(Looper.getMainLooper())
+                mHandler.postDelayed({ setting01_TTS() }, 1000)
+            }
+
+            override fun onError(utteranceId: String) {}
+        })
+        tts.speak("버스와 지하철 길찾기 중 하나 이상을 선택해야 합니다. 설정을 처음부터 다시 진행할게요", TextToSpeech.QUEUE_FLUSH, params, "settingNoSet")
+
+    }
+
 
     fun setting_STT() {
         startActivityForResult(Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM).putExtra(RecognizerIntent.EXTRA_PROMPT, "Speech Recognition"), 1003)
@@ -413,12 +429,20 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
                                 setting06_TTS()
                             }
                             getTTSResultNo(result) -> {
-                                editor.putBoolean("subwayRoadFound", false)
-                                editor.putBoolean("subwayElevator", false)
-                                editor.putBoolean("subwayWheelchairStation", false)
-                                editor.putBoolean("subwayWheelchairOn", false)
-                                editor.apply()
-                                settingEnd_TTS()
+                                if(sharedPreferences.getBoolean("busRoadFound", false))
+                                {
+                                    editor.putBoolean("subwayRoadFound", false)
+                                    editor.putBoolean("subwayElevator", false)
+                                    editor.putBoolean("subwayWheelchairStation", false)
+                                    editor.putBoolean("subwayWheelchairOn", false)
+                                    editor.apply()
+                                    setting09_TTS()
+                                }
+                                else
+                                {
+                                    settingNoSet_TTS()
+                                }
+
 
                             }
                             else -> ttsNotRecognized(5)
@@ -465,12 +489,12 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
                             getTTSResultYes(result) -> {
                                 editor.putBoolean("subwayWheelchairOn", true)
                                 editor.apply()
-                                settingEnd_TTS()
+                                setting09_TTS()
                             }
                             getTTSResultNo(result) -> {
                                 editor.putBoolean("subwayWheelchairOn", false)
                                 editor.apply()
-                                settingEnd_TTS()
+                                setting09_TTS()
                             }
                             else -> ttsNotRecognized(8)
                         }
@@ -479,9 +503,36 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
 
                     9 -> {
                         when {
-                            //TODO
+                            getTTSResultOne(result) -> {
+                                editor.putInt("searchWay", 0)
+                                editor.apply()
+                                settingEnd_TTS()
+                            }
+                            getTTSResultTwo(result) -> {
+                                editor.putInt("searchWay", 1)
+                                editor.apply()
+                                settingEnd_TTS()
+
+                            }
+                            getTTSResultThree(result) -> {
+                                editor.putInt("searchWay", 2)
+                                editor.apply()
+                                settingEnd_TTS()
+
+                            }
+                            getTTSResultFour(result) -> {
+                                editor.putInt("searchWay", 3)
+                                editor.apply()
+                                settingEnd_TTS()
+                            }
                             else -> ttsNotRecognized(9)
                         }
+
+                    }
+
+                    100 -> {
+
+                        setting01_TTS()
 
                     }
 
@@ -496,15 +547,18 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
     }
 
     fun getTTSResultOne(result : String): Boolean {
-        return result == "일" || result == "첫번째" || result == "1" || result == "일번" || result == "1번" || result.contains("하나")
+        return result == "일" || result == "첫번째" || result == "1" || result == "일번" || result == "1번" || result.contains("하나") || result.contains("추천")
     }
 
     fun getTTSResultTwo(result : String): Boolean {
-        return result == "이" || result == "두번째" || result == "2" || result == "이번" || result == "2번" || result.contains("둘")
+        return result == "이" || result == "두번째" || result == "2" || result == "이번" || result == "2번" || result.contains("둘") || result.contains("버스")
     }
 
     fun getTTSResultThree(result : String): Boolean {
-        return result == "삼" || result == "두번째" || result == "2" || result == "이번" || result == "2번" || result.contains("둘")
+        return result == "삼" || result == "세번째" || result == "3" || result == "삼번" || result == "3번" || result.contains("셋") || result.contains("지하철")
+    }
+    fun getTTSResultFour(result: String) : Boolean{
+        return result == "사" || result == "네번째" || result == "4" || result == "사번" || result == "4번" || result.contains("넷") || result.contains("도보")
     }
 
     fun getTTSResultYes(result : String): Boolean {
@@ -540,7 +594,11 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
                         7 -> setting07_TTS()
                         8 -> setting08_TTS()
                         9 -> setting09_TTS()
-                        10 -> startActivity(Intent(applicationContext, StartDisabledActivity::class.java))
+                        10 -> {
+                            val intent = Intent(applicationContext, StartActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            startActivity(intent)
+                        }
 
 
                     }
