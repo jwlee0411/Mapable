@@ -26,7 +26,7 @@ class ExplainActivity : AppCompatActivity() {
         val point = Point()
         display.getRealSize(point)
 
-        data = "<iframe src=\"https://docs.google.com/document/d/e/2PACX-1vT6gUBnl_Mg82Vu_dvhzoCXtRCVRmodeKtVgfkfWvL_RnPmGtlQSR3dgV-OtA6b153GoSr8fhkMiJpx/pub?embedded=true\" width=\"" + point.x + "\" height=\"" + point.y + "\" frameborder=0 framespacing=0 ></iframe>"
+        data = "<iframe src=\"https://docs.google.com/document/d/e/2PACX-1vT6gUBnl_Mg82Vu_dvhzoCXtRCVRmodeKtVgfkfWvL_RnPmGtlQSR3dgV-OtA6b153GoSr8fhkMiJpx/pub?embedded=true\" width=\"" + point.x/2 + "\" height=\"" + point.y + "\" frameborder=0 framespacing=0 ></iframe>"
 
 
         webView.webViewClient = SslWebViewConnect()

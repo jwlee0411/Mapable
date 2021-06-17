@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mapable.iml" filepath="$PROJECT_DIR$/.idea/modules/Mapable.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mapable.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mapable.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app_main/Mapable.app_main.iml" filepath="$PROJECT_DIR$/.idea/modules/app_main/Mapable.app_main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mapable_210617_Fin01.iml" filepath="$PROJECT_DIR$/.idea/modules/Mapable_210617_Fin01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mapable_210617_Fin01.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mapable_210617_Fin01.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app_main/Mapable_210617_Fin01.app_main.iml" filepath="$PROJECT_DIR$/.idea/modules/app_main/Mapable_210617_Fin01.app_main.iml" />
     </modules>
   </component>
 </project>
