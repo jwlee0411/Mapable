@@ -4,3 +4,4 @@
 /ODsayAndroidSDKSample/build/intermediates/javac/debug/classes/
 # Project exclude paths
 /ODsayAndroidSDK/build/
+local.properties

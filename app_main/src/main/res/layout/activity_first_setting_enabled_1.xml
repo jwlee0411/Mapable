@@ -27,7 +27,7 @@
                 android:layout_height="96dp"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/wheelchair_normal_anim"
+                app:lottie_rawRes="@raw/wheelchair_auto_anim"
             />
 
             <com.airbnb.lottie.LottieAnimationView
@@ -36,8 +36,8 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/wheelchair_auto_anim"
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/wheelchair_normal_anim"
            />
 
 

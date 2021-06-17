@@ -40,8 +40,9 @@ class ExplainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         val intent = Intent(this@ExplainActivity, StartActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-        finish()
+
     }
 
 
@@ -51,8 +52,8 @@ class ExplainActivity : AppCompatActivity() {
         }
 
         override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-            if (url == data) view.loadUrl(url)
-            return true
+         if (url == data) view.loadUrl(url)
+            return false
         }
     }
 }

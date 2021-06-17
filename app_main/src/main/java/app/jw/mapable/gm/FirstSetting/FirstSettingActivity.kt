@@ -27,10 +27,7 @@ class FirstSettingActivity : AppCompatActivity() {
 
         initTTS()
 
-        buttonSettingStart.setOnClickListener{
-            startActivity(Intent(this@FirstSettingActivity, FirstSettingEnabledActivity1::class.java))
-            finish()
-        }
+
 
 
 
@@ -53,18 +50,21 @@ class FirstSettingActivity : AppCompatActivity() {
 
 
                     tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-                        override fun onStart(utteranceId: String) {}
-                        override fun onDone(utteranceId: String) {
+                        override fun onStart(utteranceId: String) {
                             val mHandler = Handler(Looper.getMainLooper())
                             mHandler.postDelayed({  val intent = Intent(this@FirstSettingActivity, FirstSettingDisabledActivity::class.java)
                                 startActivity(intent)
-                                finish()}, 3000)
+                                finish()}, 7000)
 
                             buttonSettingStart.setOnClickListener {
                                 mHandler.removeMessages(0)
+                                tts.stop()
                                 startActivity(Intent(this@FirstSettingActivity, FirstSettingEnabledActivity1::class.java))
                                 finish()
                             }
+                        }
+                        override fun onDone(utteranceId: String) {
+
                         }
 
                         override fun onError(utteranceId: String) {}

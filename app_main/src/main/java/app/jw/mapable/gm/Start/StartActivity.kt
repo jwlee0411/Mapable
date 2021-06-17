@@ -73,11 +73,6 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     val FASTEST_UPDATE_INTERVAL_MS : Long = 500
     val PERMISSIONS_REQUEST_CODE : Int = 100
 
-    var REQUIRED_PERMISSIONS = arrayOf(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.ACCESS_COARSE_LOCATION,
-        Manifest.permission.RECORD_AUDIO
-    )
 
 
     lateinit var searchLayoutAnimation : Animation
@@ -125,8 +120,10 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         sharedPreferences = getSharedPreferences("preferences", 0)
         if (sharedPreferences.getBoolean("disabled", false))
         {
-            startActivity(Intent(this, StartDisabledActivity::class.java))
-            finish()
+            //TODO : 예선 제출 시 비활성화
+
+//            startActivity(Intent(this, StartDisabledActivity::class.java))
+//            finish()
         }
         else
         {
@@ -236,7 +233,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
     fun setMap()
     {
-        ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, 1)
+
         locationRequest = LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(UPDATE_INTERVAL_MS).setFastestInterval(FASTEST_UPDATE_INTERVAL_MS)
 
         val builder : LocationSettingsRequest.Builder = LocationSettingsRequest.Builder()
@@ -249,36 +246,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
     }
 
-    fun checkPermissionGranted()
-    {
-        val hasFineLocationPermission : Int = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-        val hasCoarseLocationPermission : Int = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
 
-        if(hasFineLocationPermission == PackageManager.PERMISSION_GRANTED && hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED)
-        {
 
-        }
-        else
-        {
-            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, PERMISSIONS_REQUEST_CODE)
-        }
-    }
-
-    fun startLocationUpdates()
-    {
-        if(checkLocationServicesStatus())
-        {
-            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-
-            mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
-
-            if(checkPermission())
-            {
-                mMap.isMyLocationEnabled = true
-            }
-        }
-    }
 
     private fun checkPermission(): Boolean {
         val hasFineLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -320,7 +289,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMap.clear()
-        checkPermissionGranted()
+
 
         val SEOUL : LatLng = LatLng(prevLatitude, prevLongtitude)
 

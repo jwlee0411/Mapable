@@ -187,6 +187,8 @@ class SettingActivity : AppCompatActivity(){
 
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent(this, StartActivity::class.java))
+        val intent = Intent(this, StartActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
     }
 }
