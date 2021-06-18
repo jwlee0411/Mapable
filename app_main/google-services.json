@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "501391216230",
+    "firebase_url": "https://map-able-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "map-able",
     "storage_bucket": "map-able.appspot.com"
   },

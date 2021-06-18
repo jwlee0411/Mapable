@@ -24,8 +24,9 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\Sunrin\AppData\Local\Temp\baseline_share_24.xml" />
+                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\baseline_email_24.xml" />
                                                 <entry key="opacityPercent" value="80" />
+                                                <entry key="paddingPercent" value="50" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -37,7 +38,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/D:/AndroidStudio/plugins/android/lib/android.jar!/images/material/icons/materialicons/share/baseline_share_24.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/email/baseline_email_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -82,9 +83,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="icon_share" />
+                                      <entry key="outputName" value="icon_email" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="000000" />
+                                      <entry key="themeColor" value="5f5f5f" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -101,7 +102,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\Sunrin\AppData\Local\Temp\ic_android_black_24dp.xml" />
+                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\ic_android_black_24dp.xml" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -167,7 +168,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\Sunrin\AppData\Local\Temp\ic_android_black_24dp.xml" />
+                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\ic_android_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -211,7 +212,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\baseline_accessible_forward_24.xml" />
+                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\ic_android_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -291,7 +292,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="C:\Users\Sunrin\AppData\Local\Temp\ic_android_black_24dp.xml" />
+                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\ic_android_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
