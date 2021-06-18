@@ -40,6 +40,10 @@
         <activity android:name=".Search.SearchActivity"/>
         <activity android:name=".Explain.ExplainActivity"/>
         <activity android:name=".Info.InfoActivity"/>
+        <activity android:name=".Login.LoginActivity"/>
+        <activity android:name=".Login.SignUpActivity"/>
+        <activity android:name=".Community.CommunityActivity"/>
+
 
 
     </application>
