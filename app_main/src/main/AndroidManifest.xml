@@ -43,9 +43,5 @@
         <activity android:name=".Login.LoginActivity"/>
         <activity android:name=".Login.SignUpActivity"/>
         <activity android:name=".Community.CommunityActivity"/>
-
-
-
     </application>
-
 </manifest>

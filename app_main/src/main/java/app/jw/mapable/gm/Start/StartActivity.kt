@@ -25,6 +25,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import app.jw.mapable.gm.AfterSearch.AfterSearchActivity
+import app.jw.mapable.gm.Community.CommunityActivity
 import app.jw.mapable.gm.Explain.ExplainActivity
 import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity1
 import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity2
@@ -42,6 +43,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.dialog_start.*
+import kotlinx.android.synthetic.main.navi_header_start.*
 import java.io.IOException
 import java.util.*
 
@@ -108,10 +110,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         try {
             val firstSettingEnabledActivity1 = FirstSettingEnabledActivity1.firstSettingEnabledActivity1 as FirstSettingEnabledActivity1
             val firstSettingEnabledActivity2 = FirstSettingEnabledActivity2.firstSettingEnabledActivity2 as FirstSettingEnabledActivity2
-            val infoActivity = InfoActivity.infoActivity as InfoActivity //TODO : InfoActivity 적용X
             firstSettingEnabledActivity1.finish()
             firstSettingEnabledActivity2.finish()
-            infoActivity.finish()
         } catch (ignored: Exception)
         {
 
@@ -224,9 +224,16 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             when (item.itemId) {
                 R.id.nav_settings -> startActivity(Intent(this@StartActivity, SettingActivity::class.java))
                 R.id.nav_explain -> startActivity(Intent(this@StartActivity, ExplainActivity::class.java))
+
+              //  R.id.nav_community -> startActivity(Intent(this@StartActivity, CommunityActivity::class.java))
+
             }
             true
         }
+
+//        textView9.setOnClickListener{
+//            println("12jladfp")
+//        }
 
         setMap()
     }

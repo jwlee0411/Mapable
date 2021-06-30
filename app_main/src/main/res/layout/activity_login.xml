@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toTopOf="@+id/editID"
+        app:layout_constraintBottom_toTopOf="@+id/editLoginID"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,11 +31,13 @@
     </com.scwang.wave.MultiWaveHeader>
 
     <EditText
-        android:id="@+id/editID"
+        android:id="@+id/editLoginID"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        android:hint="     아이디"
+        android:textSize="15sp"
         android:background="@drawable/signin_edittext"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,31 +58,33 @@
         app:srcCompat="@drawable/app_logo_transparent" />
 
     <EditText
-        android:id="@+id/editID2"
+        android:id="@+id/editLoginPW"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
+        android:hint="     비밀번호"
+        android:textSize="15sp"
         android:background="@drawable/signin_edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editID" />
+        app:layout_constraintTop_toBottomOf="@+id/editLoginID" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonLogin"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="32dp"
-        android:text="Login"
+        android:text="로그인"
         android:textAllCaps="false"
         android:fontFamily="@font/nanum_bold"
         android:textSize="18sp"
         android:background="@drawable/signin_button"
-        app:layout_constraintEnd_toEndOf="@+id/editID2"
-        app:layout_constraintStart_toStartOf="@+id/editID2"
-        app:layout_constraintTop_toBottomOf="@+id/editID2" />
+        app:layout_constraintEnd_toEndOf="@+id/editLoginPW"
+        app:layout_constraintStart_toStartOf="@+id/editLoginPW"
+        app:layout_constraintTop_toBottomOf="@+id/editLoginPW" />
 
     <TextView
         android:id="@+id/textView13"
@@ -88,12 +92,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="또는"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
+        app:layout_constraintStart_toStartOf="@+id/buttonLogin"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
 
 
     <ImageButton
+        android:id="@+id/loginGoogle"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
@@ -102,7 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/loginNaver"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
@@ -119,11 +124,11 @@
         android:fontFamily="@font/nanum_regular"
         android:text="회원가입한 적이 없다면?"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView17"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSignUp"
         tools:layout_editor_absoluteX="32dp" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/textViewSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"

@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/nanum_regular"
             android:text="버스 경로 보기"
+            android:background="@drawable/setting_background"
             android:textSize="24dp" />
 
         <View style="@style/Divider" />

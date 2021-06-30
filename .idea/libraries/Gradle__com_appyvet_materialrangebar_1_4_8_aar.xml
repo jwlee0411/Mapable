@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.appyvet:materialrangebar:1.4.8@aar">
     <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c31e635a7c17a39b6ec29524524aa3cc/jetified-materialrangebar-1.4.8/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c31e635a7c17a39b6ec29524524aa3cc/jetified-materialrangebar-1.4.8/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c31e635a7c17a39b6ec29524524aa3cc/jetified-materialrangebar-1.4.8/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c31e635a7c17a39b6ec29524524aa3cc/jetified-materialrangebar-1.4.8/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.appyvet/materialrangebar/1.4.8/d3365ffa184d5188fabbc218190f9980452dd7cb/materialrangebar-1.4.8-javadoc.jar!/" />

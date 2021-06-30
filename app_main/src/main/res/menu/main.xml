@@ -1,29 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
 
-        <item
-            android:id="@+id/nav_dictionary"
-            android:icon="@drawable/bottom_icon_dictionary"
-            android:title="@string/menu_dictionary" />
 
-        <item
-            android:id="@+id/nav_translate"
-            android:icon="@drawable/bottom_icon_translate"
-            android:title="@string/menu_translate" />
-        <item
-            android:id="@+id/nav_quiz"
-            android:icon="@drawable/bottom_icon_quiz"
-            android:title="@string/menu_quiz" />
-
-        <item
-            android:id="@+id/nav_word_matching"
-            android:icon="@drawable/bottom_icon_match_game"
-            android:title="@string/menu_word_matching" />
 
     </group>
 
