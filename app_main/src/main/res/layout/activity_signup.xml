@@ -1,6 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+    <com.scwang.wave.MultiWaveHeader
+        android:id="@+id/waveHeader"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toTopOf="@+id/editSignupID"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:mwhCloseColor="@color/pink03"
+        app:mwhColorAlpha="0.5"
+        app:mwhGradientAngle="90"
+        app:mwhProgress="1"
+        app:mwhStartColor="@color/pink01"
+        app:mwhVelocity="1"
+        app:mwhWaveHeight="90dp"
+        app:mwhWaves="PairWave" >
+
+    </com.scwang.wave.MultiWaveHeader>
+
+    <EditText
+        android:id="@+id/editSignupID"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="     아이디"
+        android:textSize="15sp"
+        android:background="@drawable/signin_edittext"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.433" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/waveHeader"
+        app:layout_constraintEnd_toStartOf="@+id/textView19"
+        app:layout_constraintTop_toTopOf="@+id/waveHeader"
+
+        app:srcCompat="@drawable/app_logo_transparent" />
+
+    <EditText
+        android:id="@+id/editSignUpPW"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:hint="     비밀번호"
+        android:textSize="15sp"
+        android:background="@drawable/signin_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSignupID" />
+
+    <Button
+        android:id="@+id/buttonSignUp"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:text="회원가입"
+        android:textAllCaps="false"
+        android:fontFamily="@font/nanum_bold"
+        android:textSize="18sp"
+        android:background="@drawable/signin_button"
+        app:layout_constraintEnd_toEndOf="@+id/editSignUpPW"
+        app:layout_constraintStart_toStartOf="@+id/editSignUpPW"
+        app:layout_constraintTop_toBottomOf="@+id/editSignUpPW" />
+
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mapable"
+        android:textColor="@color/white"
+        android:textSize="32dp"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/waveHeader"
+        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

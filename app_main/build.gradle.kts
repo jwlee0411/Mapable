@@ -57,6 +57,7 @@ dependencies {
     implementation ("com.github.PhilJay:MPAndroidChart:3.1.0")
     implementation ("com.scwang.wave:MultiWaveHeader:1.0.0")
     implementation ("com.airbnb.android:lottie:3.7.0")
+    implementation ("com.google.firebase:firebase-auth:21.0.1")
     implementation ("com.github.vikramezhil:DroidSpeech:v2.0.3")
     testImplementation ("junit:junit:4.13.2")
     implementation ("androidx.core:core-ktx:1.5.0")

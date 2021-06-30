@@ -36,7 +36,7 @@ public class AfterSearchActivity extends AppCompatActivity {
 
 
     String[][][] pathAll;
-    String setWays = "", locationStart, locationEnd;
+    String setWays = "";
     int pathAllLength, MAX_PATHALL_SIZE = 24;
     double startX, startY, endX, endY;
 
