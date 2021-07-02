@@ -31,6 +31,7 @@ import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity1
 import app.jw.mapable.gm.FirstSetting.FirstSettingEnabledActivity2
 import app.jw.mapable.gm.Info.InfoActivity
 import app.jw.mapable.gm.R
+import app.jw.mapable.gm.Setting.NewSettingActivity
 import app.jw.mapable.gm.Setting.SettingActivity
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -161,8 +162,9 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         //debug : 기존 DB를 지우기 위한 디버그용 버튼
 
 
-        //debug : 기존 DB를 지우기 위한 디버그용 버튼
+        //debug : 기존 DB를 지우기 위한 디버그용 버튼(x) => 그때그때 맞는 용도로 사용
         floatingDebug.setOnClickListener {
+            startActivity(Intent(this, NewSettingActivity::class.java))
             sharedPreferences.edit().clear().apply()
         }
 
