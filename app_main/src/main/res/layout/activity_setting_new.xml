@@ -32,6 +32,7 @@
         android:layout_marginBottom="16dp"/>
 
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -311,6 +312,272 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutSubwaySetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutBusSetting">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/setting_background"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="0dp">
+
+
+                    <TextView
+                        android:id="@+id/textSubway"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/nanum_bold"
+                        android:text="지하철 경로 보기"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/viewSubwayLine"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/gray2"
+                        app:layout_constraintBottom_toBottomOf="@+id/switchSubway"
+                        app:layout_constraintEnd_toStartOf="@+id/switchSubway"
+                        app:layout_constraintTop_toTopOf="@+id/switchSubway" />
+
+                    <Switch
+                        android:id="@+id/switchSubway"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text=""
+                        app:layout_constraintBottom_toBottomOf="@+id/textSubwayExplain"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textSubway" />
+
+                    <TextView
+                        android:id="@+id/textSubwayExplain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/nanum_regular"
+
+                        android:text="지하철을 이용하는 경로로 길찾기를 진행합니다."
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textSubway"
+                        app:layout_constraintTop_toBottomOf="@+id/textSubway" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/linearLayoutCompat02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/setting_background"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout02"
+                    tools:layout_editor_absoluteX="-16dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:layout_editor_absoluteY="16dp"
+
+                        >
+
+
+                        <TextView
+                            android:id="@+id/textSubwayElevator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/nanum_bold"
+                            android:text="엘리베이터 있는 역만 안내"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textSubwayExplain2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="@font/nanum_regular"
+
+                            android:text="저상버스를 이용 가능한 경로로 길찾기를 진행합니다."
+                            android:textSize="10sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textSubwayElevator"
+                            app:layout_constraintTop_toBottomOf="@+id/textSubwayElevator" />
+
+                        <View
+                            android:id="@+id/viewSubwayElevatorLine"
+                            android:layout_width="1dp"
+                            android:layout_height="0dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@color/gray2"
+                            app:layout_constraintBottom_toBottomOf="@+id/switchSubwayElevator"
+                            app:layout_constraintEnd_toStartOf="@+id/switchSubwayElevator"
+                            app:layout_constraintTop_toTopOf="@+id/switchSubwayElevator" />
+
+                        <Switch
+                            android:id="@+id/switchSubwayElevator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:text=""
+                            app:layout_constraintBottom_toBottomOf="@+id/textSubwayExplain2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textSubwayElevator" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view6"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@color/gray2" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:id="@+id/textSubwayWheelchairStation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/nanum_bold"
+                            android:text="휠체어 탑승 가능 역만 안내"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textSubwayExplain3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="@font/nanum_regular"
+
+                            android:text="대기해야 하는 시간이 30분 이상인 경우, 안내하지 않습니다."
+                            android:textSize="10sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textSubwayWheelchairStation"
+                            app:layout_constraintTop_toBottomOf="@+id/textSubwayWheelchairStation" />
+
+                        <View
+                            android:id="@+id/viewSubwayWheelchairStationLine"
+                            android:layout_width="1dp"
+                            android:layout_height="0dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@color/gray2"
+                            app:layout_constraintBottom_toBottomOf="@+id/switchSubwayWheelchairStation"
+                            app:layout_constraintEnd_toStartOf="@+id/switchSubwayWheelchairStation"
+                            app:layout_constraintTop_toTopOf="@+id/switchSubwayWheelchairStation" />
+
+                        <Switch
+                            android:id="@+id/switchSubwayWheelchairStation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:text=""
+                            app:layout_constraintBottom_toBottomOf="@+id/textSubwayExplain3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textSubwayWheelchairStation" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@color/gray2" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:layout_editor_absoluteY="16dp"
+
+                        >
+
+
+                        <TextView
+                            android:id="@+id/textSubwayWheelchairOn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/nanum_bold"
+                            android:text="휠체어 거치 공간 있는 역만 안내"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textSubwayExplain4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="@font/nanum_regular"
+
+                            android:text="대기해야 하는 시간이 60분 이상인 경우, 안내하지 않습니다."
+                            android:textSize="10sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textSubwayWheelchairOn"
+                            app:layout_constraintTop_toBottomOf="@+id/textSubwayWheelchairOn" />
+
+                        <View
+                            android:id="@+id/viewSubwayWheelchairOnLine"
+                            android:layout_width="1dp"
+                            android:layout_height="0dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@color/gray2"
+                            app:layout_constraintBottom_toBottomOf="@+id/switchSubwayWheelchairOn"
+                            app:layout_constraintEnd_toStartOf="@+id/switchSubwayWheelchairOn"
+                            app:layout_constraintTop_toTopOf="@+id/switchSubwayWheelchairOn" />
+
+                        <Switch
+                            android:id="@+id/switchSubwayWheelchairOn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:text=""
+                            app:layout_constraintBottom_toBottomOf="@+id/textSubwayExplain4"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textSubwayWheelchairOn" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -320,10 +587,10 @@
                 android:orientation="horizontal"
                 android:divider="?android:attr/dividerHorizontal"
                 android:showDividers="middle"
-                app:layout_constraintTop_toBottomOf="@+id/layoutBusSetting"
+                app:layout_constraintTop_toBottomOf="@+id/layoutSubwaySetting"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+
                 >
 
                 <RadioButton
