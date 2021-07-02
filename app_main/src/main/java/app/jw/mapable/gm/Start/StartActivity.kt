@@ -227,7 +227,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
                 R.id.nav_settings -> startActivity(Intent(this@StartActivity, SettingActivity::class.java))
                 R.id.nav_explain -> startActivity(Intent(this@StartActivity, ExplainActivity::class.java))
 
-              //  R.id.nav_community -> startActivity(Intent(this@StartActivity, CommunityActivity::class.java))
+               R.id.nav_community -> startActivity(Intent(this@StartActivity, CommunityActivity::class.java))
 
             }
             true
