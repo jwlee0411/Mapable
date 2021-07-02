@@ -24,10 +24,14 @@ import kotlin.collections.ArrayList
 class AfterSearchActivity : AppCompatActivity() {
 
 
-    val adapter = MapRecyclerAdapter()
+
+    val recyclerAdapter = MapRecyclerAdapter(this)
+
 
     val preferences = getSharedPreferences("preferences", 0)!!
     val editor = preferences.edit()!!
+
+    var datas = ArrayList<Item>()
 
     val odsayService = ODsayService.init(this, getString(R.string.odsay_key))
 
@@ -41,6 +45,15 @@ class AfterSearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_after_search)
+
+
+
+        //마지막에 넣기
+        datas.apply{
+            recyclerAdapter.datas = datas
+            recyclerAdapter.notifyDataSetChanged()
+        }
 
         firstSetting()
         setonClick()
@@ -55,7 +68,7 @@ class AfterSearchActivity : AppCompatActivity() {
         recyclerView.addItemDecoration(DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL))
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
         recyclerView.isNestedScrollingEnabled = false
-        recyclerView.adapter = adapter
+        recyclerView.adapter = recyclerAdapter
 
         startX = preferences.getFloat("startX", 0.0f)
         startY = preferences.getFloat("startY", 0.0f)
@@ -150,7 +163,7 @@ class AfterSearchActivity : AppCompatActivity() {
 
 
 
-            for(i in 0..pathArray.length())
+            for(i in 0 until pathArray.length())
             {
                 var pathAllOne = ArrayList<ArrayList<String>>()
                 var pathAllTwo = ArrayList<String>()
@@ -166,7 +179,7 @@ class AfterSearchActivity : AppCompatActivity() {
 
                 var subPathArray = pathObject.getJSONArray("subPath")
 
-                for(j in 0..subPathArray.length())
+                for(j in 0 until subPathArray.length())
                 {
                     var pathAllThree = ArrayList<String>()
                     val subPathObject = subPathArray.getJSONObject(j)
@@ -192,7 +205,7 @@ class AfterSearchActivity : AppCompatActivity() {
                         val stopArray = stopObject.getJSONArray("stations")
                         var stopList = ""
 
-                        for(k in 0..stopArray.length())
+                        for(k in 0 until stopArray.length())
                         {
                             val stopNewObject = stopArray.getJSONObject(k)
                             stopList = stopList + stopNewObject.getString("stationName")+ "☆" + stopNewObject.getString("x") + "☆" + stopNewObject.getString("y") + "★"
@@ -217,6 +230,7 @@ class AfterSearchActivity : AppCompatActivity() {
                     }
                     else
                     {
+
 
                     }
 
