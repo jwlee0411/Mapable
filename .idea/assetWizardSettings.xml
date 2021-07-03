@@ -24,9 +24,9 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\baseline_email_24.xml" />
+                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\baseline_location_on_24.xml" />
                                                 <entry key="opacityPercent" value="80" />
-                                                <entry key="paddingPercent" value="50" />
+                                                <entry key="paddingPercent" value="10" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -38,7 +38,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/email/baseline_email_24.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/location_on/baseline_location_on_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -83,9 +83,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="icon_email" />
+                                      <entry key="outputName" value="icon_location_black" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="5f5f5f" />
+                                      <entry key="themeColor" value="000000" />
                                     </map>
                                   </option>
                                 </PersistentState>

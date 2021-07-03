@@ -6,19 +6,19 @@
     app:startDestination="@id/navigation_community_main">
     <fragment
         android:id="@+id/navigation_community_main"
-        android:name="app.jw.mapable.gm.Community.CommunityMainFragment"
+        android:name="app.jw.mapable.gm.community.CommunityMainFragment"
         android:label="Main"
         tools:layout="@layout/fragment_community_main"/>
 
     <fragment
         android:id="@+id/navigation_community_search"
-        android:name="app.jw.mapable.gm.Community.CommunitySearchFragment"
+        android:name="app.jw.mapable.gm.community.CommunitySearchFragment"
         android:label="search"
         tools:layout="@layout/fragment_community_search"/>
 
     <fragment
         android:id="@+id/navigation_community_my"
-        android:name="app.jw.mapable.gm.Community.CommunityMyFragment"
+        android:name="app.jw.mapable.gm.community.CommunityMyFragment"
         android:label="my"
         tools:layout="@layout/fragment_community_my"/>
 
