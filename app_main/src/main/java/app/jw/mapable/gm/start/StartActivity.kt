@@ -27,10 +27,8 @@ import app.jw.mapable.gm.aftersearch.AfterSearchActivity
 import app.jw.mapable.gm.community.CommunityActivity
 import app.jw.mapable.gm.explain.ExplainActivity
 import app.jw.mapable.gm.firstsetting.FirstSettingEnabledActivity1
-import app.jw.mapable.gm.firstsetting.FirstSettingEnabledActivity2
 import app.jw.mapable.gm.info.InfoActivity
 import app.jw.mapable.gm.R
-import app.jw.mapable.gm.setting.NewSettingActivity
 import app.jw.mapable.gm.setting.SettingActivity
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -109,9 +107,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         //다른 액티비티 종료
         try {
             val firstSettingEnabledActivity1 = FirstSettingEnabledActivity1.firstSettingEnabledActivity1 as FirstSettingEnabledActivity1
-            val firstSettingEnabledActivity2 = FirstSettingEnabledActivity2.firstSettingEnabledActivity2 as FirstSettingEnabledActivity2
             firstSettingEnabledActivity1.finish()
-            firstSettingEnabledActivity2.finish()
         } catch (ignored: Exception)
         {
 
@@ -163,8 +159,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
         //debug : 기존 DB를 지우기 위한 디버그용 버튼(x) => 그때그때 맞는 용도로 사용
         floatingDebug.setOnClickListener {
-            startActivity(Intent(this, NewSettingActivity::class.java))
-            sharedPreferences.edit().clear().apply()
+            startActivity(Intent(this, SettingActivity::class.java))
+            //sharedPreferences.edit().clear().apply()
         }
 
 

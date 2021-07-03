@@ -11,7 +11,8 @@ import app.jw.mapable.gm.R
 import app.jw.mapable.gm.start.StartActivity
 import kotlinx.android.synthetic.main.activity_setting.*
 
-class SettingActivity : AppCompatActivity(){
+
+class SettingActivity : AppCompatActivity() {
 
     lateinit var preferences : SharedPreferences
     lateinit var editor : SharedPreferences.Editor
@@ -19,19 +20,66 @@ class SettingActivity : AppCompatActivity(){
 
     lateinit var settings : BooleanArray
 
+    var setting_default : Int = 0
 
-    override fun onCreate(savedinstancestate : Bundle?)
-    {
-        super.onCreate(savedinstancestate)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
+
         preferences = getSharedPreferences("preferences", 0)
         editor = preferences.edit()
 
-
         settings = BooleanArray(10)
 
-        getPreviousSettings()
+        setting_default = intent.getIntExtra("defaultSetting", 0)
+
+
         setonClick()
+
+        when(setting_default)
+        {
+            0 -> {
+                getPreviousSettings()
+            }
+            1,2 ->{
+                subwayEnabled()
+                busEnabled()
+
+                switchSubway.isChecked = true
+                switchSubwayElevator.isChecked = true
+                switchSubwayWheelchairStation.isChecked = true
+                switchSubwayWheelchairOn.isChecked = true
+
+                switchBus.isChecked = true
+                switchBusLow.isChecked = true
+                switchBusWait60.isChecked = true
+
+                radioButton1.isChecked = true
+            }
+            3 ->{
+                subwayEnabled()
+                busEnabled()
+                switchSubway.isChecked = true
+                switchSubwayElevator.isChecked = true
+
+                switchBus.isChecked = true
+                switchBusLow.isChecked = true
+                switchBusWait60.isChecked = true
+
+                radioButton1.isChecked = true
+            }
+            4 -> {
+                subwayDisabled()
+                busDisabled()
+
+                radioButton1.isChecked = true
+            }
+        }
+
+
+
+
     }
 
     fun getPreviousSettings()
@@ -42,38 +90,34 @@ class SettingActivity : AppCompatActivity(){
 
 
 
-        checkBus.isChecked = settings[0]
+        switchBus.isChecked = settings[0]
         if(settings[0])
         {
-            checkBusLow.isEnabled = true
-            checkBusWait30.isEnabled = true
-            checkBusWait60.isEnabled = true
+            busEnabled()
 
             settings[1] = preferences.getBoolean("busLowOnly", false)
             settings[2] = preferences.getBoolean("busWait30", false)
             settings[3] = preferences.getBoolean("busWait60", false)
 
 
-            checkBusLow.isChecked = settings[1]
-            checkBusWait30.isChecked = settings[2]
-            checkBusWait60.isChecked = settings[3]
+            switchBusLow.isChecked = settings[1]
+            switchBusWait30.isChecked = settings[2]
+            switchBusWait60.isChecked = settings[3]
         }
 
 
-        checkSubway.isChecked = settings[4]
+        switchSubway.isChecked = settings[4]
         if(settings[4])
         {
-            checkSubwayElevator.isEnabled = true
-            checkSubwayWheelchairStation.isEnabled = true
-            checkSubwayWheelchairOn.isEnabled = true
+            subwayEnabled()
 
             settings[5] = preferences.getBoolean("subwayElevator", false)
             settings[6] = preferences.getBoolean("subwayWheelchairStation", false)
             settings[7] = preferences.getBoolean("subwayWheelchairOn", false)
 
-            checkSubwayElevator.isChecked = settings[5]
-            checkSubwayWheelchairStation.isChecked = settings[6]
-            checkSubwayWheelchairOn.isChecked = settings[7]
+            switchSubwayElevator.isChecked = settings[5]
+            switchSubwayWheelchairStation.isChecked = settings[6]
+            switchSubwayWheelchairOn.isChecked = settings[7]
         }
 
 
@@ -81,76 +125,68 @@ class SettingActivity : AppCompatActivity(){
         settings[8] = preferences.getBoolean("disabled", false)
         settings[9] = preferences.getBoolean("noInfo", false)
 
-        checkDisabled.isChecked = settings[8]
-        checkNoInfo.isChecked = settings[9]
+
+        switchDisabled.isChecked = settings[8]
+        switchNoInfo.isChecked = settings[9]
 
         val searchWay : Int = preferences.getInt("searchWay", 0)
 
         when(searchWay)
         {
-            0 -> radioBest.isChecked = true
-            1 -> radioBus.isChecked = true
-            2 -> radioSubway.isChecked = true
-            3 -> radioWalk.isChecked = true
+            0 -> radioButton1.isChecked = true
+            1 -> radioButton2.isChecked = true
+            2 -> radioButton3.isChecked = true
+            3 -> radioButton4.isChecked = true
         }
-
-
-
     }
 
-    fun setonClick()
-    {
-        checkBus.setOnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
+    fun setonClick(){
+        switchBus.setOnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
 
             if(isChecked)
             {
-                checkBusLow.isEnabled = true
-                checkBusWait30.isEnabled = true
-                checkBusWait60.isEnabled = true
+                busEnabled()
+
             }
             else
             {
-                checkBusLow.isEnabled = false
-                checkBusWait30.isEnabled = false
-                checkBusWait60.isEnabled = false
+                busDisabled()
             }
 
 
 
         }
 
-        checkSubway.setOnCheckedChangeListener{ buttonView: CompoundButton?, isChecked: Boolean ->
+        switchSubway.setOnCheckedChangeListener{ buttonView: CompoundButton?, isChecked: Boolean ->
 
             if(isChecked)
             {
-                checkSubwayElevator.isEnabled = true
-                checkSubwayWheelchairStation.isEnabled = true
-                checkSubwayWheelchairOn.isEnabled = true
+                subwayEnabled()
             }
             else
             {
-                checkSubwayElevator.isEnabled = false
-                checkSubwayWheelchairStation.isEnabled = false
-                checkSubwayWheelchairOn.isEnabled = false
+                subwayDisabled()
+
             }
 
 
         }
 
-        buttonSet.setOnClickListener {
-            if (!checkBus.isChecked&&radioSearchWayCheck.checkedRadioButtonId == R.id.radioBus)
+
+        buttonApply.setOnClickListener {
+            if (!switchBus.isChecked&&radioWayCheck.checkedRadioButtonId == R.id.radioButton2)
             {
                 Toast.makeText(this, "'버스 경로 보기' 를 선택하지 않고 '버스 우선 탐색' 을 선택할 수 없습니다.", Toast.LENGTH_LONG).show()
             }
-            else if(!checkSubway.isChecked && radioSearchWayCheck.checkedRadioButtonId == R.id.radioSubway)
+            else if(!switchSubway.isChecked && radioWayCheck.checkedRadioButtonId == R.id.radioButton3)
             {
                 Toast.makeText(this, "'지하철 경로 보기' 를 선택하지 않고 '지하철 우선 탐색' 을 선택할 수 없습니다.", Toast.LENGTH_LONG).show()
             }
-            else if(!checkBus.isChecked && !checkSubway.isChecked)
+            else if(!switchBus.isChecked && !switchSubway.isChecked)
             {
                 Toast.makeText(this, "버스와 지하철 중 적어도 하나의 옵션을 선택해 주세요.", Toast.LENGTH_LONG).show()
             }
-            else if(checkDisabled.isChecked)
+            else if(switchDisabled.isChecked)
             {
                 val dlg = AlertDialog.Builder(this)
                 dlg.setTitle("시각장애인 모드로 설정하시겠어요?")
@@ -161,34 +197,112 @@ class SettingActivity : AppCompatActivity(){
             }
             else applySetting()
         }
+    }
+
+
+    fun subwayEnabled(){
+        switchSubwayElevator.isEnabled = true
+        switchSubwayWheelchairStation.isEnabled = true
+        switchSubwayWheelchairOn.isEnabled = true
+
+        textSubwayElevator.setTextColor(resources.getColor(R.color.black, null))
+        textSubwayElevatorExplain.setTextColor(resources.getColor(R.color.gray1, null))
+        textSubwayWheelchairStation.setTextColor(resources.getColor(R.color.black, null))
+        textSubwayWheelchairStationExplain.setTextColor(resources.getColor(R.color.gray1, null))
+        textSubwayWheelchairOn.setTextColor(resources.getColor(R.color.black, null))
+        textSubwayWheelchairOnExplain.setTextColor(resources.getColor(R.color.gray1, null))
 
     }
 
+    fun subwayDisabled(){
+        switchSubwayElevator.isEnabled = false
+        switchSubwayWheelchairStation.isEnabled = false
+        switchSubwayWheelchairOn.isEnabled = false
+
+        textSubwayElevator.setTextColor(resources.getColor(R.color.gray2, null))
+        textSubwayElevatorExplain.setTextColor(resources.getColor(R.color.gray2, null))
+        textSubwayWheelchairStation.setTextColor(resources.getColor(R.color.gray2, null))
+        textSubwayWheelchairStationExplain.setTextColor(resources.getColor(R.color.gray2, null))
+        textSubwayWheelchairOn.setTextColor(resources.getColor(R.color.gray2, null))
+        textSubwayWheelchairOnExplain.setTextColor(resources.getColor(R.color.gray2, null))
+    }
+
+    fun busEnabled(){
+        switchBusLow.isEnabled = true
+        switchBusWait30.isEnabled = true
+        switchBusWait60.isEnabled = true
+
+        textBusLow.setTextColor(resources.getColor(R.color.black, null))
+        textBusLowExplain.setTextColor(resources.getColor(R.color.gray1, null))
+        textBusWait30.setTextColor(resources.getColor(R.color.black, null))
+        textBusWait30Explain.setTextColor(resources.getColor(R.color.gray1, null))
+        textBusWait60.setTextColor(resources.getColor(R.color.black, null))
+        textBusWait60Explain.setTextColor(resources.getColor(R.color.gray1, null))
+
+    }
+
+    fun busDisabled(){
+        switchBusLow.isEnabled = false
+        switchBusWait30.isEnabled = false
+        switchBusWait60.isEnabled = false
+
+        textBusLow.setTextColor(resources.getColor(R.color.gray2, null))
+        textBusLowExplain.setTextColor(resources.getColor(R.color.gray2, null))
+        textBusWait30.setTextColor(resources.getColor(R.color.gray2, null))
+        textBusWait30Explain.setTextColor(resources.getColor(R.color.gray2, null))
+        textBusWait60.setTextColor(resources.getColor(R.color.gray2, null))
+        textBusWait60Explain.setTextColor(resources.getColor(R.color.gray2, null))
+    }
+
     fun applySetting() {
-        editor.putBoolean("busRoadFound", checkBus.isChecked)
-        editor.putBoolean("busLowOnly", checkBusLow.isChecked)
-        editor.putBoolean("busWait30", checkBusWait30.isChecked)
-        editor.putBoolean("busWait60", checkBusWait60.isChecked)
-        editor.putBoolean("subwayRoadFound", checkSubway.isChecked)
-        editor.putBoolean("subwayElevator", checkSubwayElevator.isChecked)
-        editor.putBoolean("subwayWheelchairStation", checkSubwayWheelchairStation.isChecked)
-        editor.putBoolean("subwayWheelchairOn", checkSubwayWheelchairOn.isChecked)
-        editor.putBoolean("disabled", checkDisabled.isChecked)
-        editor.putBoolean("noInfo", checkNoInfo.isChecked)
-        when (radioSearchWayCheck.checkedRadioButtonId) {
-            R.id.radioBest -> editor.putInt("searchWay", 0)
-            R.id.radioBus -> editor.putInt("searchWay", 1)
-            R.id.radioSubway -> editor.putInt("searchWay", 2)
-            R.id.radioWalk -> editor.putInt("searchWay", 3)
+        editor.putBoolean("busRoadFound", switchBus.isChecked)
+        editor.putBoolean("busLowOnly", switchBusLow.isChecked)
+        editor.putBoolean("busWait30", switchBusWait30.isChecked)
+        editor.putBoolean("busWait60", switchBusWait60.isChecked)
+        editor.putBoolean("subwayRoadFound", switchSubway.isChecked)
+        editor.putBoolean("subwayElevator", switchSubwayElevator.isChecked)
+        editor.putBoolean("subwayWheelchairStation", switchSubwayWheelchairStation.isChecked)
+        editor.putBoolean("subwayWheelchairOn", switchSubwayWheelchairOn.isChecked)
+
+
+        editor.putBoolean("disabled", switchDisabled.isChecked)
+        editor.putBoolean("noInfo", switchNoInfo.isChecked)
+        when (radioWayCheck.checkedRadioButtonId) {
+            R.id.radioButton1 -> editor.putInt("searchWay", 0)
+            R.id.radioButton2 -> editor.putInt("searchWay", 1)
+            R.id.radioButton3 -> editor.putInt("searchWay", 2)
+            R.id.radioButton4 -> editor.putInt("searchWay", 3)
         }
+        editor.putBoolean("settingAvailable", true)
+
         editor.apply()
-        startActivity(Intent(this, StartActivity::class.java))
+        Toast.makeText(this, "설정이 적용되었습니다.", Toast.LENGTH_LONG).show()
+
+        val intent = Intent(this, StartActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        finish()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent = Intent(this, StartActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
+
+        when(setting_default){
+            0 -> {
+                val intent = Intent(this, StartActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }
+
+            1,2,3,4 -> {
+                finish()
+            }
+        }
+
+
+
     }
+
+
+
 }

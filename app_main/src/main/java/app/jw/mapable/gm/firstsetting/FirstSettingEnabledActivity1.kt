@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
+import app.jw.mapable.gm.setting.SettingActivity
 import kotlinx.android.synthetic.main.activity_first_setting_enabled_1.*
 
 class FirstSettingEnabledActivity1 : AppCompatActivity() {
@@ -15,7 +16,7 @@ class FirstSettingEnabledActivity1 : AppCompatActivity() {
         //TODO : 이게 맞는지 모르겠음
         firstSettingEnabledActivity1 = this@FirstSettingEnabledActivity1
 
-        var intent = Intent(this, FirstSettingEnabledActivity2::class.java)
+        var intent = Intent(this, SettingActivity::class.java)
 
         lottieSetting1.setOnClickListener {
             intent.putExtra("defaultSetting", 1)

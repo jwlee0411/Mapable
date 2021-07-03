@@ -24,15 +24,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textLocationName" />
 
-    <ImageButton
+    <Button
         android:id="@+id/buttonShare"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
-
-        android:background="@drawable/icon_share"
-
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/nanum_bold"
+        android:text="공유"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/buttonStar"
         app:layout_constraintTop_toTopOf="@+id/buttonStar" />
@@ -46,7 +45,7 @@
         android:text="출발"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/buttonShare"
-        app:layout_constraintTop_toTopOf="@+id/buttonStar" />
+        app:layout_constraintTop_toTopOf="@+id/buttonShare" />
 
     <Button
         android:id="@+id/buttonEnd"
@@ -57,7 +56,7 @@
         android:text="도착"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/buttonStart"
-        app:layout_constraintTop_toTopOf="@+id/buttonStar" />
+        app:layout_constraintTop_toTopOf="@+id/buttonShare" />
 
     <Button
         android:id="@+id/buttonCancel"
@@ -68,7 +67,7 @@
         android:text="취소"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/buttonEnd"
-        app:layout_constraintTop_toTopOf="@+id/buttonStar" />
+        app:layout_constraintTop_toTopOf="@+id/buttonShare" />
 
     <TextView
         android:id="@+id/textLocationName"
