@@ -29,6 +29,7 @@ import app.jw.mapable.gm.explain.ExplainActivity
 import app.jw.mapable.gm.firstsetting.FirstSettingEnabledActivity1
 import app.jw.mapable.gm.info.InfoActivity
 import app.jw.mapable.gm.R
+import app.jw.mapable.gm.search.SearchActivity
 import app.jw.mapable.gm.setting.SettingActivity
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -174,10 +175,19 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
         textViewSearch.setOnClickListener {
 
-            Toast.makeText(this, "장소 검색 기능은 추후 제공 예정입니다.", Toast.LENGTH_LONG).show()
-//            startActivity(Intent(this, SearchActivity::class.java))
-//            finish()
-//            overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none)
+           // Toast.makeText(this, "장소 검색 기능은 추후 제공 예정입니다.", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, SearchActivity::class.java)
+            intent.putExtra("TTS", false)
+            startActivity(intent)
+            overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none)
+        }
+        soundButton.setOnClickListener {
+
+            //Toast.makeText(this, "장소 검색 기능은 추후 제공 예정입니다.", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, SearchActivity::class.java)
+            intent.putExtra("TTS", true)
+            startActivity(intent)
+            overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none)
         }
 
         floatingCurrentLocation.setOnClickListener {
@@ -514,10 +524,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         }
 
 
-        soundButton.setOnClickListener {
 
-            Toast.makeText(this, "장소 검색 기능은 추후 제공 예정입니다.", Toast.LENGTH_LONG).show()
-        }
     }
 
 

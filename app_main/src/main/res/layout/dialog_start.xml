@@ -32,6 +32,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="@font/nanum_bold"
         android:text="공유"
+        android:background="@drawable/setting_background_pink"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/buttonStar"
         app:layout_constraintTop_toTopOf="@+id/buttonStar" />
@@ -43,6 +44,7 @@
         android:layout_marginStart="8dp"
         android:fontFamily="@font/nanum_bold"
         android:text="출발"
+        android:background="@drawable/setting_background_pink"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/buttonShare"
         app:layout_constraintTop_toTopOf="@+id/buttonShare" />
@@ -54,6 +56,7 @@
         android:layout_marginStart="8dp"
         android:fontFamily="@font/nanum_bold"
         android:text="도착"
+        android:background="@drawable/setting_background_pink"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/buttonStart"
         app:layout_constraintTop_toTopOf="@+id/buttonShare" />
@@ -65,18 +68,21 @@
         android:layout_marginStart="8dp"
         android:fontFamily="@font/nanum_bold"
         android:text="취소"
+        android:background="@drawable/setting_background_pink"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/buttonEnd"
         app:layout_constraintTop_toTopOf="@+id/buttonShare" />
 
     <TextView
         android:id="@+id/textLocationName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nanum_bold"
         android:text="주소"
+
         android:textColor="@color/black"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
