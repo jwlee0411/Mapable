@@ -20,29 +20,29 @@
             android:value="false" />
 
 
-        <activity android:name=".Splash.SplashActivity">
+        <activity android:name=".splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AfterSearch.AfterSearchActivity"/>
-        <activity android:name=".AfterSearch.AfterSearchDisabledActivity"/>
-        <activity android:name=".Start.StartActivity"/>
-        <activity android:name=".Start.StartDisabledActivity"/>
-        <activity android:name=".AfterRoad.AfterRoadActivity"/>
-        <activity android:name=".Setting.SettingActivity"/>
-        <activity android:name=".FirstSetting.FirstSettingActivity"/>
-        <activity android:name=".FirstSetting.FirstSettingDisabledActivity"/>
-        <activity android:name=".FirstSetting.FirstSettingEnabledActivity1"/>
-        <activity android:name=".FirstSetting.FirstSettingEnabledActivity2"/>
-        <activity android:name=".Setting.NewSettingActivity"/>
-        <activity android:name=".Search.SearchActivity"/>
-        <activity android:name=".Explain.ExplainActivity"/>
-        <activity android:name=".Info.InfoActivity"/>
-        <activity android:name=".Login.LoginActivity"/>
-        <activity android:name=".Login.SignUpActivity"/>
-        <activity android:name=".Community.CommunityActivity"/>
+        <activity android:name=".aftersearch.AfterSearchActivity"/>
+        <activity android:name=".aftersearch.AfterSearchDisabledActivity"/>
+        <activity android:name=".start.StartActivity"/>
+        <activity android:name=".start.StartDisabledActivity"/>
+        <activity android:name=".afterroad.AfterRoadActivity"/>
+        <activity android:name=".setting.SettingActivity"/>
+        <activity android:name=".firstsetting.FirstSettingActivity"/>
+        <activity android:name=".firstsetting.FirstSettingDisabledActivity"/>
+        <activity android:name=".firstsetting.FirstSettingEnabledActivity1"/>
+        <activity android:name=".firstsetting.FirstSettingEnabledActivity2"/>
+        <activity android:name=".setting.NewSettingActivity"/>
+        <activity android:name=".search.SearchActivity"/>
+        <activity android:name=".explain.ExplainActivity"/>
+        <activity android:name=".info.InfoActivity"/>
+        <activity android:name=".login.LoginActivity"/>
+        <activity android:name=".login.SignUpActivity"/>
+        <activity android:name=".community.CommunityActivity"/>
     </application>
 </manifest>
