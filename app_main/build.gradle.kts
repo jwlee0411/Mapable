@@ -29,7 +29,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    buildFeatures{
+        viewBinding = true
+    }
 }
+
+
 
 dependencies {
 
@@ -46,6 +52,8 @@ dependencies {
         exclude (group = "com.android.support", module = "support-annotations")
     }
 
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.3.5")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.3.5")
     implementation ("org.jsoup:jsoup:1.13.1")
     implementation ("com.google.android.gms:play-services-maps:17.0.1")
     implementation ("com.google.android.material:material:1.4.0-rc01")
