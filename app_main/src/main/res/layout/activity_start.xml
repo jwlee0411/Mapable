@@ -207,7 +207,7 @@
         android:layout_gravity="start"
         app:itemTextColor="@color/black"
         app:headerLayout="@layout/navi_header_start"
-        app:menu="@layout/navi_menu_start" />
+        app:menu="@menu/navi_menu_start" />
 
 
 

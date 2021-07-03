@@ -5,6 +5,6 @@ data class Item (
     val totalwalk : String,
     val totaltime : String,
     val payment1 : String,
-    val ways1 : String
+    val ways1 : ArrayList<ArrayList<String>>
 
 )

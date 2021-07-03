@@ -29,7 +29,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    buildFeatures{
+        viewBinding = true
+    }
 }
+
+
 
 dependencies {
 
@@ -38,6 +44,7 @@ dependencies {
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
     implementation (platform ("com.google.firebase:firebase-bom:27.1.0"))
     implementation ("com.google.firebase:firebase-database:20.0.0")
+    implementation ("com.google.firebase:firebase-firestore:23.0.1")
     implementation ("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.navigation:navigation-runtime:2.3.5")
 
@@ -45,6 +52,8 @@ dependencies {
         exclude (group = "com.android.support", module = "support-annotations")
     }
 
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.3.5")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.3.5")
     implementation ("org.jsoup:jsoup:1.13.1")
     implementation ("com.google.android.gms:play-services-maps:17.0.1")
     implementation ("com.google.android.material:material:1.4.0-rc01")

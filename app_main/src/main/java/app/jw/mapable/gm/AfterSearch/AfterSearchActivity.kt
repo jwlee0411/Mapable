@@ -1,6 +1,7 @@
 package app.jw.mapable.gm.AfterSearch
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
@@ -25,15 +26,15 @@ class AfterSearchActivity : AppCompatActivity() {
 
 
 
-    val recyclerAdapter = MapRecyclerAdapter(this)
+    private val recyclerAdapter = MapRecyclerAdapter(this)
 
 
-    val preferences = getSharedPreferences("preferences", 0)!!
-    val editor = preferences.edit()!!
+    lateinit var preferences : SharedPreferences
+    lateinit var editor : SharedPreferences.Editor
 
     var datas = ArrayList<Item>()
 
-    val odsayService = ODsayService.init(this, getString(R.string.odsay_key))
+    lateinit var odsayService : ODsayService
 
     var startLocation = ""
     var endLocation = ""
@@ -49,11 +50,6 @@ class AfterSearchActivity : AppCompatActivity() {
 
 
 
-        //마지막에 넣기
-        datas.apply{
-            recyclerAdapter.datas = datas
-            recyclerAdapter.notifyDataSetChanged()
-        }
 
         firstSetting()
         setonClick()
@@ -62,6 +58,13 @@ class AfterSearchActivity : AppCompatActivity() {
     }
 
     private fun firstSetting(){
+
+        preferences = getSharedPreferences("preferences", 0)!!
+        editor = preferences.edit()!!
+
+        odsayService = ODsayService.init(this, getString(R.string.odsay_key))
+
+
         lottieView2.visibility = View.VISIBLE
         view.visibility = View.VISIBLE
 
@@ -84,6 +87,9 @@ class AfterSearchActivity : AppCompatActivity() {
         endLocation = preferences.getString("endLocation", "")!!
         startLocation = startLocation.replace("대한민국 ", "")
         endLocation = endLocation.replace("대한민국 ", "")
+
+        textViewStart.text = startLocation
+        textViewEnd.text = endLocation
 
     }
 
@@ -127,7 +133,14 @@ class AfterSearchActivity : AppCompatActivity() {
         {
             odsayService.setReadTimeout(5000)
             odsayService.setConnectionTimeout(5000)
-            odsayService.requestSearchPubTransPath(startY.toString(), startX.toString(), endY.toString(), endX.toString(), "0", "0", "0", onRoadFoundResultCallbackListener)
+            println("LOG : getPath $startY / $startX")
+
+
+            val startNewX = preferences.getString("startNewX", "")!!
+            val startNewY = preferences.getString("startNewY", "")!!
+            val endNewX = preferences.getString("endNewX", "")!!
+            val endNewY = preferences.getString("endNewY", "")!!
+            odsayService.requestSearchPubTransPath(startNewY, startNewX, endNewY, endNewX , "0", "0", "0", onRoadFoundResultCallbackListener)
 
             swipeRefreshLayout.setOnRefreshListener {
                 editor.putFloat("endX", endX).putFloat("endY", endY)
@@ -146,10 +159,19 @@ class AfterSearchActivity : AppCompatActivity() {
 
     private val onRoadFoundResultCallbackListener: OnResultCallbackListener = object : OnResultCallbackListener {
             override fun onSuccess(oDsayData: ODsayData, api: API) {
-                val jsonObject = oDsayData.json
+                val jsonObject : JSONObject = oDsayData.json
                 RoadFoundParse(jsonObject)
             }
-            override fun onError(i: Int, errorMessage: String, api: API) {}
+            override fun onError(i: Int, errorMessage: String, api: API) {
+
+
+                //TODO : 에러(Json object undefined) 뜨는 건 정상임. 그동안 확인을 안해서 몰랐을 뿐 ㅠㅠ
+//                println("ERROR + $errorMessage")
+//                Toast.makeText(applicationContext, "알 수 없는 오류입니다. \n$errorMessage", Toast.LENGTH_LONG).show()
+//                fadeOutAnimation()
+
+
+            }
     }
 
     private fun RoadFoundParse(jsonObject: JSONObject){
@@ -158,6 +180,7 @@ class AfterSearchActivity : AppCompatActivity() {
         var pathAll = ArrayList<ArrayList<ArrayList<String>>>()
 
         try {
+            println("LOG : RoadFoundParse")
             val newObject = jsonObject.getJSONObject("result")
             val pathArray = newObject.getJSONArray("path")
 
@@ -165,23 +188,33 @@ class AfterSearchActivity : AppCompatActivity() {
 
             for(i in 0 until pathArray.length())
             {
+                println("First for $i")
+                println(pathArray.length())
                 var pathAllOne = ArrayList<ArrayList<String>>()
                 var pathAllTwo = ArrayList<String>()
                 val pathObject = pathArray.getJSONObject(i)
                 val infoObject = pathObject.getJSONObject("info")
 
-                pathAllTwo.add(infoObject.getString("trafficDistance"))
-                pathAllTwo.add(infoObject.getString("totalWalk"))
-                pathAllTwo.add(infoObject.getString("totalTime"))
-                pathAllTwo.add(infoObject.getString("payment"))
+                val trafficdistance = infoObject.getString("trafficDistance")
+                val totalwalk = infoObject.getString("totalWalk")
+                val totaltime = infoObject.getString("totalTime")
+                val payment = infoObject.getString("payment")
+
+                pathAllTwo.add(trafficdistance)
+                pathAllTwo.add(totalwalk)
+                pathAllTwo.add(totaltime)
+                pathAllTwo.add(payment)
+
+
 
                 pathAllOne.add(pathAllTwo)
 
                 var subPathArray = pathObject.getJSONArray("subPath")
 
-                for(j in 0 until subPathArray.length())
-                {
-                    var pathAllThree = ArrayList<String>()
+                for(j in 0 until subPathArray.length()) {
+                    println("Second for $j")
+                    println(subPathArray.length())
+                    val pathAllThree = ArrayList<String>()
                     val subPathObject = subPathArray.getJSONObject(j)
                     val trafficType = subPathObject.getString("trafficType")
                     pathAllThree.add(trafficType)
@@ -211,6 +244,7 @@ class AfterSearchActivity : AppCompatActivity() {
                             stopList = stopList + stopNewObject.getString("stationName")+ "☆" + stopNewObject.getString("x") + "☆" + stopNewObject.getString("y") + "★"
                         }
                         pathAllThree.add(stopList)
+                        println(stopList)
 
 
                     }
@@ -235,6 +269,8 @@ class AfterSearchActivity : AppCompatActivity() {
                     }
 
 
+
+
                     pathAllOne.add(pathAllThree)
 
 
@@ -243,8 +279,20 @@ class AfterSearchActivity : AppCompatActivity() {
 
 
                 pathAll.add(pathAllOne)
+                datas.add(Item(trafficdistance = trafficdistance, totalwalk = totalwalk, totaltime = totaltime, payment1 = payment, ways1 = pathAllOne))
+
+
 
             }
+
+            println(datas)
+            println("LOG : $datas.size")
+            //마지막에 넣기
+            datas.apply{
+                recyclerAdapter.datas = datas
+                recyclerAdapter.notifyDataSetChanged()
+            }
+
 
 
         }
@@ -254,8 +302,11 @@ class AfterSearchActivity : AppCompatActivity() {
             Toast.makeText(this, """${errorObject.getString("msg")}출발지와 도착지를 올바른 곳으로 설정했는지 다시 한 번 확인해 주세요.""".trimIndent(), Toast.LENGTH_LONG).show()
             fadeOutAnimation()
         }
+        
+
 
     }
+
 
 
     override fun onBackPressed() {

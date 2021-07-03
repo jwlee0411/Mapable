@@ -42,6 +42,7 @@ class StartDialog(val context : Context) : DialogInterface.OnDismissListener{
             preferences.edit().putBoolean("start", true).apply()
 
             preferences.edit().putFloat("startX", x.toFloat()).putFloat("startY", y.toFloat()).apply()
+            preferences.edit().putString("startNewX", x.toString()).putString("startNewY", y.toString()).apply()
             preferences.edit().putString("startLocation", locationName).apply()
 
             //TODO
@@ -66,6 +67,7 @@ class StartDialog(val context : Context) : DialogInterface.OnDismissListener{
         dialog.buttonEnd.setOnClickListener {
             preferences.edit().putBoolean("end", true).apply()
             preferences.edit().putFloat("endX", x.toFloat()).putFloat("endY", y.toFloat()).apply()
+            preferences.edit().putString("endNewX", x.toString()).putString("endNewY", y.toString()).apply()
             preferences.edit().putString("endLocation", locationName).apply()
             if(start)
             {

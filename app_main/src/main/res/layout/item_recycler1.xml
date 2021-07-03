@@ -80,7 +80,7 @@
         android:fontFamily="@font/nanum_regular"
         android:text="도보 0.04km"
         android:textSize="12sp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/textPayment3"
         app:layout_constraintTop_toTopOf="@+id/textTrafficDistance" />
 
