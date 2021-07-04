@@ -51,7 +51,8 @@ dependencies {
     androidTestImplementation("com.android.support.test.espresso:espresso-core:2.2.2"){
         exclude (group = "com.android.support", module = "support-annotations")
     }
-
+    implementation ("com.google.firebase:firebase-storage:20.0.0")
+    implementation ("com.github.bumptech.glide:glide:4.11.0")
     implementation ("androidx.navigation:navigation-fragment-ktx:2.3.5")
     implementation ("androidx.navigation:navigation-ui-ktx:2.3.5")
     implementation ("org.jsoup:jsoup:1.13.1")
