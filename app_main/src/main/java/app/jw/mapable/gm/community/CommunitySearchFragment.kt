@@ -1,11 +1,13 @@
 package app.jw.mapable.gm.community
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import app.jw.mapable.gm.databinding.FragmentCommunitySearchBinding
+
 
 
 class CommunitySearchFragment : Fragment() {
@@ -22,12 +24,14 @@ class CommunitySearchFragment : Fragment() {
         val root: View = binding.root
 
 
-        //TODO : 여기에 코드 입력
+
 
 
 
         return root
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

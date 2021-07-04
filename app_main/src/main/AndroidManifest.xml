@@ -36,13 +36,13 @@
         <activity android:name=".firstsetting.FirstSettingActivity"/>
         <activity android:name=".firstsetting.FirstSettingDisabledActivity"/>
         <activity android:name=".firstsetting.FirstSettingEnabledActivity1"/>
-        <activity android:name=".firstsetting.FirstSettingEnabledActivity2"/>
-        <activity android:name=".setting.SettingActivity"/>
         <activity android:name=".search.SearchActivity"/>
         <activity android:name=".explain.ExplainActivity"/>
         <activity android:name=".info.InfoActivity"/>
         <activity android:name=".login.LoginActivity"/>
         <activity android:name=".login.SignUpActivity"/>
-        <activity android:name=".community.CommunityActivity"/>
+        <activity android:name=".community.CommunityActivity"
+            android:theme="@style/WithActionBar"/>
+        <activity android:name=".community.CommunityMyMoreActivity"/>
     </application>
 </manifest>

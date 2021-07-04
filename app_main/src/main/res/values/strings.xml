@@ -6,4 +6,8 @@
     <string name="seoul_bus_key_decoding">sp6SSNzhDBUmWxvdUd28HDDq7E6j98Yvsmenqdy6rOCRyIlv605dNe8Wc7axsHxM759tgGzZpe/r+TAb5nq7UA==</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title_community_search">검색</string>
+    <string name="title_community_main">메인 화면</string>
+    <string name="title_community_my">내 정보</string>
 </resources>

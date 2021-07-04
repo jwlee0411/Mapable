@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_community_main">
+    app:startDestination="@id/navigation_community_my">
     <fragment
         android:id="@+id/navigation_community_main"
         android:name="app.jw.mapable.gm.community.CommunityMainFragment"
-        android:label="Main"
+        android:label="@string/title_community_main"
         tools:layout="@layout/fragment_community_main"/>
 
     <fragment
         android:id="@+id/navigation_community_search"
         android:name="app.jw.mapable.gm.community.CommunitySearchFragment"
-        android:label="search"
+        android:label="@string/title_community_search"
         tools:layout="@layout/fragment_community_search"/>
 
     <fragment
         android:id="@+id/navigation_community_my"
         android:name="app.jw.mapable.gm.community.CommunityMyFragment"
-        android:label="my"
+        android:label="@string/title_community_my"
         tools:layout="@layout/fragment_community_my"/>
 
 
