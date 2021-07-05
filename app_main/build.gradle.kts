@@ -14,7 +14,7 @@ android {
         minSdkVersion (28)
         targetSdkVersion (30)
         versionCode = 1
-        versionName  = "1.4"
+        versionName  = "1.7"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
     }
@@ -47,6 +47,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-firestore:23.0.1")
     implementation ("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.navigation:navigation-runtime:2.3.5")
+    implementation("com.google.android.gms:play-services-auth:19.0.0")
 
     androidTestImplementation("com.android.support.test.espresso:espresso-core:2.2.2"){
         exclude (group = "com.android.support", module = "support-annotations")
@@ -68,7 +69,8 @@ dependencies {
     implementation ("com.scwang.wave:MultiWaveHeader:1.0.0")
     implementation ("com.airbnb.android:lottie:3.7.0")
     implementation ("com.google.firebase:firebase-auth:21.0.1")
-    implementation ("com.github.vikramezhil:DroidSpeech:v2.0.3")
+    implementation ("com.google.firebase:firebase-auth-ktx")
+
     testImplementation ("junit:junit:4.13.2")
     implementation ("androidx.core:core-ktx:1.5.0")
     implementation(kotlin("stdlib-jdk7", KotlinCompilerVersion.VERSION))

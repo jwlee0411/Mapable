@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "501391216230-vqvclfejdmsrpbu6a82fvuajptv0oikj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.jw.mapable.gm",
+            "certificate_hash": "72ed8b978ad4b4b09d8fe15f349a46cf1ac9584d"
+          }
+        },
+        {
           "client_id": "501391216230-cs7tspmu5m608tdfesmhfcsl1jsgctmb.apps.googleusercontent.com",
           "client_type": 3
         }

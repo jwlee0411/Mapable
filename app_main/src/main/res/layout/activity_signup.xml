@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toTopOf="@+id/editSignupID"
+        app:layout_constraintBottom_toTopOf="@+id/layoutLoginID"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,52 +25,89 @@
         app:mwhProgress="1"
         app:mwhStartColor="@color/pink01"
         app:mwhVelocity="1"
-        app:mwhWaveHeight="90dp"
+        app:mwhWaveHeight="50dp"
         app:mwhWaves="PairWave" >
 
     </com.scwang.wave.MultiWaveHeader>
 
-    <EditText
-        android:id="@+id/editSignupID"
+    <LinearLayout
+        android:id="@+id/layoutLoginID"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:hint="     아이디"
-        android:textSize="15sp"
         android:background="@drawable/signin_edittext"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.433" />
+        app:layout_constraintVertical_bias="0.433"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/editSignUpID"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="아이디"
+            android:inputType="text"
+            android:fontFamily="@font/nanum_regular"
+            android:background="@android:color/transparent"
+            android:textSize="15sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+
+    </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
+        android:id="@+id/imageViewLogoBackground"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        app:layout_constraintVertical_bias="0.3"
         app:layout_constraintBottom_toBottomOf="@+id/waveHeader"
-        app:layout_constraintEnd_toStartOf="@+id/textView19"
+        app:layout_constraintEnd_toEndOf="@+id/waveHeader"
+        app:layout_constraintStart_toStartOf="@id/waveHeader"
         app:layout_constraintTop_toTopOf="@+id/waveHeader"
+        app:srcCompat="@drawable/oval" />
+    <ImageView
+        android:id="@+id/imageViewLogoSignUp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:repeatMode="restart"
+        app:srcCompat="@drawable/app_logo_transparent"
+        app:layout_constraintTop_toTopOf="@id/imageViewLogoBackground"
+        app:layout_constraintStart_toStartOf="@id/imageViewLogoBackground"
+        app:layout_constraintEnd_toEndOf="@id/imageViewLogoBackground"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewLogoBackground"
+        />
 
-        app:srcCompat="@drawable/app_logo_transparent" />
-
-    <EditText
-        android:id="@+id/editSignUpPW"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutLoginPW"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
-        android:hint="     비밀번호"
-        android:textSize="15sp"
+
         android:background="@drawable/signin_edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editSignupID" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutLoginID" >
+
+        <EditText
+            android:id="@+id/editSignUpPW"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/nanum_regular"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
+            android:textSize="15sp"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
         android:id="@+id/buttonSignUp"
@@ -82,23 +119,23 @@
         android:fontFamily="@font/nanum_bold"
         android:textSize="18sp"
         android:background="@drawable/signin_button"
-        app:layout_constraintEnd_toEndOf="@+id/editSignUpPW"
-        app:layout_constraintStart_toStartOf="@+id/editSignUpPW"
-        app:layout_constraintTop_toBottomOf="@+id/editSignUpPW" />
+        app:layout_constraintEnd_toEndOf="@+id/layoutLoginPW"
+        app:layout_constraintStart_toStartOf="@+id/layoutLoginPW"
+        app:layout_constraintTop_toBottomOf="@+id/layoutLoginPW" />
 
 
     <TextView
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/nanum_bold"
+        android:layout_marginTop="16dp"
         android:text="Mapable"
         android:textColor="@color/white"
-        android:textSize="32dp"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/waveHeader"
-        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewLogoBackground"
+        app:layout_constraintStart_toStartOf="@+id/imageViewLogoBackground"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogoBackground" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
