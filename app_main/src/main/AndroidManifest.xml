@@ -38,6 +38,7 @@
         <activity android:name=".firstsetting.FirstSettingEnabledActivity1"/>
         <activity android:name=".search.SearchActivity"/>
         <activity android:name=".explain.ExplainActivity"/>
+        <activity android:name=".setting.UserSettingActivity"/>
         <activity android:name=".info.InfoActivity"/>
         <activity android:name=".login.LoginActivity"/>
         <activity android:name=".login.SignUpActivity"/>

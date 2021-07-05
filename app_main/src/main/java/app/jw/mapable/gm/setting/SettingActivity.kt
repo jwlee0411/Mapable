@@ -141,6 +141,12 @@ class SettingActivity : AppCompatActivity() {
     }
 
     fun setonClick(){
+
+        layoutUserSetting.setOnClickListener {
+            val intent = Intent(this, UserSettingActivity::class.java)
+            startActivity(intent)
+        }
+
         switchBus.setOnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
 
             if(isChecked)

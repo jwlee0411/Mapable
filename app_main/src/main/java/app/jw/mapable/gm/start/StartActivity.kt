@@ -59,6 +59,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     var onTouched = false
     var clicked = false
 
+    var loginType = 0
+
     var settings = BooleanArray(10)
 
     lateinit var tempMarker : Marker
@@ -150,6 +152,10 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         println("§" + settings[9])
 
         if(settings[9]) floatingInfo.visibility = View.GONE
+
+
+        loginType = sharedPreferences.getInt("loginType", 0)
+
     }
 
 
@@ -244,6 +250,21 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 //        }
 
         setMap()
+    }
+
+    fun myViewClick(v : View)
+    {
+        loginType = sharedPreferences.getInt("loginType", 0)
+
+        when(loginType)
+        {
+            0 -> startActivity(Intent(this, LoginActivity::class.java))
+            1,2 -> {
+                val intent = Intent(this, CommunityActivity::class.java)
+                intent.putExtra("clickView", true)
+                startActivity(intent)
+            }
+        }
     }
 
     fun setMap()

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import app.jw.mapable.gm.databinding.FragmentCommunityMyBinding
+import app.jw.mapable.gm.setting.UserSettingActivity
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_community_my.*
 import kotlinx.android.synthetic.main.fragment_community_my.view.*
@@ -49,7 +50,7 @@ class CommunityMyFragment : Fragment() {
 
     private fun setonClick(root:View)
     {
-        val intent = Intent(root.context, CommunityMyMoreActivity::class.java)
+        var intent = Intent(root.context, CommunityMyMoreActivity::class.java)
 
         root.textLovedTextMore.setOnClickListener{
             intent.putExtra("click", "찜한 글")
@@ -63,6 +64,11 @@ class CommunityMyFragment : Fragment() {
 
         root.textMyReplyMore.setOnClickListener{
             intent.putExtra("click", "내가 쓴 댓글")
+            startActivity(intent)
+        }
+
+        root.textViewMySetting.setOnClickListener{
+            intent = Intent(root.context, UserSettingActivity::class.java)
             startActivity(intent)
         }
     }
