@@ -4,16 +4,16 @@
     <item
         android:id="@+id/community_main"
         android:icon="@drawable/ic_launcher_foreground"
-        android:title="1" />
+        android:title="@string/title_community_main" />
 
     <item
         android:id="@+id/community_search"
         android:icon="@drawable/ic_launcher_foreground"
-        android:title="2" />
+        android:title="@string/title_community_search" />
 
     <item
         android:id="@+id/community_my"
         android:icon="@drawable/ic_launcher_foreground"
-        android:title="3" />
+        android:title="@string/title_community_my" />
 
 </menu>

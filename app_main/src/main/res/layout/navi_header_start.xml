@@ -5,11 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:onClick="myViewClick"
     android:padding="10dp">
 
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageViewUserPhoto"
         android:layout_width="64dp"
         android:layout_height="64dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,16 +18,16 @@
         app:srcCompat="@drawable/default_profile" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/textViewUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:text="로그인 기능은\n추후 지원 예정입니다"
+        android:text="로그인 해주세요!"
         android:textSize="16dp"
         android:textColor="@color/black"
         android:fontFamily="@font/nanum_bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewUserPhoto"
+        app:layout_constraintStart_toEndOf="@+id/imageViewUserPhoto"
+        app:layout_constraintTop_toTopOf="@+id/imageViewUserPhoto" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,9 +26,11 @@ import androidx.core.view.GravityCompat
 import app.jw.mapable.gm.aftersearch.AfterSearchActivity
 import app.jw.mapable.gm.community.CommunityActivity
 import app.jw.mapable.gm.explain.ExplainActivity
-import app.jw.mapable.gm.firstsetting.FirstSettingEnabledActivity1
+import app.jw.mapable.gm.firstsetting.FirstSettingEnabledActivity
 import app.jw.mapable.gm.info.InfoActivity
 import app.jw.mapable.gm.R
+import app.jw.mapable.gm.login.LoginActivity
+import app.jw.mapable.gm.search.SearchActivity
 import app.jw.mapable.gm.setting.SettingActivity
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -52,14 +54,12 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
    lateinit var currentLocationMarker : Marker
 
 
-
-    var mapStatus = false
     var onTouched = false
     var clicked = false
 
-    var settings = BooleanArray(10)
+    var loginType = 0
 
-    lateinit var tempMarker : Marker
+    var settings = BooleanArray(10)
 
     var prevLatitude : Double = 37.542035
     var prevLongtitude : Double = 126.966613
@@ -69,10 +69,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     var endX : Double = 0.0
     var endY : Double = 0.0
 
-    val UPDATE_INTERVAL_MS : Long = 1000
-    val FASTEST_UPDATE_INTERVAL_MS : Long = 500
-    val PERMISSIONS_REQUEST_CODE : Int = 100
-
+    val update_interval : Long = 1000
+    val fastest_update_interval : Long = 500
 
 
     lateinit var searchLayoutAnimation : Animation
@@ -81,8 +79,6 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     lateinit var recognizer : SpeechRecognizer
 
     lateinit var mMap : GoogleMap
-
-    var locationTmp = ""
 
     lateinit var mCurrentLocation : Location
 
@@ -106,7 +102,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         //설정화면 => 메인화면인 경우 설정화면 종료
         //다른 액티비티 종료
         try {
-            val firstSettingEnabledActivity1 = FirstSettingEnabledActivity1.firstSettingEnabledActivity1 as FirstSettingEnabledActivity1
+            val firstSettingEnabledActivity1 = FirstSettingEnabledActivity.firstSettingEnabledActivity1 as FirstSettingEnabledActivity
             firstSettingEnabledActivity1.finish()
         } catch (ignored: Exception)
         {
@@ -148,6 +144,10 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         println("§" + settings[9])
 
         if(settings[9]) floatingInfo.visibility = View.GONE
+
+
+        loginType = sharedPreferences.getInt("loginType", 0)
+
     }
 
 
@@ -159,7 +159,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
         //debug : 기존 DB를 지우기 위한 디버그용 버튼(x) => 그때그때 맞는 용도로 사용
         floatingDebug.setOnClickListener {
-            startActivity(Intent(this, SettingActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
             //sharedPreferences.edit().clear().apply()
         }
 
@@ -174,10 +174,19 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
         textViewSearch.setOnClickListener {
 
-            Toast.makeText(this, "장소 검색 기능은 추후 제공 예정입니다.", Toast.LENGTH_LONG).show()
-//            startActivity(Intent(this, SearchActivity::class.java))
-//            finish()
-//            overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none)
+           // Toast.makeText(this, "장소 검색 기능은 추후 제공 예정입니다.", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, SearchActivity::class.java)
+            intent.putExtra("TTS", false)
+            startActivity(intent)
+            overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none)
+        }
+        soundButton.setOnClickListener {
+
+            //Toast.makeText(this, "장소 검색 기능은 추후 제공 예정입니다.", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, SearchActivity::class.java)
+            intent.putExtra("TTS", true)
+            startActivity(intent)
+            overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none)
         }
 
         floatingCurrentLocation.setOnClickListener {
@@ -235,10 +244,25 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         setMap()
     }
 
+    fun myViewClick(v : View)
+    {
+        loginType = sharedPreferences.getInt("loginType", 0)
+
+        when(loginType)
+        {
+            0 -> startActivity(Intent(this, LoginActivity::class.java))
+            1,2 -> {
+                val intent = Intent(this, CommunityActivity::class.java)
+                intent.putExtra("clickView", true)
+                startActivity(intent)
+            }
+        }
+    }
+
     fun setMap()
     {
 
-        locationRequest = LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(UPDATE_INTERVAL_MS).setFastestInterval(FASTEST_UPDATE_INTERVAL_MS)
+        locationRequest = LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(update_interval).setFastestInterval(fastest_update_interval)
 
         val builder : LocationSettingsRequest.Builder = LocationSettingsRequest.Builder()
         builder.addLocationRequest(locationRequest)
@@ -295,7 +319,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         mMap.clear()
 
 
-        val SEOUL : LatLng = LatLng(prevLatitude, prevLongtitude)
+        val SEOUL = LatLng(prevLatitude, prevLongtitude)
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 13F))
         mMap.uiSettings.isMyLocationButtonEnabled = true
@@ -310,12 +334,11 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     }
 
 
-    fun getCurrentAddress(latitude: Double, longitude: Double): String {
+    private fun getCurrentAddress(latitude: Double, longitude: Double): String {
 
         //지오코더... GPS를 주소로 변환
         val geocoder = Geocoder(this, Locale.getDefault())
-        val addresses: List<Address>?
-        addresses = try {
+        val addresses: List<Address>? = try {
             geocoder.getFromLocation(
                 latitude,
                 longitude,
@@ -514,10 +537,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         }
 
 
-        soundButton.setOnClickListener {
 
-            Toast.makeText(this, "장소 검색 기능은 추후 제공 예정입니다.", Toast.LENGTH_LONG).show()
-        }
     }
 
 

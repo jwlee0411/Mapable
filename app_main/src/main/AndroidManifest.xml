@@ -13,6 +13,11 @@
         android:networkSecurityConfig="@xml/network_config"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true" >
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false"/>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDyq2L1lo9PtlnCQKtnvy3FndjjuVNUGio" />
@@ -35,14 +40,15 @@
         <activity android:name=".setting.SettingActivity"/>
         <activity android:name=".firstsetting.FirstSettingActivity"/>
         <activity android:name=".firstsetting.FirstSettingDisabledActivity"/>
-        <activity android:name=".firstsetting.FirstSettingEnabledActivity1"/>
-        <activity android:name=".firstsetting.FirstSettingEnabledActivity2"/>
-        <activity android:name=".setting.SettingActivity"/>
+        <activity android:name=".firstsetting.FirstSettingEnabledActivity"/>
         <activity android:name=".search.SearchActivity"/>
         <activity android:name=".explain.ExplainActivity"/>
+        <activity android:name=".setting.UserSettingActivity"/>
         <activity android:name=".info.InfoActivity"/>
         <activity android:name=".login.LoginActivity"/>
         <activity android:name=".login.SignUpActivity"/>
-        <activity android:name=".community.CommunityActivity"/>
+        <activity android:name=".community.CommunityActivity"
+            android:theme="@style/WithActionBar"/>
+        <activity android:name=".community.CommunityMyMoreActivity"/>
     </application>
 </manifest>

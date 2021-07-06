@@ -10,6 +10,15 @@
         <item name="android:windowDisablePreview">true</item>
     </style>
 
+    <style name="WithActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:windowActivityTransitions">true</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
     <style name = "Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2dp</item>
