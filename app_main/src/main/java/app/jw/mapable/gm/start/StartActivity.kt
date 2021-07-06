@@ -26,7 +26,7 @@ import androidx.core.view.GravityCompat
 import app.jw.mapable.gm.aftersearch.AfterSearchActivity
 import app.jw.mapable.gm.community.CommunityActivity
 import app.jw.mapable.gm.explain.ExplainActivity
-import app.jw.mapable.gm.firstsetting.FirstSettingEnabledActivity1
+import app.jw.mapable.gm.firstsetting.FirstSettingEnabledActivity
 import app.jw.mapable.gm.info.InfoActivity
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.login.LoginActivity
@@ -102,7 +102,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         //설정화면 => 메인화면인 경우 설정화면 종료
         //다른 액티비티 종료
         try {
-            val firstSettingEnabledActivity1 = FirstSettingEnabledActivity1.firstSettingEnabledActivity1 as FirstSettingEnabledActivity1
+            val firstSettingEnabledActivity1 = FirstSettingEnabledActivity.firstSettingEnabledActivity1 as FirstSettingEnabledActivity
             firstSettingEnabledActivity1.finish()
         } catch (ignored: Exception)
         {

@@ -35,7 +35,7 @@
         <activity android:name=".setting.SettingActivity"/>
         <activity android:name=".firstsetting.FirstSettingActivity"/>
         <activity android:name=".firstsetting.FirstSettingDisabledActivity"/>
-        <activity android:name=".firstsetting.FirstSettingEnabledActivity1"/>
+        <activity android:name=".firstsetting.FirstSettingEnabledActivity"/>
         <activity android:name=".search.SearchActivity"/>
         <activity android:name=".explain.ExplainActivity"/>
         <activity android:name=".setting.UserSettingActivity"/>

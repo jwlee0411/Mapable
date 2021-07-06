@@ -57,7 +57,7 @@ class FirstSettingActivity : AppCompatActivity() {
                             buttonSettingStart.setOnClickListener {
                                 mHandler.removeMessages(0)
                                 tts.stop()
-                                startActivity(Intent(this@FirstSettingActivity, FirstSettingEnabledActivity1::class.java))
+                                startActivity(Intent(this@FirstSettingActivity, FirstSettingEnabledActivity::class.java))
                                 finish()
                             }
                         }

@@ -1,6 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintUserSetting"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/setting_background"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageUserSetting"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textUserName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/nanum_bold"
+            android:text="유저명을 설정해주세요"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageUserNameEdit"
+            app:layout_constraintStart_toStartOf="@+id/textEmail"
+            app:layout_constraintTop_toBottomOf="@+id/textEmail" />
+
+        <TextView
+            android:id="@+id/textUserMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/nanum_regular"
+            android:text="상태메시지를 설정해주세요"
+            app:layout_constraintEnd_toStartOf="@+id/imageUserNameEdit"
+            app:layout_constraintStart_toStartOf="@+id/textUserName"
+            app:layout_constraintTop_toBottomOf="@+id/textUserName" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageUserNameEdit"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textUserName"
+            app:srcCompat="@drawable/icon_edit" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageUserMessageEdit"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textUserMessage"
+            app:srcCompat="@drawable/icon_edit" />
+
+        <TextView
+            android:id="@+id/textEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/nanum_regular"
+            android:text="test@test.com"
+            app:layout_constraintEnd_toStartOf="@+id/imageUserNameEdit"
+            app:layout_constraintStart_toEndOf="@+id/imageUserSetting"
+            app:layout_constraintTop_toTopOf="@+id/imageUserSetting" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/buttonLogout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/signin_button"
+        android:fontFamily="@font/nanum_bold"
+        android:text="로그아웃"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonQuit"
+        app:layout_constraintStart_toStartOf="@+id/constraintUserSetting"
+        app:layout_constraintTop_toBottomOf="@+id/constraintUserSetting" />
+
+    <Button
+        android:id="@+id/buttonQuit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/signin_button"
+        android:fontFamily="@font/nanum_bold"
+        android:text="회원탈퇴"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/constraintUserSetting"
+        app:layout_constraintStart_toEndOf="@+id/buttonLogout"
+        app:layout_constraintTop_toTopOf="@+id/buttonLogout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
