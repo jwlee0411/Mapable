@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.jw.mapable.gm.R
 import kotlinx.android.synthetic.main.item_recycler1.view.*
+import kotlin.math.round
 
 class MapRecyclerAdapter(private val context : Context) : RecyclerView.Adapter<MapRecyclerAdapter.ItemViewHolder>() {
 
@@ -32,10 +33,11 @@ class MapRecyclerAdapter(private val context : Context) : RecyclerView.Adapter<M
     {
         fun bind(item:Item)
         {
+
             val totalTime = item.totaltime + "분"
             val payment = "카드 " + item.payment1 + "원"
-            val trafficdistance = "이동거리 " + item.trafficdistance + "km"
-            val totalwalk = "도보 " + item.totalwalk + "km"
+            val trafficdistance = "이동거리 " + round(item.trafficdistance.toDouble()/100)/10 + "km"
+            val totalwalk = "도보 " + round(item.totalwalk.toDouble()/100)/10 + "km"
 
             itemView.textTotalTime.text = totalTime
             itemView.textPayment.text = payment

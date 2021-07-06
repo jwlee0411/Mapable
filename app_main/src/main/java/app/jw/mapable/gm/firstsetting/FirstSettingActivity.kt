@@ -25,11 +25,6 @@ class FirstSettingActivity : AppCompatActivity() {
 
         initTTS()
 
-
-
-
-
-
     }
 
     fun initTTS()

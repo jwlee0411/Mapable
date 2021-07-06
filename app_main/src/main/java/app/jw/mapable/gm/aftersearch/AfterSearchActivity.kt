@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.search.SearchActivity
 import app.jw.mapable.gm.start.StartActivity
+import app.jw.mapable.gm.threadtask.ThreadTask
 import com.odsay.odsayandroidsdk.API
 import com.odsay.odsayandroidsdk.ODsayData
 import com.odsay.odsayandroidsdk.ODsayService
@@ -165,10 +166,7 @@ class AfterSearchActivity : AppCompatActivity() {
             override fun onError(i: Int, errorMessage: String, api: API) {
 
 
-                //TODO : 에러(Json object undefined) 뜨는 건 정상임. 그동안 확인을 안해서 몰랐을 뿐 ㅠㅠ
-//                println("ERROR + $errorMessage")
-//                Toast.makeText(applicationContext, "알 수 없는 오류입니다. \n$errorMessage", Toast.LENGTH_LONG).show()
-//                fadeOutAnimation()
+                //에러(Json object undefined) 뜨는 건 정상임
 
 
             }
@@ -179,91 +177,111 @@ class AfterSearchActivity : AppCompatActivity() {
         //초기 변수 선언 실시
         var pathAll = ArrayList<ArrayList<ArrayList<String>>>()
 
-        try {
-            println("LOG : RoadFoundParse")
-            val newObject = jsonObject.getJSONObject("result")
-            val pathArray = newObject.getJSONArray("path")
+
+
+        object : ThreadTask<String, ArrayList<Item>>() {
+            override fun onPreExecute() {}
+            override fun doInBackground(arg: String?): ArrayList<Item> {
+                try {
+                    println("LOG : RoadFoundParse")
+                    val newObject = jsonObject.getJSONObject("result")
+                    val pathArray = newObject.getJSONArray("path")
 
 
 
-            for(i in 0 until pathArray.length())
-            {
-                println("First for $i")
-                println(pathArray.length())
-                var pathAllOne = ArrayList<ArrayList<String>>()
-                var pathAllTwo = ArrayList<String>()
-                val pathObject = pathArray.getJSONObject(i)
-                val infoObject = pathObject.getJSONObject("info")
-
-                val trafficdistance = infoObject.getString("trafficDistance")
-                val totalwalk = infoObject.getString("totalWalk")
-                val totaltime = infoObject.getString("totalTime")
-                val payment = infoObject.getString("payment")
-
-                pathAllTwo.add(trafficdistance)
-                pathAllTwo.add(totalwalk)
-                pathAllTwo.add(totaltime)
-                pathAllTwo.add(payment)
-
-
-
-                pathAllOne.add(pathAllTwo)
-
-                var subPathArray = pathObject.getJSONArray("subPath")
-
-                for(j in 0 until subPathArray.length()) {
-                    println("Second for $j")
-                    println(subPathArray.length())
-                    val pathAllThree = ArrayList<String>()
-                    val subPathObject = subPathArray.getJSONObject(j)
-                    val trafficType = subPathObject.getString("trafficType")
-                    pathAllThree.add(trafficType)
-
-                    pathAllThree.add(subPathObject.getString("distance"))
-                    pathAllThree.add(subPathObject.getString("sectionTime"))
-
-                    if(trafficType.equals("1") || trafficType.equals("2"))
+                    for(i in 0 until pathArray.length())
                     {
-                        pathAllThree.add(subPathObject.getString("stationCount"))
-                        pathAllThree.add(subPathObject.getString("startName"))
-                        pathAllThree.add(subPathObject.getString("startX"))
-                        pathAllThree.add(subPathObject.getString("startY"))
-                        pathAllThree.add(subPathObject.getString("endName"))
-                        pathAllThree.add(subPathObject.getString("endX"))
-                        pathAllThree.add(subPathObject.getString("endY"))
-                        pathAllThree.add(subPathObject.getString("startID"))
-                        pathAllThree.add(subPathObject.getString("endID"))
+                        println("First for $i")
+                        println(pathArray.length())
+                        var pathAllOne = ArrayList<ArrayList<String>>()
+                        var pathAllTwo = ArrayList<String>()
+                        val pathObject = pathArray.getJSONObject(i)
+                        val infoObject = pathObject.getJSONObject("info")
 
-                        val stopObject = subPathObject.getJSONObject("passStopList")
-                        val stopArray = stopObject.getJSONArray("stations")
-                        var stopList = ""
+                        val trafficdistance = infoObject.getString("trafficDistance")
+                        val totalwalk = infoObject.getString("totalWalk")
+                        val totaltime = infoObject.getString("totalTime")
+                        val payment = infoObject.getString("payment")
 
-                        for(k in 0 until stopArray.length())
-                        {
-                            val stopNewObject = stopArray.getJSONObject(k)
-                            stopList = stopList + stopNewObject.getString("stationName")+ "☆" + stopNewObject.getString("x") + "☆" + stopNewObject.getString("y") + "★"
+                        pathAllTwo.add(trafficdistance)
+                        pathAllTwo.add(totalwalk)
+                        pathAllTwo.add(totaltime)
+                        pathAllTwo.add(payment)
+
+                        pathAllOne.add(pathAllTwo)
+
+                        var subPathArray = pathObject.getJSONArray("subPath")
+
+                        for(j in 0 until subPathArray.length()) {
+                            println("Second for $j")
+                            println(subPathArray.length())
+                            val pathAllThree = ArrayList<String>()
+                            val subPathObject = subPathArray.getJSONObject(j)
+                            val trafficType = subPathObject.getString("trafficType")
+                            pathAllThree.add(trafficType)
+
+                            pathAllThree.add(subPathObject.getString("distance"))
+                            pathAllThree.add(subPathObject.getString("sectionTime"))
+
+                            if(trafficType.equals("1") || trafficType.equals("2"))
+                            {
+                                pathAllThree.add(subPathObject.getString("stationCount"))
+                                pathAllThree.add(subPathObject.getString("startName"))
+                                pathAllThree.add(subPathObject.getString("startX"))
+                                pathAllThree.add(subPathObject.getString("startY"))
+                                pathAllThree.add(subPathObject.getString("endName"))
+                                pathAllThree.add(subPathObject.getString("endX"))
+                                pathAllThree.add(subPathObject.getString("endY"))
+                                pathAllThree.add(subPathObject.getString("startID"))
+                                pathAllThree.add(subPathObject.getString("endID"))
+
+                                val stopObject = subPathObject.getJSONObject("passStopList")
+                                val stopArray = stopObject.getJSONArray("stations")
+                                var stopList = ""
+
+                                for(k in 0 until stopArray.length())
+                                {
+                                    val stopNewObject = stopArray.getJSONObject(k)
+                                    stopList = stopList + stopNewObject.getString("stationName")+ "☆" + stopNewObject.getString("x") + "☆" + stopNewObject.getString("y") + "★"
+                                }
+                                pathAllThree.add(stopList)
+                                println(stopList)
+
+
+                            }
+
+                            if(trafficType.equals("1"))
+                            {
+//                                pathAllThree.add(subPathObject.getString("name"))
+//                                pathAllThree.add(subPathObject.getString("subwayCode"))
+//                                pathAllThree.add(subPathObject.getString("wayCode"))
+//                                pathAllThree.add(subPathObject.getString("door"))
+
+                            }
+                            else if(trafficType.equals("2"))
+                            {
+//                                pathAllThree.add(subPathObject.getString("busNo"))
+//                                pathAllThree.add(subPathObject.getString("type"))
+                            }
+                            else
+                            {
+
+
+                            }
+
+
+
+
+                            pathAllOne.add(pathAllThree)
+
+
                         }
-                        pathAllThree.add(stopList)
-                        println(stopList)
 
 
-                    }
 
-                    if(trafficType.equals("1"))
-                    {
-                        pathAllThree.add(subPathObject.getString("name"))
-                        pathAllThree.add(subPathObject.getString("subwayCode"))
-                        pathAllThree.add(subPathObject.getString("wayCode"))
-                        pathAllThree.add(subPathObject.getString("door"))
+                        pathAll.add(pathAllOne)
+                        datas.add(Item(trafficdistance = trafficdistance, totalwalk = totalwalk, totaltime = totaltime, payment1 = payment, ways1 = pathAllOne))
 
-                    }
-                    else if(trafficType.equals("2"))
-                    {
-                        pathAllThree.add(subPathObject.getString("busNo"))
-                        pathAllThree.add(subPathObject.getString("type"))
-                    }
-                    else
-                    {
 
 
                     }
@@ -271,37 +289,39 @@ class AfterSearchActivity : AppCompatActivity() {
 
 
 
-                    pathAllOne.add(pathAllThree)
+
 
 
                 }
+                catch (e : Exception)
+                {
+                    e.printStackTrace()
+                    val errorObject = jsonObject.getJSONObject("error")
+                    Toast.makeText(applicationContext, """${errorObject.getString("msg")}출발지와 도착지를 올바른 곳으로 설정했는지 다시 한 번 확인해 주세요.""".trimIndent(), Toast.LENGTH_LONG).show()
+                    fadeOutAnimation()
+                }
 
-
-
-                pathAll.add(pathAllOne)
-                datas.add(Item(trafficdistance = trafficdistance, totalwalk = totalwalk, totaltime = totaltime, payment1 = payment, ways1 = pathAllOne))
-
+                return datas
 
 
             }
 
-            println(datas)
-            println("LOG : $datas.size")
-            //마지막에 넣기
-            datas.apply{
-                recyclerAdapter.datas = datas
-                recyclerAdapter.notifyDataSetChanged()
+            override fun onPostExecute(result: ArrayList<Item>?) {
+                println(datas)
+                println(datas.size)
+                //마지막에 넣기
+                datas.apply{
+                    recyclerAdapter.datas = datas
+                    recyclerAdapter.notifyDataSetChanged()
+                }
+
+                fadeOutAnimation()
             }
 
 
+        }.execute("0")
 
-        }
-        catch (e : Exception)
-        {
-            val errorObject = jsonObject.getJSONObject("error")
-            Toast.makeText(this, """${errorObject.getString("msg")}출발지와 도착지를 올바른 곳으로 설정했는지 다시 한 번 확인해 주세요.""".trimIndent(), Toast.LENGTH_LONG).show()
-            fadeOutAnimation()
-        }
+
         
 
 
