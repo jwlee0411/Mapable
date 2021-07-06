@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.regex.Pattern
 
@@ -149,6 +150,22 @@ class LoginActivity : AppCompatActivity(){
 
     fun loginSuccess(user : FirebaseUser)
     {
+
+        val db = FirebaseFirestore.getInstance()
+        val users: MutableMap<String, Any> = HashMap()
+        users["userID"] = user.email.toString()
+        users["userPW"] = ""
+        users["image"] = ""
+        users["message"] = ""
+        users["usertype"] = true
+
+        db.collection("users").document(firebaseAuth.currentUser?.uid!!).set(user)
+            .addOnSuccessListener {
+                println("LOG : SUCCESS")
+            }
+            .addOnFailureListener { println("LOG : FAILED") }
+
+
         editor.putString("userID", user.email)
         editor.putString("userUID", user.uid)
         editor.putInt("loginType", 1)

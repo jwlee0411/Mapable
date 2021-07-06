@@ -30,7 +30,7 @@ class CommunityMyFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCommunityMyBinding.inflate(inflater, container, false)
         val root: View = binding.root
 

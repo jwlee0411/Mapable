@@ -54,16 +54,12 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
    lateinit var currentLocationMarker : Marker
 
 
-
-    var mapStatus = false
     var onTouched = false
     var clicked = false
 
     var loginType = 0
 
     var settings = BooleanArray(10)
-
-    lateinit var tempMarker : Marker
 
     var prevLatitude : Double = 37.542035
     var prevLongtitude : Double = 126.966613
@@ -73,10 +69,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     var endX : Double = 0.0
     var endY : Double = 0.0
 
-    val UPDATE_INTERVAL_MS : Long = 1000
-    val FASTEST_UPDATE_INTERVAL_MS : Long = 500
-    val PERMISSIONS_REQUEST_CODE : Int = 100
-
+    val update_interval : Long = 1000
+    val fastest_update_interval : Long = 500
 
 
     lateinit var searchLayoutAnimation : Animation
@@ -85,8 +79,6 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     lateinit var recognizer : SpeechRecognizer
 
     lateinit var mMap : GoogleMap
-
-    var locationTmp = ""
 
     lateinit var mCurrentLocation : Location
 
@@ -270,7 +262,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     fun setMap()
     {
 
-        locationRequest = LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(UPDATE_INTERVAL_MS).setFastestInterval(FASTEST_UPDATE_INTERVAL_MS)
+        locationRequest = LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(update_interval).setFastestInterval(fastest_update_interval)
 
         val builder : LocationSettingsRequest.Builder = LocationSettingsRequest.Builder()
         builder.addLocationRequest(locationRequest)
@@ -327,7 +319,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         mMap.clear()
 
 
-        val SEOUL : LatLng = LatLng(prevLatitude, prevLongtitude)
+        val SEOUL = LatLng(prevLatitude, prevLongtitude)
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 13F))
         mMap.uiSettings.isMyLocationButtonEnabled = true
@@ -342,12 +334,11 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     }
 
 
-    fun getCurrentAddress(latitude: Double, longitude: Double): String {
+    private fun getCurrentAddress(latitude: Double, longitude: Double): String {
 
         //지오코더... GPS를 주소로 변환
         val geocoder = Geocoder(this, Locale.getDefault())
-        val addresses: List<Address>?
-        addresses = try {
+        val addresses: List<Address>? = try {
             geocoder.getFromLocation(
                 latitude,
                 longitude,

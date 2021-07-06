@@ -2,6 +2,7 @@ package app.jw.mapable.gm.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -9,9 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.start.StartActivity
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_login.*
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_signup.*
 import java.util.regex.Pattern
+
 
 class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +47,22 @@ class SignUpActivity : AppCompatActivity() {
                 mAuth.createUserWithEmailAndPassword(userID, userPW).addOnCompleteListener{
                     if(it.isSuccessful)
                     {
+                        val db = FirebaseFirestore.getInstance()
+                        val user: MutableMap<String, Any> = HashMap()
+                        user["userID"] = userID
+                        user["userPW"] = userPW
+                        user["image"] = ""
+                        user["message"] = ""
+                        user["usertype"] = false
+
+                        db.collection("users").document(mAuth.currentUser?.uid!!).set(user)
+                            .addOnSuccessListener {
+                                println("LOG : SUCCESS")
+                            }
+                            .addOnFailureListener { println("LOG : FAILED") }
+
+
+
                         Toast.makeText(this, "회원가입 및 로그인이 완료되었습니다!", Toast.LENGTH_LONG).show()
 
                         val intent = Intent(this, StartActivity::class.java)
