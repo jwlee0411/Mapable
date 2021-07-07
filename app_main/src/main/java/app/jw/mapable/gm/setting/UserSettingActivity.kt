@@ -23,9 +23,5 @@ class UserSettingActivity : AppCompatActivity() {
             dialog.callFunction()
 
         }
-
-
-
-
     }
 }

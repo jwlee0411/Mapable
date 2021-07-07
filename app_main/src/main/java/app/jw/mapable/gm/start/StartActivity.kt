@@ -32,6 +32,7 @@ import app.jw.mapable.gm.R
 import app.jw.mapable.gm.login.LoginActivity
 import app.jw.mapable.gm.search.SearchActivity
 import app.jw.mapable.gm.setting.SettingActivity
+import app.jw.mapable.gm.setting.UserSettingActivity
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -252,8 +253,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         {
             0 -> startActivity(Intent(this, LoginActivity::class.java))
             1,2 -> {
-                val intent = Intent(this, CommunityActivity::class.java)
-                intent.putExtra("clickView", true)
+                val intent = Intent(this, UserSettingActivity::class.java)
+//                intent.putExtra("clickView", true)
                 startActivity(intent)
             }
         }

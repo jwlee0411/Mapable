@@ -50,19 +50,22 @@ class CommunityMyFragment : Fragment() {
 
     private fun setonClick(root:View)
     {
-        var intent = Intent(root.context, CommunityMyMoreActivity::class.java)
+        var intent: Intent
 
         root.textLovedTextMore.setOnClickListener{
+            intent = Intent(root.context, CommunityMyMoreActivity::class.java)
             intent.putExtra("click", "찜한 글")
             startActivity(intent)
         }
 
         root.textMyTextMore.setOnClickListener{
+            intent = Intent(root.context, CommunityMyMoreActivity::class.java)
             intent.putExtra("click", "내가 쓴 글")
             startActivity(intent)
         }
 
         root.textMyReplyMore.setOnClickListener{
+            intent = Intent(root.context, CommunityMyMoreActivity::class.java)
             intent.putExtra("click", "내가 쓴 댓글")
             startActivity(intent)
         }
