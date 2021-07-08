@@ -2,9 +2,10 @@
   <library name="Gradle: artifacts:app:unspecified">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/app/build/.transforms/dd115807e0aad9038033819fbeb6729c/jetified-ODsayAndroidSDK/res" />
-      <root url="file://$PROJECT_DIR$/app/build/.transforms/90b0637afa51a8a82b2c899f22430fce/jetified-ODsayAndroidSDK/AndroidManifest.xml" />
       <root url="file://$PROJECT_DIR$/app/build/.transforms/90b0637afa51a8a82b2c899f22430fce/jetified-ODsayAndroidSDK/res" />
-      <root url="jar://$PROJECT_DIR$/app/build/.transforms/90b0637afa51a8a82b2c899f22430fce/jetified-ODsayAndroidSDK/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/.transforms/6cd1448cfffbf5e87087cba7de6f6580/jetified-ODsayAndroidSDK/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/app/build/.transforms/6cd1448cfffbf5e87087cba7de6f6580/jetified-ODsayAndroidSDK/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/.transforms/6cd1448cfffbf5e87087cba7de6f6580/jetified-ODsayAndroidSDK/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
