@@ -30,6 +30,7 @@ import app.jw.mapable.gm.firstsetting.FirstSettingEnabledActivity
 import app.jw.mapable.gm.info.InfoActivity
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.login.LoginActivity
+import app.jw.mapable.gm.notice.NoticeActivity
 import app.jw.mapable.gm.search.SearchActivity
 import app.jw.mapable.gm.setting.SettingActivity
 import app.jw.mapable.gm.setting.UserSettingActivity
@@ -160,7 +161,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
         //debug : 기존 DB를 지우기 위한 디버그용 버튼(x) => 그때그때 맞는 용도로 사용
         floatingDebug.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, NoticeActivity::class.java))
             //sharedPreferences.edit().clear().apply()
         }
 
@@ -231,7 +232,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             when (item.itemId) {
                 R.id.nav_settings -> startActivity(Intent(this@StartActivity, SettingActivity::class.java))
                 R.id.nav_explain -> startActivity(Intent(this@StartActivity, ExplainActivity::class.java))
-
+                R.id.nav_info -> startActivity(Intent(this@StartActivity, NoticeActivity::class.java))
                R.id.nav_community -> startActivity(Intent(this@StartActivity, CommunityActivity::class.java))
 
             }
