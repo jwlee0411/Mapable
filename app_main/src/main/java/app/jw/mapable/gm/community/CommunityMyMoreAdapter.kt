@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.jw.mapable.gm.R
 import kotlinx.android.synthetic.main.item_community_summary.view.*
-import kotlinx.android.synthetic.main.item_search.view.*
 
 class CommunityMyMoreAdapter(private val context : Context) :
     RecyclerView.Adapter<CommunityMyMoreAdapter.ItemViewHolder>() {
@@ -36,9 +35,9 @@ class CommunityMyMoreAdapter(private val context : Context) :
     inner class ItemViewHolder(view : View) : RecyclerView.ViewHolder(view){
         fun bind(itemCommunityMyMore: ItemCommunityMyMore)
         {
-            println("LOG : $itemCommunityMyMore.title")
+            println("LOG : ${itemCommunityMyMore.title}")
             itemView.textSummaryTitle.text = itemCommunityMyMore.title
-            itemView.textDescription.text = itemCommunityMyMore.description
+            itemView.textSummaryDescription.text = itemCommunityMyMore.description
 
         }
     }
