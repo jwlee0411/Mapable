@@ -52,5 +52,6 @@
         <activity android:name=".notice.NoticeActivity"/>
         <activity android:name=".notice.NoticeDetailActivity"/>
         <activity android:name=".community.CommunityMyMoreActivity"/>
+        <activity android:name=".setting.AppInfoActivity"/>
     </application>
 </manifest>

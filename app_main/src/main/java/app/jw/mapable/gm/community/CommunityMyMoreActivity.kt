@@ -14,8 +14,8 @@ import kotlin.collections.ArrayList
 
 class CommunityMyMoreActivity : AppCompatActivity() {
 
-    lateinit var recyclerAdapter : CommunityMyMoreAdapter
-    val datas = ArrayList<ItemCommunityMyMore>()
+    private lateinit var recyclerAdapter : CommunityMyMoreAdapter
+    private val datas = ArrayList<ItemCommunityMyMore>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
