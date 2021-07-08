@@ -2,28 +2,33 @@ package app.jw.mapable.gm.notice
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.jw.mapable.gm.R
-import app.jw.mapable.gm.threadtask.ThreadTask
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_after_search.*
 import kotlinx.android.synthetic.main.activity_notice.*
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class NoticeActivity : AppCompatActivity(){
 
-    lateinit var recyclerAdapter : NoticeRecyclerAdapter
+    private lateinit var recyclerAdapter : NoticeRecyclerAdapter
 
     var notices = ArrayList<NoticeItem>()
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notice)
+
+        viewNotice.visibility = View.VISIBLE
+        lottieViewNotice.visibility = View.VISIBLE
+        recyclerViewNotice.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         recyclerAdapter = NoticeRecyclerAdapter(this)
         recyclerViewNotice.layoutManager = LinearLayoutManager(applicationContext)
@@ -55,7 +60,6 @@ class NoticeActivity : AppCompatActivity(){
 
 
 
-        getNotice()
 
 
 
@@ -66,16 +70,6 @@ class NoticeActivity : AppCompatActivity(){
 
     }
 
-    @SuppressLint("SimpleDateFormat")
-    private fun getDateTime(s: String): String? {
-        return try {
-            val sdf = SimpleDateFormat("MM/dd/yyyy")
-            val netDate = Date(s.toLong())
-            sdf.format(netDate)
-        } catch (e: Exception) {
-            e.toString()
-        }
-    }
 
 
     private fun setRecyclerView(){
@@ -84,28 +78,27 @@ class NoticeActivity : AppCompatActivity(){
             recyclerAdapter.notifyDataSetChanged()
         }
 
+        fadeOutAnimation()
+
 
     }
 
-    private fun getNotice()
+    private fun fadeOutAnimation()
     {
-        object : ThreadTask<Void, Int>(){
-            override fun onPreExecute() {
+        val animation = AnimationUtils.loadAnimation(this, R.anim.anim_fade_out)
 
+        lottieViewNotice.startAnimation(animation)
+        viewNotice.startAnimation(animation)
+
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationEnd(animation: Animation) {
+                lottieViewNotice.visibility = View.GONE
+                viewNotice.visibility = View.GONE
             }
 
-            override fun doInBackground(arg: Void?): Int {
-
-
-                return 0
-            }
-
-            override fun onPostExecute(result: Int?) {
-
-            }
-
-        }
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
     }
-
 
 }

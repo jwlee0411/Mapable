@@ -1,6 +1,7 @@
 package app.jw.mapable.gm.notice
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +28,16 @@ class NoticeRecyclerAdapter(private val context : Context) : RecyclerView.Adapte
         fun bind(item: NoticeItem) {
             println("LOG : ${item.title} ${item.timestamp}")
 
+            itemView.layoutItemNotice.setOnClickListener {
+                val intent = Intent(context, NoticeDetailActivity::class.java)
+                intent.putExtra("id", item.ID)
+                intent.putExtra("title", item.title)
+                intent.putExtra("description", item.description)
+                intent.putExtra("timestamp", item.timestamp)
+                context.startActivity(intent)
+            }
             itemView.textTitle.text = item.title
-            itemView.textUserID.text = item.ID
+            itemView.textUserID.text = " | " + item.ID
             itemView.textTimestamp.text = item.timestamp
 
             //RecyclerView 관련 처리

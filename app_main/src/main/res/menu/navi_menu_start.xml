@@ -4,10 +4,7 @@
 <!--        android:id="@+id/nav_star"-->
 <!--        android:icon="@drawable/icon_star"-->
 <!--        android:title="즐겨찾는 장소" />-->
-    <item
-        android:id="@+id/nav_settings"
-        android:icon="@drawable/icon_setting"
-        android:title="설정" />
+
 
 <!--    <item-->
 <!--        android:id="@+id/nav_bus"-->
@@ -15,17 +12,24 @@
 <!--        android:title="버스 도착정보 조회"-->
 <!--        />-->
 
-<!--    <item-->
-<!--        android:id="@+id/nav_info"-->
-<!--        android:icon="@drawable/icon_star"-->
-<!--        android:title="공지사항"-->
-<!--        />-->
+
 
     <item
         android:id="@+id/nav_community"
         android:icon="@drawable/icon_star"
         android:title="커뮤니티"
         />
+
+    <item
+        android:id="@+id/nav_info"
+        android:icon="@drawable/icon_star"
+        android:title="공지사항"
+        />
+
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/icon_setting"
+        android:title="설정" />
 
     <item
         android:id="@+id/nav_explain"

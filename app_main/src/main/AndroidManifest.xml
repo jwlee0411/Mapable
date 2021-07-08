@@ -50,6 +50,7 @@
         <activity android:name=".community.CommunityActivity"
             android:theme="@style/WithActionBar"/>
         <activity android:name=".notice.NoticeActivity"/>
+        <activity android:name=".notice.NoticeDetailActivity"/>
         <activity android:name=".community.CommunityMyMoreActivity"/>
     </application>
 </manifest>
