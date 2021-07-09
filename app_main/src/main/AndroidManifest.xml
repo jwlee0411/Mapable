@@ -25,32 +25,45 @@
             android:value="false" />
 
 
+        <activity android:name=".afterroad.AfterRoadActivity"/>
+
+        <activity android:name=".aftersearch.AfterSearchActivity"/>
+        <activity android:name=".aftersearch.AfterSearchDisabledActivity"/>
+
+        <activity android:name=".community.CommunityActivity"
+            android:theme="@style/WithActionBar"/>
+        <activity android:name=".community.CommunityMyMoreActivity"/>
+
+        <activity android:name=".explain.ExplainActivity"/>
+
+        <activity android:name=".firstsetting.FirstSettingActivity"/>
+        <activity android:name=".firstsetting.FirstSettingDisabledActivity"/>
+        <activity android:name=".firstsetting.FirstSettingEnabledActivity"/>
+
+        <activity android:name=".info.InfoActivity"/>
+
+        <activity android:name=".login.LoginActivity"/>
+        <activity android:name=".login.SignUpActivity"/>
+
+        <activity android:name=".notice.NoticeActivity"/>
+        <activity android:name=".notice.NoticeDetailActivity"/>
+
+        <activity android:name=".search.SearchActivity"/>
+
+        <activity android:name=".setting.AppInfoActivity"/>
+        <activity android:name=".setting.SettingActivity"/>
+        <activity android:name=".setting.UserSettingActivity"/>
+
         <activity android:name=".splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".aftersearch.AfterSearchActivity"/>
-        <activity android:name=".aftersearch.AfterSearchDisabledActivity"/>
+
         <activity android:name=".start.StartActivity"/>
         <activity android:name=".start.StartDisabledActivity"/>
-        <activity android:name=".afterroad.AfterRoadActivity"/>
-        <activity android:name=".setting.SettingActivity"/>
-        <activity android:name=".firstsetting.FirstSettingActivity"/>
-        <activity android:name=".firstsetting.FirstSettingDisabledActivity"/>
-        <activity android:name=".firstsetting.FirstSettingEnabledActivity"/>
-        <activity android:name=".search.SearchActivity"/>
-        <activity android:name=".explain.ExplainActivity"/>
-        <activity android:name=".setting.UserSettingActivity"/>
-        <activity android:name=".info.InfoActivity"/>
-        <activity android:name=".login.LoginActivity"/>
-        <activity android:name=".login.SignUpActivity"/>
-        <activity android:name=".community.CommunityActivity"
-            android:theme="@style/WithActionBar"/>
-        <activity android:name=".notice.NoticeActivity"/>
-        <activity android:name=".notice.NoticeDetailActivity"/>
-        <activity android:name=".community.CommunityMyMoreActivity"/>
-        <activity android:name=".setting.AppInfoActivity"/>
+
+
     </application>
 </manifest>

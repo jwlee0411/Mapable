@@ -5,6 +5,7 @@ plugins{
     id("com.google.gms.google-services")
     kotlin("android")
     kotlin("android.extensions")
+    id("kotlin-android")
 
 }
 
@@ -69,6 +70,8 @@ dependencies {
     //android
     implementation ("com.google.android.gms:play-services-maps:17.0.1")
     implementation ("com.google.android.material:material:1.4.0")
+    implementation ("com.google.android.libraries.places:places:2.4.0")
+
     implementation ("com.google.android.gms:play-services-location:18.0.0")
     implementation ("com.google.android.gms:play-services-auth:19.0.0")
     implementation ("com.google.code.findbugs:jsr305:3.0.2")
@@ -78,6 +81,9 @@ dependencies {
     implementation ("org.jsoup:jsoup:1.13.1")
     implementation ("com.scwang.wave:MultiWaveHeader:1.0.0")
     implementation ("com.airbnb.android:lottie:3.7.0")
+
+
+    //사용 안함(제거하면 에러뜸)
 
 
 }

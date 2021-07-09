@@ -51,9 +51,9 @@ class ExplainActivity : AppCompatActivity() {
             handler.proceed()
         }
 
-        override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-         if (url == data) view.loadUrl(url)
-            return false
-        }
+//        override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+//         if (url == data) view.loadUrl(url)
+//            return false
+//        }
     }
 }

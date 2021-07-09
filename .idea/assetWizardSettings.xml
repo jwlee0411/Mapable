@@ -24,7 +24,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\baseline_edit_24.xml" />
+                                                <entry key="imagePath" value="C:\Users\jw\AppData\Local\Temp\baseline_bookmarks_24.xml" />
                                                 <entry key="opacityPercent" value="80" />
                                                 <entry key="paddingPercent" value="10" />
                                                 <entry key="trimmed" value="true" />
@@ -38,7 +38,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/edit/baseline_edit_24.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/bookmarks/baseline_bookmarks_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -83,7 +83,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="icon_edit" />
+                                      <entry key="outputName" value="icon_bookmark" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="000000" />
                                     </map>
