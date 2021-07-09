@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageButton5" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/textLocationName2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nanum_bold"
@@ -54,7 +54,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView21">
+        app:layout_constraintTop_toBottomOf="@+id/textLocationName2">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonStartLocation"
@@ -101,18 +101,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/icon_web"
-        app:layout_constraintStart_toStartOf="@+id/imageButton3"
+        app:layout_constraintStart_toStartOf="@+id/imageLocation2"
         app:layout_constraintTop_toBottomOf="@+id/view9" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutCompat4"
+        android:id="@+id/layoutBookmark"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@id/linearLayoutCompat5"
-        app:layout_constraintStart_toEndOf="@+id/linearLayoutCompat3"
-        app:layout_constraintTop_toTopOf="@+id/linearLayoutCompat3">
+        app:layout_constraintEnd_toStartOf="@id/layoutCall"
+        app:layout_constraintStart_toEndOf="@+id/layoutShare"
+        app:layout_constraintTop_toTopOf="@+id/layoutShare">
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -138,18 +138,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/icon_clock"
-        app:layout_constraintStart_toStartOf="@+id/imageButton3"
+        app:layout_constraintStart_toStartOf="@+id/imageLocation2"
         app:layout_constraintTop_toBottomOf="@+id/view8" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutCompat3"
+        android:id="@+id/layoutShare"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/linearLayoutCompat4"
+        app:layout_constraintEnd_toStartOf="@id/layoutBookmark"
         app:layout_constraintTop_toBottomOf="@+id/view5">
 
         <ImageButton
@@ -198,9 +198,9 @@
         android:layout_marginStart="24dp"
         android:text="서울특별시 여러분 | "
         android:fontFamily="@font/nanum_regular"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
-        app:layout_constraintStart_toEndOf="@+id/imageButton3"
-        app:layout_constraintTop_toTopOf="@+id/imageButton3" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageLocation2"
+        app:layout_constraintStart_toEndOf="@+id/imageLocation2"
+        app:layout_constraintTop_toTopOf="@+id/imageLocation2" />
 
 
     <TextView
@@ -210,19 +210,19 @@
         android:text="69.74km"
         android:textColor="@color/pink01"
         android:fontFamily="@font/nanum_bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
+        app:layout_constraintBottom_toBottomOf="@+id/imageLocation2"
         app:layout_constraintStart_toEndOf="@+id/textView23"
-        app:layout_constraintTop_toTopOf="@+id/imageButton3" />
+        app:layout_constraintTop_toTopOf="@+id/imageLocation2" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutCompat5"
+        android:id="@+id/layoutCall"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/linearLayoutCompat4"
-        app:layout_constraintTop_toTopOf="@+id/linearLayoutCompat3">
+        app:layout_constraintStart_toEndOf="@+id/layoutBookmark"
+        app:layout_constraintTop_toTopOf="@+id/layoutShare">
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -248,7 +248,7 @@
         android:background="@color/gray2_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayoutCompat3" />
+        app:layout_constraintTop_toBottomOf="@id/layoutShare" />
 
 
     <View
@@ -261,10 +261,10 @@
         android:background="@color/gray2_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageLocation2" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/imageLocation2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -279,7 +279,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/icon_star"
-        app:layout_constraintStart_toStartOf="@+id/imageButton3"
+        app:layout_constraintStart_toStartOf="@+id/imageLocation2"
         app:layout_constraintTop_toBottomOf="@+id/view10" />
 
     <TextView
