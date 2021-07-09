@@ -33,7 +33,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
-                android:layout_marginLeft="8dp"
+                android:inputType="text"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@null"
@@ -84,8 +85,17 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <fragment android:id="@+id/autocomplete_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/searchConstraintLayout"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewSearch"
+            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:paddingStart="24dp"

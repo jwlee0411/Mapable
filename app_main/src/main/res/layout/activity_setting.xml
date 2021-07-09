@@ -842,7 +842,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/nanum_bold"
-                android:text="어플리케이션 정보"
+                android:text="라이선스"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -858,7 +858,7 @@
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/nanum_regular"
 
-                android:text="어플리케이션 관련 정보입니다."
+                android:text="어플리케이션에 사용된 리소스 관련 라이선스 안내입니다."
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textAppInfo"
