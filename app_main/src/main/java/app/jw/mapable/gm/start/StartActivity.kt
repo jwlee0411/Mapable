@@ -161,7 +161,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
         //debug : 기존 DB를 지우기 위한 디버그용 버튼(x) => 그때그때 맞는 용도로 사용
         floatingDebug.setOnClickListener {
-            startActivity(Intent(this, NoticeActivity::class.java))
+            startActivity(Intent(this, StartLocationActivity::class.java))
             //sharedPreferences.edit().clear().apply()
         }
 

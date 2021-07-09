@@ -63,7 +63,7 @@
 
         <activity android:name=".start.StartActivity"/>
         <activity android:name=".start.StartDisabledActivity"/>
-
+        <activity android:name=".start.StartLocationActivity"/>
 
     </application>
 </manifest>
