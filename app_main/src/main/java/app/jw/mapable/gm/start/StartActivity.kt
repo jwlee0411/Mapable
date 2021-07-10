@@ -34,6 +34,7 @@ import app.jw.mapable.gm.notice.NoticeActivity
 import app.jw.mapable.gm.search.SearchActivity
 import app.jw.mapable.gm.setting.SettingActivity
 import app.jw.mapable.gm.setting.UserSettingActivity
+import app.jw.mapable.gm.star.StarActivity
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -231,7 +232,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             drawerLayout.closeDrawers()
             when (item.itemId) {
                 R.id.nav_settings -> startActivity(Intent(this@StartActivity, SettingActivity::class.java))
-                R.id.nav_explain -> startActivity(Intent(this@StartActivity, ExplainActivity::class.java))
+                R.id.nav_star -> startActivity(Intent(this@StartActivity, StarActivity::class.java))
                 R.id.nav_info -> startActivity(Intent(this@StartActivity, NoticeActivity::class.java))
                R.id.nav_community -> startActivity(Intent(this@StartActivity, CommunityActivity::class.java))
 

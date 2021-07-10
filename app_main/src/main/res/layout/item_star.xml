@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textView22"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView21"
+        app:srcCompat="@drawable/icon_location_black" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nanum_bold"
+        android:text="무한으로 즐겨요 명륜진사갈비"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="서울특별시 여러분 | "
+        android:fontFamily="@font/nanum_regular"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/textView21"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4.5km"
+        android:fontFamily="@font/nanum_bold"
+        android:textColor="@color/pink01"
+        app:layout_constraintStart_toEndOf="@id/textView22"
+        app:layout_constraintTop_toTopOf="@id/textView22"
+        tools:layout_editor_absoluteX="216dp"
+        tools:layout_editor_absoluteY="51dp" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonDepart"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button_pink_border"
+        android:fontFamily="@font/nanum_regular"
+        android:text="출발"
+        android:textColor="@color/pink03"
+        app:layout_constraintBottom_toBottomOf="@+id/textView22"
+        app:layout_constraintEnd_toStartOf="@+id/buttonArrive"
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonArrive"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:background="@drawable/button_pink_noborder"
+        android:fontFamily="@font/nanum_regular"
+        android:text="도착"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView22"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
