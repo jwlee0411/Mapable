@@ -16,7 +16,7 @@
         android:layout_height="64dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/default_profile" />
+        app:srcCompat="@drawable/profile_default" />
 
     <TextView
         android:id="@+id/textViewUserName"

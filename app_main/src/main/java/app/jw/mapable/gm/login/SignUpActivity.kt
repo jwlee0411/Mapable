@@ -1,6 +1,7 @@
 package app.jw.mapable.gm.login
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.animation.Animation
@@ -16,9 +17,17 @@ import java.util.regex.Pattern
 
 
 class SignUpActivity : AppCompatActivity() {
+
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
+
+        sharedPreferences = getSharedPreferences("preferences", 0)
+        editor = sharedPreferences.edit()
 
         setLogoAnim()
         
@@ -54,6 +63,14 @@ class SignUpActivity : AppCompatActivity() {
                         user["image"] = ""
                         user["message"] = ""
                         user["usertype"] = false
+                        user["myPost"] = ArrayList<String>()
+                        user["myStar"] = ArrayList<String>()
+
+
+                        editor.putString("userID", userID)
+                        editor.putString("userPW", userPW)
+                        editor.apply()
+
 
                         db.collection("users").document(mAuth.currentUser?.uid!!).set(user)
                             .addOnSuccessListener {

@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.jw.mapable.gm.R
-import app.jw.mapable.gm.notice.NoticeItem
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_community_my_more.*
@@ -14,7 +13,7 @@ import kotlin.collections.ArrayList
 
 class CommunityMyMoreActivity : AppCompatActivity() {
 
-    private lateinit var recyclerAdapter : CommunityMyMoreAdapter
+    private lateinit var recyclerAdapter : CommunityAdapter
     private val datas = ArrayList<ItemCommunityMyMore>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +23,7 @@ class CommunityMyMoreActivity : AppCompatActivity() {
         val title = intent.getStringExtra("click")
         textViewTitle.text = title
 
-        recyclerAdapter = CommunityMyMoreAdapter(this)
+        recyclerAdapter = CommunityAdapter(this)
         recyclerCommunityMyMore.adapter = recyclerAdapter
         recyclerCommunityMyMore.layoutManager = LinearLayoutManager(applicationContext)
 

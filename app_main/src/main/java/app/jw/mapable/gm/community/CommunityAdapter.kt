@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import app.jw.mapable.gm.R
 import kotlinx.android.synthetic.main.item_community_summary.view.*
 
-class CommunityMyMoreAdapter(private val context : Context) :
-    RecyclerView.Adapter<CommunityMyMoreAdapter.ItemViewHolder>() {
+class CommunityAdapter(private val context : Context) :
+    RecyclerView.Adapter<CommunityAdapter.ItemViewHolder>() {
 
 
     var datas = ArrayList<ItemCommunityMyMore>()
@@ -24,7 +24,7 @@ class CommunityMyMoreAdapter(private val context : Context) :
     }
 
     override fun onBindViewHolder(
-        holder: CommunityMyMoreAdapter.ItemViewHolder,
+        holder: CommunityAdapter.ItemViewHolder,
         position: Int
     ) {
         holder.bind(datas[position])

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.search.SearchActivity
 import app.jw.mapable.gm.start.StartActivity
-import app.jw.mapable.gm.threadtask.ThreadTask
+import app.jw.mapable.gm.function.ThreadTask
 import com.odsay.odsayandroidsdk.API
 import com.odsay.odsayandroidsdk.ODsayData
 import com.odsay.odsayandroidsdk.ODsayService

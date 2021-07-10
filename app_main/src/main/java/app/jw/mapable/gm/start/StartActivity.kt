@@ -371,9 +371,10 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
             val gpsTracker = GpsTracker(this)
             val latitude : Double = gpsTracker.getLatitude()
-            val longtitude : Double = gpsTracker.getLongtitude()
+            val longitude : Double = gpsTracker.getLongtitude()
 
-            getCurrentAddress(latitude, longtitude)
+            getCurrentAddress(latitude, longitude)
+
 
             if(clicked)
             {
