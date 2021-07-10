@@ -1,5 +1,6 @@
 package app.jw.mapable.gm.community
 
+
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -17,13 +18,10 @@ import app.jw.mapable.gm.setting.UserSettingActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_after_search.*
-import kotlinx.android.synthetic.main.fragment_community_my.*
 import kotlinx.android.synthetic.main.fragment_community_my.view.*
-import kotlinx.android.synthetic.main.item_community_summary.view.*
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
+
 
 class CommunityMyFragment : Fragment() {
     private var _binding : FragmentCommunityMyBinding? = null
@@ -55,6 +53,10 @@ class CommunityMyFragment : Fragment() {
         sharedPreferences = requireContext().getSharedPreferences("preferences", 0)
         editor = sharedPreferences.edit()
 
+        root.lottieViewCommunityMy.visibility = View.VISIBLE
+        root.viewCommunityMy.visibility = View.VISIBLE
+
+
         setonClick(root)
 
         setView(root)
@@ -64,7 +66,6 @@ class CommunityMyFragment : Fragment() {
 
         return root
     }
-
 
     private fun setonClick(root:View)
     {
@@ -117,13 +118,13 @@ class CommunityMyFragment : Fragment() {
         recyclerPostAdapter = CommunityAdapter(root.context)
         root.recyclerViewMyPost.adapter = recyclerPostAdapter
         root.recyclerViewMyPost.layoutManager = LinearLayoutManager(root.context)
-        getMyPost(root)
+
 
 
         recyclerStarAdapter = CommunityAdapter(root.context)
         root.recyclerViewStar.adapter = recyclerStarAdapter
         root.recyclerViewStar.layoutManager = LinearLayoutManager(root.context)
-        getMyStar(root)
+
 
 
 
@@ -161,6 +162,10 @@ class CommunityMyFragment : Fragment() {
 
                 }
 
+                getMyPost(root)
+                getMyStar(root)
+
+
             }
             .addOnFailureListener {
                 println("Error getting documents.")
@@ -184,24 +189,26 @@ class CommunityMyFragment : Fragment() {
                     for(getID in myPost)
                     {
                         println("getID : $getID")
+
                         if(getID.equals(postID))
                         {
                             println("setPost")
-                            datas.add(ItemCommunityMyMore(title = document.data["title"] as String, description = document.data["content"] as String, imageLink = document.data["image"] as String))
+
+                            val timeStamp = document.data["posttime"] as com.google.firebase.Timestamp
+                            val date: Date = timeStamp.toDate()
+                            val dateFormat = android.text.format.DateFormat.getDateFormat(root.context)
+                            datas.add(ItemCommunityMyMore(title = document.data["title"] as String, description = document.data["content"] as String, imageLink = document.data["image"] as String, date=dateFormat.format(date)))
                             i++
                         }
                     }
 
-                    //TODO : 게시글 작성 시각 등
-                    val timeStamp = document.data["posttime"] as com.google.firebase.Timestamp
-                    val date: Date = timeStamp.toDate()
-                    val dateFormat = android.text.format.DateFormat.getDateFormat(root.context)
+
                 }
 
 
                 datas.apply {
-                    recyclerStarAdapter.datas = datas
-                    recyclerStarAdapter.notifyDataSetChanged()
+                    recyclerPostAdapter.datas = datas
+                    recyclerPostAdapter.notifyDataSetChanged()
                 }
                 fadeOutAnimation(root)
 
@@ -232,15 +239,14 @@ class CommunityMyFragment : Fragment() {
                         println("getID : $getID")
                         if(getID.equals(postID))
                         {
-                            datas.add(ItemCommunityMyMore(title = document.data["title"] as String, description = document.data["content"] as String, imageLink = document.data["image"] as String))
+                            val timeStamp = document.data["posttime"] as com.google.firebase.Timestamp
+                            val date: Date = timeStamp.toDate()
+                            val dateFormat = android.text.format.DateFormat.getDateFormat(root.context)
+                            datas.add(ItemCommunityMyMore(title = document.data["title"] as String, description = document.data["content"] as String, imageLink = document.data["image"] as String, date=dateFormat.format(date)))
                             i++
                         }
                     }
 
-                    //TODO : 게시글 작성 시각 등
-                    val timeStamp = document.data["posttime"] as com.google.firebase.Timestamp
-                    val date: Date = timeStamp.toDate()
-                    val dateFormat = android.text.format.DateFormat.getDateFormat(root.context)
                 }
 
 
@@ -262,14 +268,14 @@ class CommunityMyFragment : Fragment() {
     {
         val animation = AnimationUtils.loadAnimation(root.context, R.anim.anim_fade_out)
 
-        lottieViewCommunityMy.startAnimation(animation)
-        viewCommunityMy.startAnimation(animation)
+        root.lottieViewCommunityMy.startAnimation(animation)
+        root.viewCommunityMy.startAnimation(animation)
 
         animation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {}
             override fun onAnimationEnd(animation: Animation) {
-                lottieViewCommunityMy.visibility = View.GONE
-                viewCommunityMy.visibility = View.GONE
+                root.lottieViewCommunityMy.visibility = View.GONE
+                root.viewCommunityMy.visibility = View.GONE
             }
 
             override fun onAnimationRepeat(animation: Animation) {}

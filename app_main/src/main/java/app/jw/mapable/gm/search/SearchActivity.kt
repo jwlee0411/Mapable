@@ -43,10 +43,6 @@ class SearchActivity : AppCompatActivity() {
         transparentView.bringToFront()
         backButton.bringToFront()
 
-        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
-
-
         val isTTS = intent.getBooleanExtra("TTS", false)
 
         if(isTTS) openSTT()

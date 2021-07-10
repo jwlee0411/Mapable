@@ -62,6 +62,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".star.StarActivity"/>
+
         <activity android:name=".start.StartActivity"/>
         <activity android:name=".start.StartDisabledActivity"/>
         <activity android:name=".start.StartLocationActivity"/>

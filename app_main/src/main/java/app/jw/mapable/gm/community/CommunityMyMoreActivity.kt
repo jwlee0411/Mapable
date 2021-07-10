@@ -45,7 +45,7 @@ class CommunityMyMoreActivity : AppCompatActivity() {
                     val date: Date = timeStamp.toDate()
                     val dateFormat = android.text.format.DateFormat.getDateFormat(applicationContext)
 
-                    datas.add(ItemCommunityMyMore(title = document.data["title"] as String, description = document.data["content"] as String, imageLink = document.data["image"] as String))
+                    datas.add(ItemCommunityMyMore(title = document.data["title"] as String, description = document.data["content"] as String, imageLink = document.data["image"] as String, date=dateFormat.format(date)))
                 }
 
 

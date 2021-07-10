@@ -38,6 +38,7 @@ class CommunityAdapter(private val context : Context) :
             println("LOG : ${itemCommunityMyMore.title}")
             itemView.textSummaryTitle.text = itemCommunityMyMore.title
             itemView.textSummaryDescription.text = itemCommunityMyMore.description
+            itemView.textSummaryDate.text = itemCommunityMyMore.date
 
         }
     }
