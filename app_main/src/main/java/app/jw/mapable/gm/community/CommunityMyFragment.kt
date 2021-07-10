@@ -101,18 +101,21 @@ class CommunityMyFragment : Fragment() {
         userMessage = sharedPreferences.getString("userMessage", "상태 메시지를 설정해주세요!")!!
         userPhoto = sharedPreferences.getString("userPhoto", "")!!
         userID = sharedPreferences.getString("userID", "")!!
+        
+        if(userPhoto != "")
+        {
+            Glide.with(root.context).load(Uri.parse(userPhoto)).into(root.imageMyProfile)
+        }
 
 
-        root.textMyName.text = userName
-        root.textMyMessage.text = userMessage
-
-
-        //TODO : 이미지 로딩 기능 적용 후 활성화
-        //Glide.with(root.context).load(Uri.parse(userPhoto)).into(root.imageMyProfile)
 
 
         getRequiredPosts(root)
 
+
+        root.textMyID.text = userID
+        root.textMyName.text = userName
+        root.textMyMessage.text = userMessage
 
 
         recyclerPostAdapter = CommunityAdapter(root.context)

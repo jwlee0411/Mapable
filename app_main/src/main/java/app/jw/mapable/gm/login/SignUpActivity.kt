@@ -69,6 +69,7 @@ class SignUpActivity : AppCompatActivity() {
 
                         editor.putString("userID", userID)
                         editor.putString("userPW", userPW)
+                        editor.putString("uid", mAuth.currentUser?.uid!!)
                         editor.apply()
 
 

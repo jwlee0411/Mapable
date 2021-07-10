@@ -66,6 +66,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth-ktx:21.0.1")
     implementation ("com.google.firebase:firebase-firestore:23.0.1")
     implementation ("com.google.firebase:firebase-firestore-ktx:23.0.1")
+    implementation ("com.google.firebase:firebase-storage")
 
     //android
     implementation ("com.google.android.gms:play-services-maps:17.0.1")
