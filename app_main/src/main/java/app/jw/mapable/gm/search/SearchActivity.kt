@@ -53,8 +53,8 @@ class SearchActivity : AppCompatActivity() {
 
 
         backButton.setOnClickListener {
-            overridePendingTransition(R.anim.anim_none, R.anim.anim_move_bottom_down_full)
             finish()
+            overridePendingTransition(R.anim.anim_none, R.anim.anim_move_bottom_down_full)
         }
 
         ttsButton.setOnClickListener {

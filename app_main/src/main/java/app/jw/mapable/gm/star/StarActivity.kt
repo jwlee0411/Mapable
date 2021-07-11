@@ -37,16 +37,17 @@ class StarActivity : AppCompatActivity() {
         recyclerStar.layoutManager = LinearLayoutManager(this)
         recyclerStar.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
-        val data : ArrayList<String> = sharedPreferences.getString("bookmark", "")!!.split("★") as ArrayList<String>
+        val data = sharedPreferences.getString("bookmark", "")!!.split("★")
 
+        //TODO : 에러 해결하기
         for (value in data)
         {
-            val newData = value.split("※") as ArrayList<String>
-            val locationName = newData[0]
-            val latitude = newData[1].toDouble()
-            val longitude = newData[2].toDouble()
-
-            datas.add(StarItem(locationName, latitude, longitude, "0.0km"))
+//            val newData = value.split("※")
+//            val locationName = newData[0]
+//            val latitude = newData[1].toDouble()
+//            val longitude = newData[2].toDouble()
+//
+//            datas.add(StarItem(locationName, latitude, longitude, "0.0km"))
 
 
 

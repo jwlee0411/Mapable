@@ -70,6 +70,7 @@ dependencies {
 
     //android
     implementation ("com.google.android.gms:play-services-maps:17.0.1")
+    implementation ("com.google.android.gms:play-services-places:17.0.0")
     implementation ("com.google.android.material:material:1.4.0")
     implementation ("com.google.android.libraries.places:places:2.4.0")
 
