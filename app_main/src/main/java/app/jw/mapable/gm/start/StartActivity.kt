@@ -10,6 +10,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.SpeechRecognizer
@@ -44,11 +45,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_start.*
-import kotlinx.android.synthetic.main.dialog_start.*
+import kotlinx.android.synthetic.main.dialog_user_setting_edit.*
 import kotlinx.android.synthetic.main.navi_header_start.*
 import java.io.IOException
 import java.util.*
+import kotlin.math.*
 
 
 class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
@@ -56,6 +59,10 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
    lateinit var currentLocationMarker : Marker
 
+   var locationLatitude = 0.0
+    var locationLongitude = 0.0
+
+    var layoutInflated = false
 
     var onTouched = false
     var clicked = false
@@ -71,6 +78,9 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     var startY : Double = 0.0
     var endX : Double = 0.0
     var endY : Double = 0.0
+
+    var start = false
+    var end = false
 
     val update_interval : Long = 1000
     val fastest_update_interval : Long = 500
@@ -91,6 +101,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     lateinit var locationRequest : LocationRequest
 
     lateinit var sharedPreferences : SharedPreferences
+    lateinit var editor : SharedPreferences.Editor
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,6 +124,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         }
 
         sharedPreferences = getSharedPreferences("preferences", 0)
+        editor = sharedPreferences.edit()
         if (sharedPreferences.getBoolean("disabled", false))
         {
             //TODO : 예선 제출 시 비활성화
@@ -468,14 +480,107 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         mMap.setOnMapLongClickListener {
             //TODO : 기존 코드 갈아엎고 새로운 방식으로 출발 도착 등 결정
 
+            layoutInflated = true
+            locationLatitude = it.latitude
+            locationLongitude = it.longitude
 
            // mMap.addMarker(MarkerOptions().position(it))
-            val locationString : String = getCurrentAddress(it.latitude, it.longitude)
+            val locationString : String = getCurrentAddress(locationLatitude, locationLongitude).replace("대한민국 ", "")
 
 
-            val startDialog = StartDialog(this)
-            println(locationString)
-            startDialog.callFunction(it.latitude, it.longitude, locationString)
+            val gpsTracker = GpsTracker(this)
+            val latitude : Double = gpsTracker.getLatitude()
+            val longitude : Double = gpsTracker.getLongtitude()
+
+            val distance = getDistance(locationLatitude, locationLongitude, latitude, longitude)
+
+            val makeStr = distance
+
+            textDistanceLocation.text = makeStr
+            textLocationTitle.text = "일해라 개발자"
+            textAddress.text = locationString
+
+            buttonStart.setOnClickListener {
+                start = true
+                sharedPreferences.edit().putBoolean("start", true).apply()
+
+                sharedPreferences.edit().putFloat("startX", latitude.toFloat()).putFloat("startY", longitude.toFloat()).apply()
+                sharedPreferences.edit().putString("startNewX", latitude.toString()).putString("startNewY", longitude.toString()).apply()
+                sharedPreferences.edit().putString("startLocation", textLocationTitle.text.toString()).apply()
+
+
+
+                if(end)
+                {
+                    //출발지, 도착지 모두 정해짐
+                    openAfterSearch()
+
+                }
+                else
+                {
+                    Toast.makeText(this, "출발지가 설정되었습니다.", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            buttonEnd.setOnClickListener {
+                end = true
+                sharedPreferences.edit().putFloat("endX", latitude.toFloat()).putFloat("endY", longitude.toFloat()).apply()
+                sharedPreferences.edit().putString("endNewX", latitude.toString()).putString("endNewY", longitude.toString()).apply()
+                sharedPreferences.edit().putString("endLocation", textLocationTitle.text.toString()).apply()
+                if(start)
+                {
+                    //출발지, 도착지 모두 정해짐
+                    openAfterSearch()
+                }
+                else
+                {
+                    Toast.makeText(this, "도착지가 설정되었습니다.", Toast.LENGTH_LONG).show()
+                }
+
+            }
+
+            buttonShare.setOnClickListener{
+                val intentShare = Intent(Intent.ACTION_SEND)
+                intentShare.type = "text/plain"
+                intentShare.putExtra(Intent.EXTRA_TEXT, "공유할 텍스트")
+                startActivity(Intent.createChooser(intentShare, "공유"))
+
+            }
+
+            buttonCall.setOnClickListener{
+                startActivity(Intent("android.intent.action.DIAL", Uri.parse("tel:01081927493"))) //TODO : 전화번호 바꾸기
+            }
+
+            buttonBookmark.setOnClickListener {
+
+                val uid = sharedPreferences.getString("uid", "")!!
+
+                val bookmarkData = "★" + textLocationTitle.text.toString() + "※" + locationLatitude + "※" + locationLongitude
+
+                val bookmarkString = sharedPreferences.getString("bookmark", "")!!
+
+                editor.putString("bookmark", bookmarkString + bookmarkData).apply()
+
+
+
+
+            }
+
+
+
+
+
+
+
+            //TODO : 레이아웃 올리기
+
+
+
+
+
+//            val startDialog = StartDialog(this)
+//            println(locationString)
+//            startDialog.callFunction(it.latitude, it.longitude, locationString)
 
 
 
@@ -543,6 +648,54 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
 
     }
+
+    private fun openAfterSearch()
+    {
+        start = false
+        end = false
+        val intent = Intent(this, AfterSearchActivity::class.java)
+        startActivity(intent)
+    }
+
+    //TODO : getDistance 함수 오류 수정
+    private fun getDistance(lat1 : Double, lon1 : Double, lat2 : Double, lon2 : Double) : String
+    {
+        val theta = lon1 - lon2
+        var dist = sin(deg2rad(lat1)) * sin(deg2rad(lat2)) + cos(deg2rad(lat1)) * cos(deg2rad(lat2)) * cos(deg2rad(theta))
+
+        dist = acos(dist)
+        dist = rad2deg(dist)
+
+        dist *= 60 * 1.1515 * 1.609344
+
+        if(dist < 1)
+        {
+
+            return (dist*1000).roundToInt().toString() + "m"
+        }
+        else
+        {
+            return (((dist*10).roundToInt())/10.0).toString() + "km"
+        }
+
+
+
+
+
+
+
+    }
+
+
+    private fun deg2rad(deg : Double) : Double
+    {
+        return (deg * Math.PI / 100.0)
+    }
+
+    private fun rad2deg(rad : Double) : Double{
+        return (rad * 100 / Math.PI)
+    }
+
 
 
     private val listener: RecognitionListener = object : RecognitionListener {
