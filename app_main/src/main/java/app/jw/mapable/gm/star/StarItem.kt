@@ -1,5 +1,8 @@
 package app.jw.mapable.gm.star
 
 data class StarItem(
-    val string : String
+    val locationName : String,
+    val latitude : Double,
+    val longitude : Double,
+    val distance : String
 )

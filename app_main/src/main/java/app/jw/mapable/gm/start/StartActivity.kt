@@ -510,6 +510,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
 
 
+
+
                 if(end)
                 {
                     //출발지, 도착지 모두 정해짐

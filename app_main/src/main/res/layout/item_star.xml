@@ -13,13 +13,13 @@
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/textView22"
+        app:layout_constraintBottom_toBottomOf="@+id/textLocationDescription2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView21"
+        app:layout_constraintTop_toTopOf="@+id/textLocationTitle2"
         app:srcCompat="@drawable/icon_location_black" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/textLocationTitle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nanum_bold"
@@ -31,24 +31,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/textLocationDescription2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="서울특별시 여러분 | "
         android:fontFamily="@font/nanum_regular"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/textView21"
-        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+        app:layout_constraintStart_toStartOf="@+id/textLocationTitle2"
+        app:layout_constraintTop_toBottomOf="@+id/textLocationTitle2" />
 
     <TextView
-        android:id="@+id/textView28"
+        android:id="@+id/textLocationDistance2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="4.5km"
         android:fontFamily="@font/nanum_bold"
         android:textColor="@color/pink01"
-        app:layout_constraintStart_toEndOf="@id/textView22"
-        app:layout_constraintTop_toTopOf="@id/textView22"
+        app:layout_constraintStart_toEndOf="@id/textLocationDescription2"
+        app:layout_constraintTop_toTopOf="@id/textLocationDescription2"
         tools:layout_editor_absoluteX="216dp"
         tools:layout_editor_absoluteY="51dp" />
 
@@ -62,9 +62,9 @@
         android:fontFamily="@font/nanum_regular"
         android:text="출발"
         android:textColor="@color/pink03"
-        app:layout_constraintBottom_toBottomOf="@+id/textView22"
+        app:layout_constraintBottom_toBottomOf="@+id/textLocationDescription2"
         app:layout_constraintEnd_toStartOf="@+id/buttonArrive"
-        app:layout_constraintTop_toTopOf="@+id/textView21" />
+        app:layout_constraintTop_toTopOf="@+id/textLocationTitle2" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonArrive"
@@ -75,8 +75,8 @@
         android:text="도착"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView22"
+        app:layout_constraintBottom_toBottomOf="@+id/textLocationDescription2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView21" />
+        app:layout_constraintTop_toTopOf="@+id/textLocationTitle2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
