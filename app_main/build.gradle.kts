@@ -49,7 +49,7 @@ dependencies {
 
     //androidx
     implementation ("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation ("androidx.navigation:navigation-runtime:2.3.5")
+    implementation ("androidx.navigation:navigation-runtime-ktx:2.3.5")
     implementation ("androidx.navigation:navigation-fragment-ktx:2.3.5")
     implementation ("androidx.navigation:navigation-ui-ktx:2.3.5")
     implementation ("androidx.core:core-ktx:1.6.0")
@@ -66,9 +66,11 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth-ktx:21.0.1")
     implementation ("com.google.firebase:firebase-firestore:23.0.1")
     implementation ("com.google.firebase:firebase-firestore-ktx:23.0.1")
+    implementation ("com.google.firebase:firebase-storage")
 
     //android
     implementation ("com.google.android.gms:play-services-maps:17.0.1")
+    implementation ("com.google.android.gms:play-services-places:17.0.0")
     implementation ("com.google.android.material:material:1.4.0")
     implementation ("com.google.android.libraries.places:places:2.4.0")
 

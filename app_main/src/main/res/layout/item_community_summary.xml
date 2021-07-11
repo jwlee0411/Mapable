@@ -34,6 +34,21 @@
         app:layout_constraintStart_toStartOf="@+id/textSummaryTitle"
         app:layout_constraintTop_toBottomOf="@id/textSummaryTitle" />
 
+    <TextView
+        android:id="@+id/textSummaryDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/nanum_regular"
+        android:text="내용"
+        android:textColor="@color/black"
+
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/textSummaryTitle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textSummaryTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textSummaryDescription" />
+
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="80dp"

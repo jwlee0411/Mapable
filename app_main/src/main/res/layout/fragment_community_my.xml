@@ -12,6 +12,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <View
+            android:id="@+id/viewCommunityMy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#66000000"
+            android:translationZ="1dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieViewCommunityMy"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/map_loading_anim"
+            android:translationZ="2dp"
+            android:visibility="gone"/>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
             android:layout_width="0dp"
@@ -30,25 +56,25 @@
                 android:layout_height="96dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/profile_default"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textMyName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/nanum_bold"
                 android:text="이름"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageMyProfile"
-                app:layout_constraintTop_toTopOf="@+id/imageMyProfile" />
+                app:layout_constraintTop_toBottomOf="@+id/textMyID" />
 
             <TextView
                 android:id="@+id/textMyMessage"
@@ -62,14 +88,27 @@
                 app:layout_constraintTop_toBottomOf="@+id/textMyName" />
 
             <TextView
+                android:id="@+id/textMyID"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:text="이메일 입력"
+                app:layout_constraintEnd_toEndOf="@+id/textMyName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textMyName"
+                app:layout_constraintTop_toTopOf="@+id/imageMyProfile" />
+
+            <TextView
                 android:id="@+id/textViewMySetting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="설정하기 >"
                 android:fontFamily="@font/nanum_regular"
+                android:text="설정하기 >"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textMyName" />
+                app:layout_constraintEnd_toEndOf="@+id/textMyName"
+                app:layout_constraintTop_toBottomOf="@+id/imageMyProfile" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -87,11 +126,13 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView3"
+            android:id="@+id/recyclerViewStar"
             android:layout_width="0dp"
+
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/setting_background"
+            android:overScrollMode="never"
             android:paddingStart="24dp"
             android:paddingTop="16dp"
             android:paddingEnd="24dp"
@@ -122,7 +163,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView3" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewStar" />
 
         <TextView
             android:id="@+id/textMyTextMore"
@@ -132,10 +173,10 @@
             android:fontFamily="@font/nanum_regular"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView20"
-            app:layout_constraintEnd_toEndOf="@+id/recyclerView3" />
+            app:layout_constraintEnd_toEndOf="@+id/recyclerViewStar" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView4"
+            android:id="@+id/recyclerViewMyPost"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -143,6 +184,7 @@
             tools:listitem="@layout/item_community_summary"
             tools:itemCount="3"
             android:paddingStart="24dp"
+            android:overScrollMode="never"
             android:paddingTop="16dp"
             android:paddingEnd="24dp"
             android:paddingBottom="16dp"
@@ -157,12 +199,12 @@
             android:layout_marginTop="24dp"
             android:fontFamily="@font/nanum_bold"
             android:text="내가 쓴 댓글"
-
+            android:visibility="gone"
             tools:itemCount="3"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView4" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewMyPost" />
 
         <TextView
             android:id="@+id/textMyReplyMore"
@@ -171,6 +213,7 @@
             android:text="더 보기 >"
             android:fontFamily="@font/nanum_regular"
             android:textSize="12sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/textMyReply"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout2" />
 
@@ -179,6 +222,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:overScrollMode="never"
+            android:visibility="gone"
             android:fontFamily="@font/nanum_regular"
             android:textSize="12sp"
             tools:listitem="@layout/item_community_summary"

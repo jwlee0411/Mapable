@@ -21,7 +21,6 @@ import app.jw.mapable.gm.R
 import app.jw.mapable.gm.start.StartActivity
 import kotlinx.android.synthetic.main.activity_after_search.*
 import kotlinx.android.synthetic.main.activity_splash.*
-import kotlinx.android.synthetic.main.dialog_start.*
 import java.util.*
 
 class SplashActivity : AppCompatActivity() {

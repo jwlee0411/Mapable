@@ -13,7 +13,7 @@ class UserSettingDialog(val context : Context) : DialogInterface.OnDismissListen
     {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_start)
+        dialog.setContentView(R.layout.dialog_user_setting)
         dialog.show()
 
         dialog.setOnDismissListener {

@@ -40,47 +40,21 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        editTextSearch.requestFocus()
-
-        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
-
+        transparentView.bringToFront()
+        backButton.bringToFront()
 
         val isTTS = intent.getBooleanExtra("TTS", false)
 
         if(isTTS) openSTT()
 
 
-        editTextSearch.imeOptions = EditorInfo.IME_ACTION_DONE
-
-
-
-
-
-        editTextSearch.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                val searchText = editTextSearch.text.toString()
-
-                val geocoder = Geocoder(baseContext)
-                val addresses: List<Address>
-
-                try {
-                    addresses = geocoder.getFromLocationName(searchText, 10)
-                    if (addresses != null) {
-                        search(addresses)
-                    }
-                } catch (e: Exception) {
-                }
-                true
-            } else false
-        }
 
 
 
 
         backButton.setOnClickListener {
-            overridePendingTransition(R.anim.anim_none, R.anim.anim_move_bottom_down_full)
             finish()
+            overridePendingTransition(R.anim.anim_none, R.anim.anim_move_bottom_down_full)
         }
 
         ttsButton.setOnClickListener {
@@ -98,7 +72,7 @@ class SearchActivity : AppCompatActivity() {
         // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(listOf(Place.Field.RATING, Place.Field.WEBSITE_URI, Place.Field.BUSINESS_STATUS, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.PHONE_NUMBER, Place.Field.OPENING_HOURS, Place.Field.ADDRESS))
 
-
+        autocompleteFragment.setHint("여기서 검색")
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
@@ -182,6 +156,7 @@ class SearchActivity : AppCompatActivity() {
                 val result = results?.get(0)
 
                 autocompleteFragment.setText(result) //editText에서는 .text 사용하면 안 됨!
+
 
 
 

@@ -31,11 +31,10 @@
             <TextView
                 android:id="@+id/textViewSearch"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
 
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:background="@null"
                 android:text="여기서 검색"
                 android:fontFamily="@font/nanum_bold"
@@ -199,14 +198,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/start_background_rounded"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/appCompatButton2"
+                android:id="@+id/buttonStart"
                 android:layout_width="74dp"
                 android:layout_height="34dp"
                 android:layout_marginEnd="24dp"
@@ -215,11 +214,11 @@
                 android:text="출발"
                 android:textColor="@color/pink03"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/appCompatButton"
+                app:layout_constraintEnd_toStartOf="@+id/buttonEnd"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/appCompatButton"
+                android:id="@+id/buttonEnd"
                 android:layout_width="74dp"
                 android:layout_height="34dp"
                 android:layout_marginEnd="16dp"
@@ -229,7 +228,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/appCompatButton2" />
+                app:layout_constraintTop_toTopOf="@+id/buttonStart" />
 
             <ImageView
                 android:id="@+id/view4"
@@ -242,7 +241,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/textLocationTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -255,25 +254,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/view4" />
 
             <TextView
+                android:id="@+id/textAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/nanum_regular"
                 android:text="서울 용산구 한강로2가"
                 android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@+id/textView18"
-                app:layout_constraintTop_toTopOf="@+id/textView18" />
+                app:layout_constraintStart_toEndOf="@+id/textDistanceLocation"
+                app:layout_constraintTop_toTopOf="@+id/textDistanceLocation" />
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/textDistanceLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/nanum_bold"
                 android:text="69.74km"
                 android:textColor="@color/pink04"
-                app:layout_constraintStart_toStartOf="@+id/textView17"
-                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+                app:layout_constraintStart_toStartOf="@+id/textLocationTitle"
+                app:layout_constraintTop_toBottomOf="@+id/textLocationTitle" />
 
             <View
                 android:id="@+id/view2"
@@ -283,10 +283,10 @@
                 android:background="@color/gray3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                app:layout_constraintTop_toBottomOf="@+id/textDistanceLocation" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/buttonCall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -298,21 +298,22 @@
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <ImageButton
+                android:id="@+id/buttonShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:background="@drawable/icon_share"
-                app:layout_constraintStart_toEndOf="@+id/imageButton2"
-                app:layout_constraintTop_toTopOf="@+id/imageButton" />
+                app:layout_constraintStart_toEndOf="@+id/buttonBookmark"
+                app:layout_constraintTop_toTopOf="@+id/buttonCall" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/buttonBookmark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:background="@drawable/icon_bookmark"
-                app:layout_constraintStart_toEndOf="@+id/imageButton"
-                app:layout_constraintTop_toTopOf="@+id/imageButton" />
+                app:layout_constraintStart_toEndOf="@+id/buttonCall"
+                app:layout_constraintTop_toTopOf="@+id/buttonCall" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

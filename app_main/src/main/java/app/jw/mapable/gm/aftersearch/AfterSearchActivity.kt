@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.search.SearchActivity
 import app.jw.mapable.gm.start.StartActivity
-import app.jw.mapable.gm.threadtask.ThreadTask
+import app.jw.mapable.gm.function.ThreadTask
 import com.odsay.odsayandroidsdk.API
 import com.odsay.odsayandroidsdk.ODsayData
 import com.odsay.odsayandroidsdk.ODsayService
@@ -297,7 +297,7 @@ class AfterSearchActivity : AppCompatActivity() {
                 {
                     e.printStackTrace()
                     val errorObject = jsonObject.getJSONObject("error")
-                    Toast.makeText(applicationContext, """${errorObject.getString("msg")}출발지와 도착지를 올바른 곳으로 설정했는지 다시 한 번 확인해 주세요.""".trimIndent(), Toast.LENGTH_LONG).show()
+                    //Toast.makeText(this@AfterSearchActivity, """${errorObject.getString("msg")}출발지와 도착지를 올바른 곳으로 설정했는지 다시 한 번 확인해 주세요.""".trimIndent(), Toast.LENGTH_LONG).show()
                     fadeOutAnimation()
                 }
 

@@ -668,216 +668,234 @@
                     android:drawableBottom="@drawable/abc_btn_radio_material" />
             </RadioGroup>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout03"
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutCompat2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/setting_background"
-                android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@id/radioWayCheck"
-                tools:layout_editor_absoluteX="0dp">
-
-
-                <TextView
-                    android:id="@+id/textDisabled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/nanum_bold"
-                    android:text="시각장애인 모드"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/viewDisabledLine"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/gray2"
-                    app:layout_constraintBottom_toBottomOf="@+id/switchDisabled"
-                    app:layout_constraintEnd_toStartOf="@+id/switchDisabled"
-                    app:layout_constraintTop_toTopOf="@+id/switchDisabled" />
-
-                <Switch
-                    android:id="@+id/switchDisabled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text=""
-                    app:layout_constraintBottom_toBottomOf="@+id/textDisabledExplain"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textDisabled" />
-
-                <TextView
-                    android:id="@+id/textDisabledExplain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/nanum_regular"
-
-                    android:text="시각장애인 전용 모드를 사용합니다."
-                    android:textSize="10sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textDisabled"
-                    app:layout_constraintTop_toBottomOf="@+id/textDisabled" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout04"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/setting_background"
-                android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@id/constraintLayout03"
-                tools:layout_editor_absoluteX="0dp">
-
-
-                <TextView
-                    android:id="@+id/textNoInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/nanum_bold"
-                    android:text="도움말 보지 않기"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/viewNoInfoLine"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/gray2"
-                    app:layout_constraintBottom_toBottomOf="@+id/switchNoInfo"
-                    app:layout_constraintEnd_toStartOf="@+id/switchNoInfo"
-                    app:layout_constraintTop_toTopOf="@+id/switchNoInfo" />
-
-                <Switch
-                    android:id="@+id/switchNoInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text=""
-                    app:layout_constraintBottom_toBottomOf="@+id/textNoInfoExplain"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textNoInfo" />
-
-                <TextView
-                    android:id="@+id/textNoInfoExplain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/nanum_regular"
-
-                    android:text="메인 화면에서 도움말을 보지 않습니다."
-                    android:textSize="10sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textNoInfo"
-                    app:layout_constraintTop_toBottomOf="@+id/textNoInfo" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layoutUserSetting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/setting_background"
-                android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@id/constraintLayout04"
-                tools:layout_editor_absoluteX="0dp">
-
-
-                <TextView
-                    android:id="@+id/textUserSetting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/nanum_bold"
-                    android:text="사용자 설정"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-
-                <TextView
-                    android:id="@+id/textUserSettingExplain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/nanum_regular"
-
-                    android:text="사용자 관련 설정입니다."
-                    android:textSize="10sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textUserSetting"
-                    app:layout_constraintTop_toBottomOf="@+id/textUserSetting" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutAppInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/setting_background"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/layoutUserSetting"
-            tools:layout_editor_absoluteX="0dp">
-
-
-            <TextView
-                android:id="@+id/textAppInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/nanum_bold"
-                android:text="라이선스"
-                android:textColor="@color/black"
-                android:textSize="18sp"
+                android:background="@drawable/setting_background"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/radioWayCheck">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout03"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textDisabled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/nanum_bold"
+                        android:text="시각장애인 모드"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/viewDisabledLine"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/gray2"
+                        app:layout_constraintBottom_toBottomOf="@+id/switchDisabled"
+                        app:layout_constraintEnd_toStartOf="@+id/switchDisabled"
+                        app:layout_constraintTop_toTopOf="@+id/switchDisabled" />
+
+                    <Switch
+                        android:id="@+id/switchDisabled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text=""
+                        app:layout_constraintBottom_toBottomOf="@+id/textDisabledExplain"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textDisabled" />
+
+                    <TextView
+                        android:id="@+id/textDisabledExplain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/nanum_regular"
+
+                        android:text="시각장애인 전용 모드를 사용합니다."
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textDisabled"
+                        app:layout_constraintTop_toBottomOf="@+id/textDisabled" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/gray2" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout04"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textNoInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/nanum_bold"
+                        android:text="도움말 보지 않기"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/viewNoInfoLine"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/gray2"
+                        app:layout_constraintBottom_toBottomOf="@+id/switchNoInfo"
+                        app:layout_constraintEnd_toStartOf="@+id/switchNoInfo"
+                        app:layout_constraintTop_toTopOf="@+id/switchNoInfo" />
+
+                    <Switch
+                        android:id="@+id/switchNoInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text=""
+                        app:layout_constraintBottom_toBottomOf="@+id/textNoInfoExplain"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textNoInfo" />
+
+                    <TextView
+                        android:id="@+id/textNoInfoExplain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/nanum_regular"
+
+                        android:text="메인 화면에서 도움말을 보지 않습니다."
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textNoInfo"
+                        app:layout_constraintTop_toBottomOf="@+id/textNoInfo" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/gray2" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutUserSetting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textUserSetting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/nanum_bold"
+                        android:text="사용자 설정"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/textUserSettingExplain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/nanum_regular"
+
+                        android:text="사용자 관련 설정입니다."
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textUserSetting"
+                        app:layout_constraintTop_toBottomOf="@+id/textUserSetting" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/gray2" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutAppInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textAppInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/nanum_bold"
+                        android:text="라이선스"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/textAppInfoExplain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/nanum_regular"
+
+                        android:text="어플리케이션에 사용된 리소스 관련 라이선스 안내입니다."
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textAppInfo"
+                        app:layout_constraintTop_toBottomOf="@+id/textAppInfo" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-            <TextView
-                android:id="@+id/textAppInfoExplain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/nanum_regular"
 
-                android:text="어플리케이션에 사용된 리소스 관련 라이선스 안내입니다."
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textAppInfo"
-                app:layout_constraintTop_toBottomOf="@+id/textAppInfo" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <Button
                 android:id="@+id/buttonApply"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="적용"
-                android:fontFamily="@font/nanum_bold"
-                android:textSize="18sp"
                 android:layout_marginTop="36dp"
+                android:fontFamily="@font/nanum_bold"
+                android:text="적용"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutAppInfo" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
