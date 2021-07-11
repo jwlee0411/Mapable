@@ -653,40 +653,22 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     //TODO : getDistance 함수 오류 수정
     private fun getDistance(lat1 : Double, lon1 : Double, lat2 : Double, lon2 : Double) : String
     {
-        val theta = lon1 - lon2
-        var dist = sin(deg2rad(lat1)) * sin(deg2rad(lat2)) + cos(deg2rad(lat1)) * cos(deg2rad(lat2)) * cos(deg2rad(theta))
+        val locationStart = Location("start")
+        locationStart.latitude = lat1
+        locationStart.longitude = lon1
 
-        dist = acos(dist)
-        dist = rad2deg(dist)
+        val locationEnd = Location("end")
+        locationEnd.latitude = lat2
+        locationEnd.longitude = lon2
 
-        dist *= 60 * 1.1515 * 1.609344
-
-        if(dist < 1)
-        {
-
-            return (dist*1000).roundToInt().toString() + "m"
+        val distance = locationStart.distanceTo(locationEnd)
+        if(distance >= 1000){
+            return ((distance/10).roundToInt()/100.0).toString() + "km"
         }
         else
         {
-            return (((dist*10).roundToInt())/10.0).toString() + "km"
+            return distance.roundToInt().toString() + "m"
         }
-
-
-
-
-
-
-
-    }
-
-
-    private fun deg2rad(deg : Double) : Double
-    {
-        return (deg * Math.PI / 100.0)
-    }
-
-    private fun rad2deg(rad : Double) : Double{
-        return (rad * 100 / Math.PI)
     }
 
 

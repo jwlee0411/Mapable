@@ -34,6 +34,7 @@
         <activity android:name=".community.CommunityActivity"
             android:theme="@style/WithActionBar"/>
         <activity android:name=".community.CommunityMyMoreActivity"/>
+        <activity android:name=".community.CommunityEditActivity"/>
 
         <activity android:name=".explain.ExplainActivity"/>
 

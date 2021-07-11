@@ -31,6 +31,10 @@ class StarActivity : AppCompatActivity() {
         editor = sharedPreferences.edit()
 
 
+        buttonBack.setOnClickListener {
+            finish()
+        }
+
 
         recyclerAdapter = StarRecyclerAdapter(this)
         recyclerStar.adapter = recyclerAdapter
