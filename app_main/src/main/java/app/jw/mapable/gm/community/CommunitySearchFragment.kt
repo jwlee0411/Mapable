@@ -98,6 +98,13 @@ class CommunitySearchFragment : Fragment() {
 
 
                 if(resultCount==0) Toast.makeText(context, "검색결과가 없습니다.", Toast.LENGTH_LONG).show()
+                else
+                {
+                    datas.apply{
+                        recyclerAdapter.datas = datas
+                        recyclerAdapter.notifyDataSetChanged()
+                    }
+                }
 
             }
 
@@ -105,10 +112,7 @@ class CommunitySearchFragment : Fragment() {
 
 
 
-            datas.apply{
-                recyclerAdapter.datas = datas
-                recyclerAdapter.notifyDataSetChanged()
-            }
+
 
 
         }
