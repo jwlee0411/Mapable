@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -14,6 +16,7 @@ import app.jw.mapable.gm.databinding.FragmentCommunityMainBinding
 import app.jw.mapable.gm.notice.NoticeItem
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_after_search.*
 import kotlinx.android.synthetic.main.fragment_community_main.view.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -22,6 +25,8 @@ class CommunityMainFragment : Fragment() {
 
     private var _binding : FragmentCommunityMainBinding? = null
     private val binding get() = _binding!!
+
+    lateinit var recyclerAdapter : CommunityMainAdapter
 
     val datas = ArrayList<ItemCommunityMain>()
 
@@ -39,12 +44,16 @@ class CommunityMainFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+    }
+
 
     private fun setView(root : View, context : Context)
     {
-        val recyclerAdapter = CommunityMainAdapter(context)
+        recyclerAdapter = CommunityMainAdapter(context)
         root.recyclerCommunityMain.adapter = recyclerAdapter
-        root.recyclerCommunityMain.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         root.recyclerCommunityMain.layoutManager = LinearLayoutManager(context)
 
 
@@ -58,7 +67,9 @@ class CommunityMainFragment : Fragment() {
                     val dateFormat = android.text.format.DateFormat.getDateFormat(context)
 
 
-                    datas.add(ItemCommunityMain(document.data["title"] as String, document.data["content"] as String, document.data["username"] as String, dateFormat.format(date), document.data["imageLink"] as String, document.data["like"] as Int, document.data["dislike"] as Int, document.data["star"] as Int))
+                    datas.add(ItemCommunityMain(document.data["title"] as String, document.data["content"] as String, document.data["username"] as String, dateFormat.format(date), document.data["image"] as String, document.data["like"] as Long, document.data["dislike"] as Long, document.data["star"] as Long))
+                    swipeRefreshLayout.isRefreshing = false
+
                 }
                 setRecyclerView(root, context)
             }
@@ -70,10 +81,27 @@ class CommunityMainFragment : Fragment() {
             val intent = Intent(context, CommunityEditActivity::class.java)
             startActivity(intent)
         }
+
+
+        root.swipeRefreshLayout.setOnRefreshListener {
+            refreshFragment(this, requireFragmentManager())
+        }
+    }
+
+    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
+        datas.clear()
+        var ft: FragmentTransaction = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
+
     }
 
     private fun setRecyclerView(root : View, context : Context)
     {
+
+        datas.apply{
+            recyclerAdapter.datas = datas
+            recyclerAdapter.notifyDataSetChanged()
+        }
 
     }
 

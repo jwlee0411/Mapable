@@ -7,8 +7,8 @@ data class ItemCommunityMain (
     val posttime : String,
     val imageLink : String,
 
-    val like : Int,
-    val dislike : Int,
-    val star : Int,
+    val like : Long,
+    val dislike : Long,
+    val star : Long,
 
 )
