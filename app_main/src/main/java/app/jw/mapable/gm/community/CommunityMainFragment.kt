@@ -6,18 +6,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import app.jw.mapable.gm.R
 
 import app.jw.mapable.gm.databinding.FragmentCommunityMainBinding
 import app.jw.mapable.gm.notice.NoticeItem
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_after_search.*
+import kotlinx.android.synthetic.main.activity_after_search.swipeRefreshLayout
+import kotlinx.android.synthetic.main.fragment_community_main.*
 import kotlinx.android.synthetic.main.fragment_community_main.view.*
+import kotlinx.android.synthetic.main.fragment_community_my.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -52,6 +58,10 @@ class CommunityMainFragment : Fragment() {
 
     private fun setView(root : View, context : Context)
     {
+        root.viewCommunityMain.visibility = View.VISIBLE
+        root.lottieViewCommunityMain.visibility = View.VISIBLE
+
+
         recyclerAdapter = CommunityMainAdapter(context)
         root.recyclerCommunityMain.adapter = recyclerAdapter
         root.recyclerCommunityMain.layoutManager = LinearLayoutManager(context)
@@ -103,6 +113,26 @@ class CommunityMainFragment : Fragment() {
             recyclerAdapter.notifyDataSetChanged()
         }
 
+        fadeOutAnimation(root)
+
+    }
+
+    private fun fadeOutAnimation(root : View)
+    {
+        val animation = AnimationUtils.loadAnimation(root.context, R.anim.anim_fade_out)
+
+        root.lottieViewCommunityMain.startAnimation(animation)
+        root.viewCommunityMain.startAnimation(animation)
+
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationEnd(animation: Animation) {
+                root.lottieViewCommunityMain.visibility = View.GONE
+                root.viewCommunityMain.visibility = View.GONE
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
     }
 
     override fun onDestroyView() {

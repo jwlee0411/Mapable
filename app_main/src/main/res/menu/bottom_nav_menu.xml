@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/community_main"
+        android:id="@+id/navigation_community_main"
         android:icon="@drawable/ic_launcher_foreground"
         android:title="@string/title_community_main" />
 
     <item
-        android:id="@+id/community_search"
+        android:id="@+id/navigation_community_search"
         android:icon="@drawable/ic_launcher_foreground"
         android:title="@string/title_community_search" />
 
     <item
-        android:id="@+id/community_my"
+        android:id="@+id/navigation_community_my"
         android:icon="@drawable/ic_launcher_foreground"
         android:title="@string/title_community_my" />
 

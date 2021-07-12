@@ -6,12 +6,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import app.jw.mapable.gm.R
 import app.jw.mapable.gm.databinding.FragmentCommunitySearchBinding
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -42,18 +45,9 @@ class CommunitySearchFragment : Fragment() {
         _binding = FragmentCommunitySearchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        root.editCommunitySearch.requestFocus()
-        val inputMethodManager = root.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+
 
         setView(root, root.context)
-
-        root.editCommunitySearch.addTextChangedListener{
-
-        }
-
-
-
 
 
 
@@ -73,7 +67,11 @@ class CommunitySearchFragment : Fragment() {
 
 
 
+
+
         root.button.setOnClickListener {
+            root.lottieViewCommunitySearch.visibility = View.VISIBLE
+            root.viewCommunitySearch.visibility = View.VISIBLE
             datas.clear()
             resultCount = 0
 
@@ -106,6 +104,8 @@ class CommunitySearchFragment : Fragment() {
                     }
                 }
 
+                fadeOutAnimation(root)
+
             }
 
 
@@ -118,7 +118,23 @@ class CommunitySearchFragment : Fragment() {
         }
 
     }
+    private fun fadeOutAnimation(root : View)
+    {
+        val animation = AnimationUtils.loadAnimation(root.context, R.anim.anim_fade_out)
 
+        root.lottieViewCommunitySearch.startAnimation(animation)
+        root.viewCommunitySearch.startAnimation(animation)
+
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationEnd(animation: Animation) {
+                root.lottieViewCommunitySearch.visibility = View.GONE
+                root.viewCommunitySearch.visibility = View.GONE
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
+    }
 
 
     override fun onDestroyView() {

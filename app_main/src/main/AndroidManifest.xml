@@ -31,8 +31,7 @@
         <activity android:name=".aftersearch.AfterSearchActivity"/>
         <activity android:name=".aftersearch.AfterSearchDisabledActivity"/>
 
-        <activity android:name=".community.CommunityActivity"
-            android:theme="@style/WithActionBar"/>
+        <activity android:name=".community.CommunityActivity" />
         <activity android:name=".community.CommunityMyMoreActivity"/>
         <activity android:name=".community.CommunityEditActivity"/>
 
