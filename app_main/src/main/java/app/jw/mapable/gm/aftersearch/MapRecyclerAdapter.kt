@@ -48,6 +48,9 @@ class MapRecyclerAdapter(private val context : Context) : RecyclerView.Adapter<M
 
 
             val ways : ArrayList<ArrayList<String>> = item.ways1
+            
+            
+            
             //TODO : 2번째 RecyclerView 만들기
 
 

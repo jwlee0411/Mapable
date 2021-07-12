@@ -141,6 +141,7 @@ class AfterSearchActivity : AppCompatActivity() {
             val startNewY = preferences.getString("startNewY", "")!!
             val endNewX = preferences.getString("endNewX", "")!!
             val endNewY = preferences.getString("endNewY", "")!!
+            println("LOG : $startNewX / $startNewY / $endNewX / $endNewY")
             odsayService.requestSearchPubTransPath(startNewY, startNewX, endNewY, endNewX , "0", "0", "0", onRoadFoundResultCallbackListener)
 
             swipeRefreshLayout.setOnRefreshListener {
@@ -212,6 +213,9 @@ class AfterSearchActivity : AppCompatActivity() {
 
                         var subPathArray = pathObject.getJSONArray("subPath")
 
+
+
+
                         for(j in 0 until subPathArray.length()) {
                             println("Second for $j")
                             println(subPathArray.length())
@@ -222,6 +226,12 @@ class AfterSearchActivity : AppCompatActivity() {
 
                             pathAllThree.add(subPathObject.getString("distance"))
                             pathAllThree.add(subPathObject.getString("sectionTime"))
+
+
+
+
+
+
 
                             if(trafficType.equals("1") || trafficType.equals("2"))
                             {
@@ -245,29 +255,32 @@ class AfterSearchActivity : AppCompatActivity() {
                                     stopList = stopList + stopNewObject.getString("stationName")+ "☆" + stopNewObject.getString("x") + "☆" + stopNewObject.getString("y") + "★"
                                 }
                                 pathAllThree.add(stopList)
-                                println(stopList)
+
+
+                                val LaneArray = subPathObject.getJSONArray("lane")
+                                val LaneObject = LaneArray.getJSONObject(0)
+
+
+                                if(trafficType.equals("1"))
+                                {
+                                    pathAllThree.add(LaneObject.getString("name"))
+                                    pathAllThree.add(LaneObject.getString("subwayCode"))
+                            pathAllThree.add(subPathObject.getString("wayCode"))
+                           pathAllThree.add(subPathObject.getString("door"))
+
+                                }
+                                else if(trafficType.equals("2"))
+                                {
+                                    pathAllThree.add(LaneObject.getString("busNo"))
+                                    pathAllThree.add(LaneObject.getString("type"))
+                                }
 
 
                             }
 
-                            if(trafficType.equals("1"))
-                            {
-//                                pathAllThree.add(subPathObject.getString("name"))
-//                                pathAllThree.add(subPathObject.getString("subwayCode"))
-//                                pathAllThree.add(subPathObject.getString("wayCode"))
-//                                pathAllThree.add(subPathObject.getString("door"))
-
-                            }
-                            else if(trafficType.equals("2"))
-                            {
-//                                pathAllThree.add(subPathObject.getString("busNo"))
-//                                pathAllThree.add(subPathObject.getString("type"))
-                            }
-                            else
-                            {
 
 
-                            }
+
 
 
 
@@ -296,8 +309,6 @@ class AfterSearchActivity : AppCompatActivity() {
                 catch (e : Exception)
                 {
                     e.printStackTrace()
-                    val errorObject = jsonObject.getJSONObject("error")
-                    //Toast.makeText(this@AfterSearchActivity, """${errorObject.getString("msg")}출발지와 도착지를 올바른 곳으로 설정했는지 다시 한 번 확인해 주세요.""".trimIndent(), Toast.LENGTH_LONG).show()
                     fadeOutAnimation()
                 }
 

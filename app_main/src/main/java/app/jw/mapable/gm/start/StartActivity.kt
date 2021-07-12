@@ -629,8 +629,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
                 start = true
                 sharedPreferences.edit().putBoolean("start", true).apply()
 
-                sharedPreferences.edit().putFloat("startX", latitude.toFloat()).putFloat("startY", longitude.toFloat()).apply()
-                sharedPreferences.edit().putString("startNewX", latitude.toString()).putString("startNewY", longitude.toString()).apply()
+                sharedPreferences.edit().putFloat("startX", locationLatitude.toFloat()).putFloat("startY", locationLongitude.toFloat()).apply()
+                sharedPreferences.edit().putString("startNewX", locationLatitude.toString()).putString("startNewY", locationLongitude.toString()).apply()
                 sharedPreferences.edit().putString("startLocation", textLocationTitle.text.toString()).apply()
 
 
