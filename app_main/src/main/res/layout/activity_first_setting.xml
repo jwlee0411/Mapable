@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nanum_bold"
-            android:text="초기 설정을 진행해주세요!"
+            android:text="초기 설정을 진행하겠습니다."
             android:textColor="@color/black"
             android:textSize="28sp" />
 
@@ -40,31 +40,29 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-    <ImageButton
-        android:id="@+id/buttonSettingStart"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonNormal"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/white"
-        android:translationZ="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:text="시작하기"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/nanum_bold"
-        android:translationZ="1dp"
-        android:text="아무 곳이나 클릭해주세요"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_pink_border"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDisabled"
+        app:layout_constraintEnd_toEndOf="@+id/buttonDisabled"
+        app:layout_constraintStart_toStartOf="@+id/buttonDisabled"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonDisabled"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="32dp"
+        android:text="시각장애인 전용"
+        android:background="@drawable/button_pink_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
