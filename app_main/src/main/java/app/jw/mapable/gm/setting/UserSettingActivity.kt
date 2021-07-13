@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
+import app.jw.mapable.gm.start.StartActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -31,11 +32,8 @@ class UserSettingActivity : AppCompatActivity() {
 
         textEmail.text = sharedPreferences.getString("userID", "")
 
-
         val uid = sharedPreferences.getString("uid", "")!!
-
         val db = Firebase.firestore
-
         val docRef = db.collection("users").document(uid)
         docRef.addSnapshotListener { snapshot, e ->
             if (e != null) {
@@ -46,6 +44,8 @@ class UserSettingActivity : AppCompatActivity() {
             if (snapshot != null && snapshot.exists()) {
                 val username : String= snapshot.data!!["userName"] as String
                 val userMessage : String = snapshot.data!!["userMessage"] as String
+
+
 
                 if(username != "")textUserName.text = username
                 else textUserName.text = "이름을 설정해주세요!"
@@ -95,7 +95,9 @@ class UserSettingActivity : AppCompatActivity() {
             Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show()
             sharedPreferences.edit().remove("loginType").commit() //반드시 commit으로!!
 
-
+            val intent = Intent(this, StartActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
             finish()
 
         }
@@ -128,5 +130,13 @@ class UserSettingActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, StartActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        finish()
     }
 }

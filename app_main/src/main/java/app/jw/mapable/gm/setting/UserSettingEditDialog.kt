@@ -59,6 +59,7 @@ class UserSettingEditDialog(val context : Context) : DialogInterface.OnDismissLi
             if(b)//유저명 설정
             {
 
+                sharedPreferences.edit().putString("userName", resultString).apply()
 
                 user["userName"] = resultString
                 db.collection("users").document(uid).update(user)
@@ -73,6 +74,9 @@ class UserSettingEditDialog(val context : Context) : DialogInterface.OnDismissLi
             else //상태메시지 설정
             {
                 user["userMessage"] = resultString
+
+                sharedPreferences.edit().putString("userMessage", resultString).apply()
+
                 db.collection("users").document(uid).update(user)
                     .addOnSuccessListener {
                         println("LOG : SUCCESS")

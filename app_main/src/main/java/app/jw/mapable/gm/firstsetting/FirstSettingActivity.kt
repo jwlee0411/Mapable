@@ -70,6 +70,7 @@ class FirstSettingActivity : AppCompatActivity() {
     fun setonClick()
     {
         buttonNormal.setOnClickListener {
+            tts.stop()
             val intent = Intent(this, FirstSettingEnabledActivity::class.java)
             startActivity(intent)
         }

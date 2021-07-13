@@ -248,7 +248,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/nanum_bold"
                 android:text="장소명 / 주소"
-                android:textColor="@color/pink01"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view4" />
@@ -261,6 +261,7 @@
                 android:fontFamily="@font/nanum_regular"
                 android:text="서울 용산구 한강로2가"
                 android:textColor="@color/black"
+                android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/textDistanceLocation"
                 app:layout_constraintTop_toTopOf="@+id/textDistanceLocation" />
 
@@ -293,6 +294,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/icon_call"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
@@ -304,16 +306,19 @@
                 android:layout_marginStart="24dp"
                 android:background="@drawable/icon_share"
                 app:layout_constraintStart_toEndOf="@+id/buttonBookmark"
-                app:layout_constraintTop_toTopOf="@+id/buttonCall" />
+                app:layout_constraintTop_toTopOf="@+id/buttonBookmark" />
 
             <ImageButton
                 android:id="@+id/buttonBookmark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/icon_bookmark"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/buttonCall"
-                app:layout_constraintTop_toTopOf="@+id/buttonCall" />
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

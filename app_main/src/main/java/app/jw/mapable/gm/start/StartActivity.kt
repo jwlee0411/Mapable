@@ -22,15 +22,15 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import app.jw.mapable.gm.R
 import app.jw.mapable.gm.aftersearch.AfterSearchActivity
 import app.jw.mapable.gm.community.CommunityActivity
-import app.jw.mapable.gm.explain.ExplainActivity
 import app.jw.mapable.gm.firstsetting.FirstSettingEnabledActivity
 import app.jw.mapable.gm.info.InfoActivity
-import app.jw.mapable.gm.R
 import app.jw.mapable.gm.login.LoginActivity
 import app.jw.mapable.gm.notice.NoticeActivity
 import app.jw.mapable.gm.search.SearchActivity
@@ -48,11 +48,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.activity_user_setting.*
 import kotlinx.android.synthetic.main.dialog_user_setting_edit.*
 import kotlinx.android.synthetic.main.navi_header_start.*
+import kotlinx.android.synthetic.main.navi_header_start.view.*
 import java.io.IOException
 import java.util.*
 import kotlin.math.*
@@ -115,19 +116,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         window.setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_start)
 
-        //설정화면 => 메인화면인 경우 설정화면 종료
-        //다른 액티비티 종료
 
-
-        //설정화면 => 메인화면인 경우 설정화면 종료
-        //다른 액티비티 종료
-        try {
-            val firstSettingEnabledActivity1 = FirstSettingEnabledActivity.firstSettingEnabledActivity1 as FirstSettingEnabledActivity
-            firstSettingEnabledActivity1.finish()
-        } catch (ignored: Exception)
-        {
-
-        }
 
         sharedPreferences = getSharedPreferences("preferences", 0)
         editor = sharedPreferences.edit()
@@ -177,20 +166,21 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         val nickname = sharedPreferences.getString("userName", "")
         val userPhoto = sharedPreferences.getString("userPhoto", "")
 
+        val header = navigationView.getHeaderView(0)
 
-        //TODO : 오류 해결해야댐
+        header.textViewUserName.text = "로그인 해주세요!"
 
-//        if(loginType != 0)
-//        {
-//            if(nickname != "") textViewUserName.text = nickname + "님, 환영합니다!"
-//
-//            else textViewUserName.text = "환영합니다!"
-//
-//            if(userPhoto != "") Glide.with(this).load(Uri.parse(userPhoto)).into(imageViewUserPhoto)
-//
-//        }
-//
-//        else textViewUserName.text = "로그인 해주세요!"; imageViewUserPhoto.setImageResource(R.drawable.profile_default)
+        if(loginType != 0)
+        {
+            if(nickname != "") header.textViewUserName.text = nickname + "님, 환영합니다!"
+
+            else header.textViewUserName.text = "환영합니다!"
+
+            if(userPhoto != "") Glide.with(this).load(Uri.parse(userPhoto)).into(header.imageViewUserPhoto)
+
+        }
+
+        else header.textViewUserName.text = "로그인 해주세요!"; header.imageViewUserPhoto.setImageResource(R.drawable.profile_default)
 
     }
 
@@ -247,8 +237,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             }
 
 
-            val bitmap = (resources.getDrawable(R.drawable.marker_start_ride) as BitmapDrawable).bitmap
-            currentLocationMarker = mMap.addMarker(MarkerOptions().position(prevLatLng).icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false))))
+            val bitmap = (resources.getDrawable(R.drawable.marker_start_ride, null) as BitmapDrawable).bitmap
+            currentLocationMarker = mMap.addMarker(MarkerOptions().position(prevLatLng).icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false))))!!
 
 
 
@@ -402,11 +392,12 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             Toast.makeText(this, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show()
             return "잘못된 GPS 좌표"
         }
-        if (addresses == null || addresses.size == 0) {
+        if (addresses == null || addresses.isEmpty()) {
             Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show()
             return "주소 미발견"
         }
         val address: Address = addresses[0]
+        //println("LOG0713 : ${addresses[0]} / ${addresses[1]} / ${addresses[2]} / ${addresses[3]} / ${address.url} / ${address.phone} / ${address.adminArea} / ${address.extras}")
         textViewSearch.text = address.getAddressLine(0).toString()
         return address.getAddressLine(0).toString()
 
@@ -552,6 +543,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         mMap.setOnMapLongClickListener {
             //TODO : 기존 코드 갈아엎고 새로운 방식으로 출발 도착 등 결정
 
+
+            //기존 위치 지정 마커가 있다면 지운다.
             try{ selectLocationMarker.remove() }
             catch (e : Exception)
             {
@@ -603,18 +596,18 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             val makeStr = distance
 
             textDistanceLocation.text = makeStr
-            textLocationTitle.text = "일해라 개발자"
+            textLocationTitle.text = locationString
             textAddress.text = locationString
 
-            val intentBuilder = PlacePicker.IntentBuilder()
-            try{
-                val intent = intentBuilder.build(this)
-                startActivityForResult(intent, 1)
-            }
-            catch (e : Exception)
-            {
-                e.printStackTrace()
-            }
+//            val intentBuilder = PlacePicker.IntentBuilder()
+//            try{
+//                val intent = intentBuilder.build(this)
+//                startActivityForResult(intent, 1)
+//            }
+//            catch (e : Exception)
+//            {
+//                e.printStackTrace()
+//            }
 
 
 

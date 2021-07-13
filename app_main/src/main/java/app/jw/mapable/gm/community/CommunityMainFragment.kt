@@ -107,6 +107,8 @@ class CommunityMainFragment : Fragment() {
 
     private fun setRecyclerView(root : View, context : Context)
     {
+        
+        
 
         datas.apply{
             recyclerAdapter.datas = datas
