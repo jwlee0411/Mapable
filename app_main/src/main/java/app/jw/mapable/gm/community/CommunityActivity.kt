@@ -34,44 +34,11 @@ class CommunityActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_community)
 
 
-        val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.community_main, R.id.community_search, R.id.community_my
-        )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-
-        nav_view.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            var selectedFragment: Fragment? = null
-
-            var transaction : FragmentTransaction? = null
-            when (item.itemId) {
-                R.id.navigation_community_main -> {
-                    println("Click1")
-                    selectedFragment = CommunityMainFragment()
-                    transaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.content, selectedFragment)
-                    transaction.addToBackStack(null)
-                    transaction.commit()
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.navigation_community_search -> {
-                    println("Click2")
-                    selectedFragment = CommunitySearchFragment()
-                    transaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.content, selectedFragment)
-                    transaction.addToBackStack(null)
-                    transaction.commit()
-                    return@OnNavigationItemSelectedListener true
-                }
-            }
-            transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.content, selectedFragment!!)
-            transaction.commit()
-            true
-        })
-
         navView.setupWithNavController(navController)
+
+
+
+
 
     }
 

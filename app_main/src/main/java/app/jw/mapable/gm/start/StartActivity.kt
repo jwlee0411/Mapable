@@ -37,6 +37,7 @@ import app.jw.mapable.gm.search.SearchActivity
 import app.jw.mapable.gm.setting.SettingActivity
 import app.jw.mapable.gm.setting.UserSettingActivity
 import app.jw.mapable.gm.star.StarActivity
+import com.bumptech.glide.Glide
 import com.google.android.gms.location.*
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -49,6 +50,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_start.*
+import kotlinx.android.synthetic.main.activity_user_setting.*
 import kotlinx.android.synthetic.main.dialog_user_setting_edit.*
 import kotlinx.android.synthetic.main.navi_header_start.*
 import java.io.IOException
@@ -129,12 +131,18 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
         sharedPreferences = getSharedPreferences("preferences", 0)
         editor = sharedPreferences.edit()
+
+
+        loginType = sharedPreferences.getInt("loginType", 0)
+
+
+
         if (sharedPreferences.getBoolean("disabled", false))
         {
-            //TODO : 예선 제출 시 비활성화
 
-//            startActivity(Intent(this, StartDisabledActivity::class.java))
-//            finish()
+
+           startActivity(Intent(this, StartDisabledActivity::class.java))
+            finish()
         }
         else
         {
@@ -165,7 +173,24 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         if(settings[9]) floatingInfo.visibility = View.GONE
 
 
-        loginType = sharedPreferences.getInt("loginType", 0)
+
+        val nickname = sharedPreferences.getString("userName", "")
+        val userPhoto = sharedPreferences.getString("userPhoto", "")
+
+
+        //TODO : 오류 해결해야댐
+
+//        if(loginType != 0)
+//        {
+//            if(nickname != "") textViewUserName.text = nickname + "님, 환영합니다!"
+//
+//            else textViewUserName.text = "환영합니다!"
+//
+//            if(userPhoto != "") Glide.with(this).load(Uri.parse(userPhoto)).into(imageViewUserPhoto)
+//
+//        }
+//
+//        else textViewUserName.text = "로그인 해주세요!"; imageViewUserPhoto.setImageResource(R.drawable.profile_default)
 
     }
 
@@ -250,7 +275,13 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
                 R.id.nav_settings -> startActivity(Intent(this@StartActivity, SettingActivity::class.java))
                 R.id.nav_star -> startActivity(Intent(this@StartActivity, StarActivity::class.java))
                 R.id.nav_info -> startActivity(Intent(this@StartActivity, NoticeActivity::class.java))
-               R.id.nav_community -> startActivity(Intent(this@StartActivity, CommunityActivity::class.java))
+                R.id.nav_community -> {
+                    if(loginType == 0) {
+                        Toast.makeText(this@StartActivity, "커뮤니티를 이용하려면 로그인이 필요합니다.", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(this@StartActivity, LoginActivity::class.java))}
+                    else startActivity(Intent(this@StartActivity, CommunityActivity::class.java))
+
+                }
 
             }
             true
@@ -598,8 +629,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
                 start = true
                 sharedPreferences.edit().putBoolean("start", true).apply()
 
-                sharedPreferences.edit().putFloat("startX", latitude.toFloat()).putFloat("startY", longitude.toFloat()).apply()
-                sharedPreferences.edit().putString("startNewX", latitude.toString()).putString("startNewY", longitude.toString()).apply()
+                sharedPreferences.edit().putFloat("startX", locationLatitude.toFloat()).putFloat("startY", locationLongitude.toFloat()).apply()
+                sharedPreferences.edit().putString("startNewX", locationLatitude.toString()).putString("startNewY", locationLongitude.toString()).apply()
                 sharedPreferences.edit().putString("startLocation", textLocationTitle.text.toString()).apply()
 
 
@@ -653,40 +684,22 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     //TODO : getDistance 함수 오류 수정
     private fun getDistance(lat1 : Double, lon1 : Double, lat2 : Double, lon2 : Double) : String
     {
-        val theta = lon1 - lon2
-        var dist = sin(deg2rad(lat1)) * sin(deg2rad(lat2)) + cos(deg2rad(lat1)) * cos(deg2rad(lat2)) * cos(deg2rad(theta))
+        val locationStart = Location("start")
+        locationStart.latitude = lat1
+        locationStart.longitude = lon1
 
-        dist = acos(dist)
-        dist = rad2deg(dist)
+        val locationEnd = Location("end")
+        locationEnd.latitude = lat2
+        locationEnd.longitude = lon2
 
-        dist *= 60 * 1.1515 * 1.609344
-
-        if(dist < 1)
-        {
-
-            return (dist*1000).roundToInt().toString() + "m"
+        val distance = locationStart.distanceTo(locationEnd)
+        if(distance >= 1000){
+            return ((distance/10).roundToInt()/100.0).toString() + "km"
         }
         else
         {
-            return (((dist*10).roundToInt())/10.0).toString() + "km"
+            return distance.roundToInt().toString() + "m"
         }
-
-
-
-
-
-
-
-    }
-
-
-    private fun deg2rad(deg : Double) : Double
-    {
-        return (deg * Math.PI / 100.0)
-    }
-
-    private fun rad2deg(rad : Double) : Double{
-        return (rad * 100 / Math.PI)
     }
 
 

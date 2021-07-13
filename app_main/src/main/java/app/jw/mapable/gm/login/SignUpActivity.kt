@@ -65,11 +65,14 @@ class SignUpActivity : AppCompatActivity() {
                         user["usertype"] = false
                         user["myPost"] = ArrayList<String>()
                         user["myStar"] = ArrayList<String>()
+                        user["userName"] = ""
+                        user["userMessage"] = ""
 
 
                         editor.putString("userID", userID)
                         editor.putString("userPW", userPW)
                         editor.putString("uid", mAuth.currentUser?.uid!!)
+                        editor.putInt("loginType", 1)
                         editor.apply()
 
 

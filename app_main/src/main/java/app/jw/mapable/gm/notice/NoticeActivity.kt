@@ -35,6 +35,8 @@ class NoticeActivity : AppCompatActivity(){
         recyclerViewNotice.adapter = recyclerAdapter
 
 
+
+
         val db = Firebase.firestore
         db.collection("notice")
             .get()

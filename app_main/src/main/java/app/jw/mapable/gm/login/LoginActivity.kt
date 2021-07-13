@@ -90,6 +90,7 @@ class LoginActivity : AppCompatActivity(){
                 firebaseAuth.signInWithEmailAndPassword(userID, userPW).addOnCompleteListener {
                     if(it.isSuccessful)
                     {
+                        loginSuccess(firebaseAuth.currentUser!!)
                         editor.putString("userID", userID)
                         editor.putString("userPW", userPW)
                         editor.putInt("loginType", 2)

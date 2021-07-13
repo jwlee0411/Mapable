@@ -28,6 +28,10 @@ class NoticeDetailActivity : AppCompatActivity() {
         textView9.text = id
 
 
+        buttonBack.setOnClickListener {
+            finish()
+        }
+
 
 
 

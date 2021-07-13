@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
+    android:layout_marginTop="8dp"
     android:layout_marginBottom="16dp"
-    android:layout_marginStart="48dp"
-    android:layout_marginEnd="48dp"
-    android:background="@drawable/setting_background"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="8dp"
+
     >
 
     <TextView
@@ -39,6 +39,52 @@
         app:layout_constraintEnd_toEndOf="@+id/textSummaryTitle"
         app:layout_constraintStart_toStartOf="@+id/textSummaryTitle"
         app:layout_constraintTop_toBottomOf="@id/textSummaryTitle" />
+
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/nanum_regular"
+
+        android:text="03/4/11"
+        android:textSize="12sp"
+
+        app:layout_constraintStart_toStartOf="@+id/textSummaryTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textSummaryDescription" />
+
+    <TextView
+        android:id="@+id/textNickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nanum_regular"
+        android:text="| 이종우"
+
+        android:textSize="12sp"
+        android:layout_marginTop="8dp"
+
+        app:layout_constraintStart_toEndOf="@id/textTime"
+        app:layout_constraintTop_toBottomOf="@+id/textSummaryDescription"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <ImageButton
+        android:id="@+id/buttonLike"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/icon_like"
+
+        app:layout_constraintEnd_toStartOf="@+id/textView11"
+        app:layout_constraintTop_toTopOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="18"
+        app:layout_constraintEnd_toEndOf="@+id/textSummaryDescription"
+        app:layout_constraintTop_toBottomOf="@+id/textSummaryDescription" />
 
     <ImageView
         android:id="@+id/imageView7"

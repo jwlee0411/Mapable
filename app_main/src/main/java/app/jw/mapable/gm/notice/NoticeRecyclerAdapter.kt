@@ -35,6 +35,7 @@ class NoticeRecyclerAdapter(private val context : Context) : RecyclerView.Adapte
                 intent.putExtra("description", item.description)
                 intent.putExtra("timestamp", item.timestamp)
                 context.startActivity(intent)
+                
             }
             itemView.textTitle.text = item.title
             itemView.textUserID.text = " | " + item.ID

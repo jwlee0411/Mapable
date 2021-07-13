@@ -44,8 +44,15 @@ class UserSettingActivity : AppCompatActivity() {
             }
 
             if (snapshot != null && snapshot.exists()) {
-                textUserName.text = snapshot.data!!["userName"] as CharSequence?
-                textUserMessage.text = snapshot.data!!["userMessage"] as CharSequence?
+                val username : String= snapshot.data!!["userName"] as String
+                val userMessage : String = snapshot.data!!["userMessage"] as String
+
+                if(username != "")textUserName.text = username
+                else textUserName.text = "이름을 설정해주세요!"
+
+                if(userMessage != "") textUserMessage.text = userMessage
+                else textUserMessage.text = "상태메시지를 설정해주세요!"
+
 
             } else {
                 //DATA = NULL
@@ -53,8 +60,7 @@ class UserSettingActivity : AppCompatActivity() {
 
         }
 
-        textUserName.text = sharedPreferences.getString("userName", "이름을 설정해주세요!")
-        textUserMessage.text = sharedPreferences.getString("userMessage", "상태메시지를 설정해주세요!")
+
 
         val userPhoto = "https://cdn.discordapp.com/attachments/729165233192566847/863209562287243264/app_logo_transparent.png"
 
@@ -86,8 +92,12 @@ class UserSettingActivity : AppCompatActivity() {
 
 
         buttonLogout.setOnClickListener {
-            //TODO : 로그아웃
             Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show()
+            sharedPreferences.edit().remove("loginType").commit() //반드시 commit으로!!
+
+
+            finish()
+
         }
 
         buttonQuit.setOnClickListener {
