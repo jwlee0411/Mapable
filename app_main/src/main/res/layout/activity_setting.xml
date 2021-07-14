@@ -796,6 +796,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
+                    android:id="@+id/userSettingView"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginStart="12dp"
@@ -880,7 +881,47 @@
                         app:layout_constraintTop_toBottomOf="@+id/textAppInfo" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/gray2" />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutAppPrivacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textAppPrivacy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/nanum_bold"
+                        android:text="개인정보 취급방침"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/textAppPrivacyExplain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/nanum_regular"
+
+                        android:text="이 방침에 따라 개인정보를 관리합니다."
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textAppPrivacy"
+                        app:layout_constraintTop_toBottomOf="@+id/textAppPrivacy" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>

@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
+import app.jw.mapable.gm.start.StartActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -151,8 +152,6 @@ class LoginActivity : AppCompatActivity(){
                     loginFailed()
                 }
 
-
-                //TODO : 로그인 성공시 실행
             } else {
                 loginFailed()
             }
@@ -182,6 +181,10 @@ class LoginActivity : AppCompatActivity(){
         editor.putInt("loginType", 1)
         editor.apply()
         Toast.makeText(this, "${user.email} 으로 로그인 되었습니다!", Toast.LENGTH_LONG).show()
+
+        val intent = Intent(this, StartActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
         finish()
 
 
@@ -225,8 +228,12 @@ class LoginActivity : AppCompatActivity(){
                 editor.putString("userName", it.getString("userName"))
                 editor.putString("userMessage", it.getString("userMessage"))
                 editor.putString("message", it.getString("message"))
-
+                editor.putInt("loginType", 2)
+                editor.apply()
                 Toast.makeText(this, "${user.email} 으로 로그인 되었습니다!", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, StartActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
                 finish()
 
 

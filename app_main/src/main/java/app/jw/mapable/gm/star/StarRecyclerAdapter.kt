@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.aftersearch.AfterSearchActivity
@@ -60,6 +61,7 @@ class StarRecyclerAdapter(private val context : Context) : RecyclerView.Adapter<
 
                 if(end)
                 {
+                    Toast.makeText(context, "출발지가 설정되었습니다.", Toast.LENGTH_LONG).show()
                     sharedPreferences.edit().putBoolean("start", false).apply()
                     sharedPreferences.edit().putBoolean("end", false).apply()
                     val intent = Intent(context, AfterSearchActivity::class.java)
@@ -68,9 +70,7 @@ class StarRecyclerAdapter(private val context : Context) : RecyclerView.Adapter<
                 }
                 else
                 {
-                    val intent = Intent(context, StartActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    context.startActivity(intent)
+                    Toast.makeText(context, "출발지가 설정되었습니다.", Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -86,14 +86,16 @@ class StarRecyclerAdapter(private val context : Context) : RecyclerView.Adapter<
 
                 if(start)
                 {
-
+                    Toast.makeText(context, "도착지가 설정되었습니다.", Toast.LENGTH_LONG).show()
+                    sharedPreferences.edit().putBoolean("start", false).apply()
+                    sharedPreferences.edit().putBoolean("end", false).apply()
+                    val intent = Intent(context, AfterSearchActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    context.startActivity(intent)
                 }
                 else
                 {
-                    val intent = Intent(context, StartActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    context.startActivity(intent)
-                    //TODO : finish()
+                    Toast.makeText(context, "도착지가 설정되었습니다.", Toast.LENGTH_LONG).show()
                 }
 
             }

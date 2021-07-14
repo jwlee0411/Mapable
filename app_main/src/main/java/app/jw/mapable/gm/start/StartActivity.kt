@@ -22,14 +22,12 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.aftersearch.AfterSearchActivity
 import app.jw.mapable.gm.community.CommunityActivity
-import app.jw.mapable.gm.firstsetting.FirstSettingEnabledActivity
 import app.jw.mapable.gm.info.InfoActivity
 import app.jw.mapable.gm.login.LoginActivity
 import app.jw.mapable.gm.notice.NoticeActivity
@@ -48,7 +46,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.navigation.NavigationView
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_star.*
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.activity_user_setting.*
 import kotlinx.android.synthetic.main.dialog_user_setting_edit.*
@@ -89,6 +88,9 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     var start = false
     var end = false
 
+    var nickname = ""
+
+    var userID = ""
     val update_interval : Long = 1000
     val fastest_update_interval : Long = 500
 
@@ -116,10 +118,20 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         window.setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_start)
 
+        lottieViewStart.visibility = View.VISIBLE
+        viewStart.visibility = View.VISIBLE
+
 
 
         sharedPreferences = getSharedPreferences("preferences", 0)
         editor = sharedPreferences.edit()
+
+
+        if(!(intent.getBooleanExtra("reset", true)))
+        {
+            start = sharedPreferences.getBoolean("start", false)
+            end = sharedPreferences.getBoolean("end", false)
+        }
 
 
         loginType = sharedPreferences.getInt("loginType", 0)
@@ -163,7 +175,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
 
 
-        val nickname = sharedPreferences.getString("userName", "")
+        nickname = sharedPreferences.getString("userName", "")!!
+        userID = sharedPreferences.getString("userID", "")!!
         val userPhoto = sharedPreferences.getString("userPhoto", "")
 
         val header = navigationView.getHeaderView(0)
@@ -188,15 +201,116 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
     fun setOnClick()
     {
-        //debug : 기존 DB를 지우기 위한 디버그용 버튼
 
-
-        //debug : 기존 DB를 지우기 위한 디버그용 버튼(x) => 그때그때 맞는 용도로 사용
-        floatingDebug.setOnClickListener {
-            startActivity(Intent(this, StartLocationActivity::class.java))
-            //sharedPreferences.edit().clear().apply()
+        layout_location.setOnClickListener {
+            //do nothing : 이 코드가 없으면 자꾸 map을 누르는 것으로 인식해 레이아웃이 들어가짐
         }
 
+
+        buttonShare.setOnClickListener{
+            println("LOG210714 : 클릭함")
+            val intentShare = Intent(Intent.ACTION_SEND)
+            intentShare.type = "text/plain"
+            val location = textLocationTitle.text.toString()
+            val distance = textDistanceLocation.text.toString()
+            intentShare.putExtra(Intent.EXTRA_TEXT,
+                "$location\n현재 위치로부터 $distance\n\n스마트한 지도, Mapable에서 공유함"
+            )
+            startActivity(Intent.createChooser(intentShare, "공유"))
+
+        }
+        buttonBookmark.setOnClickListener {
+
+            lottieViewStart.visibility = View.VISIBLE
+            viewStart.visibility = View.VISIBLE
+
+            if(loginType == 0) {
+                fadeOutAnimation()
+                Toast.makeText(this@StartActivity, "북마크 기능을 이용하려면 로그인이 필요합니다.", Toast.LENGTH_LONG).show()
+                startActivity(Intent(this@StartActivity, LoginActivity::class.java))}
+            else {
+
+                val db = FirebaseFirestore.getInstance()
+                val bookmark: MutableMap<String, Any> = HashMap()
+
+                bookmark["locationName"] = textLocationTitle.text.toString()
+                bookmark["latitude"] = locationLatitude
+                bookmark["longitude"] = locationLongitude
+                bookmark["username"] = userID
+
+                db.collection("bookmark").document().set(bookmark).addOnSuccessListener {
+                    Toast.makeText(this, "북마크를 등록했습니다.", Toast.LENGTH_LONG).show()
+                    fadeOutAnimation()
+                }
+                    .addOnFailureListener{
+                        it.printStackTrace()
+                        Toast.makeText(this, "북마크 등록에 실패하였습니다.", Toast.LENGTH_LONG).show()
+                        fadeOutAnimation()
+                    }
+            }
+
+
+
+
+
+
+        }
+
+
+        floatingDebug.setOnClickListener {
+            //현재 위치를 출발지로 지정함.
+
+            val gpsTracker = GpsTracker(this)
+            val latitude : Double = gpsTracker.getLatitude()
+            val longitude : Double = gpsTracker.getLongtitude()
+            val currentAddressName = getCurrentAddress(latitude, longitude)
+
+            println("$latitude / $longitude / $currentAddressName")
+
+            start = true
+            sharedPreferences.edit().putBoolean("start", true).apply()
+
+            sharedPreferences.edit().putFloat("startX", latitude.toFloat()).putFloat("startY", longitude.toFloat()).apply()
+            sharedPreferences.edit().putString("startNewX", latitude.toString()).putString("startNewY", longitude.toString()).apply()
+            sharedPreferences.edit().putString("startLocation", currentAddressName).apply()
+
+
+
+            Toast.makeText(this, "현재 위치가 출발지로 설정되었습니다.", Toast.LENGTH_LONG).show()
+
+            if(end) openAfterSearch()
+
+
+
+
+
+
+        }
+
+        floatingCurrentLocation.setOnClickListener {
+            val gpsTracker = GpsTracker(this)
+            val latitude : Double = gpsTracker.getLatitude()
+            val longitude : Double = gpsTracker.getLongtitude()
+
+            val prevLatLng = LatLng(latitude, longitude)
+
+            try{ currentLocationMarker.remove() }
+            catch (e : Exception)
+            {
+                e.printStackTrace()
+            }
+
+
+            val bitmap = (resources.getDrawable(R.drawable.marker_start_ride, null) as BitmapDrawable).bitmap
+            currentLocationMarker = mMap.addMarker(MarkerOptions().position(prevLatLng).icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false))))!!
+
+
+            getCurrentAddress(latitude, longitude)
+
+
+
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(prevLatLng, 15f))
+        }
 
 
         floatingRoadFound.setOnClickListener {
@@ -223,30 +337,6 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none)
         }
 
-        floatingCurrentLocation.setOnClickListener {
-            val gpsTracker = GpsTracker(this)
-            val latitude : Double = gpsTracker.getLatitude()
-            val longtitude : Double = gpsTracker.getLongtitude()
-
-            val prevLatLng = LatLng(latitude, longtitude)
-
-            try{ currentLocationMarker.remove() }
-            catch (e : Exception)
-            {
-                e.printStackTrace()
-            }
-
-
-            val bitmap = (resources.getDrawable(R.drawable.marker_start_ride, null) as BitmapDrawable).bitmap
-            currentLocationMarker = mMap.addMarker(MarkerOptions().position(prevLatLng).icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false))))!!
-
-
-
-
-
-
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(prevLatLng, 15f))
-        }
 
         floatingInfo.setOnClickListener { v: View? ->
             startActivity(Intent(this@StartActivity, InfoActivity::class.java))
@@ -398,8 +488,12 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         }
         val address: Address = addresses[0]
         //println("LOG0713 : ${addresses[0]} / ${addresses[1]} / ${addresses[2]} / ${addresses[3]} / ${address.url} / ${address.phone} / ${address.adminArea} / ${address.extras}")
-        textViewSearch.text = address.getAddressLine(0).toString()
-        return address.getAddressLine(0).toString()
+        var addressText = address.getAddressLine(0).toString()
+        addressText = addressText.replace("대한민국 ", "")
+
+        textViewSearch.text = addressText
+
+        return addressText
 
 
     }
@@ -611,12 +705,12 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
 
 
-            layout_location.setOnClickListener {
-                val intent = Intent(this, StartLocationActivity::class.java)
-                //TODO : intent.putExtra()
-                startActivity(intent)
-
-            }
+//            layout_location.setOnClickListener {
+//                val intent = Intent(this, StartLocationActivity::class.java)
+//                //TODO : intent.putExtra()
+//                startActivity(intent)
+//
+//            }
 
             buttonStart.setOnClickListener {
                 start = true
@@ -664,6 +758,26 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
 
 
+        fadeOutAnimation()
+
+    }
+
+    private fun fadeOutAnimation()
+    {
+        val animation = AnimationUtils.loadAnimation(this, R.anim.anim_fade_out)
+
+        lottieViewStart.startAnimation(animation)
+        viewStart.startAnimation(animation)
+
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationEnd(animation: Animation) {
+                lottieViewStart.visibility = View.GONE
+                viewStart.visibility = View.GONE
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
     }
 
     private fun openAfterSearch()
@@ -674,7 +788,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         startActivity(intent)
     }
 
-    //TODO : getDistance 함수 오류 수정
+
     private fun getDistance(lat1 : Double, lon1 : Double, lat2 : Double, lon2 : Double) : String
     {
         val locationStart = Location("start")
@@ -721,32 +835,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             val rating = place.rating
 
 
-            buttonShare.setOnClickListener{
-                val intentShare = Intent(Intent.ACTION_SEND)
-                intentShare.type = "text/plain"
-                intentShare.putExtra(Intent.EXTRA_TEXT, "공유할 텍스트")
-                startActivity(Intent.createChooser(intentShare, "공유"))
 
-            }
-
-            buttonCall.setOnClickListener{
-                startActivity(Intent("android.intent.action.DIAL", Uri.parse("tel:$phonenumber"))) //TODO : 전화번호 바꾸기
-            }
-
-            buttonBookmark.setOnClickListener {
-
-                val uid = sharedPreferences.getString("uid", "")!!
-
-                val bookmarkData = "★" + textLocationTitle.text.toString() + "※" + locationLatitude + "※" + locationLongitude
-
-                val bookmarkString = sharedPreferences.getString("bookmark", "")!!
-
-                editor.putString("bookmark", bookmarkString + bookmarkData).apply()
-
-
-
-
-            }
 
 
         }
@@ -757,15 +846,42 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     var backKeyPressedTime = 0L
     override fun onBackPressed() {
 
-        if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
-            backKeyPressedTime = System.currentTimeMillis()
-            val toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG)
-            toast.show()
-            return
-        }
-        if (System.currentTimeMillis() <= backKeyPressedTime + 2500)
+        if(layout_location.visibility == View.VISIBLE)
         {
-            finish()
+            val layoutAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_move_bottom_down)
+            layout_location.startAnimation(layoutAnimation)
+
+            layoutAnimation.setAnimationListener(object : Animation.AnimationListener{
+                override fun onAnimationStart(animation: Animation?) {
+
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    layout_location.visibility = View.GONE
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {
+
+                }
+
+            })
         }
+        else
+        {
+            if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+                backKeyPressedTime = System.currentTimeMillis()
+
+
+                val toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG)
+                toast.show()
+                return
+            }
+            if (System.currentTimeMillis() <= backKeyPressedTime + 2500)
+            {
+                finish()
+            }
+        }
+
+
     }
 }

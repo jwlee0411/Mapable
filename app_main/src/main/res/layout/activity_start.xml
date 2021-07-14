@@ -14,6 +14,31 @@
         android:id="@+id/layout_start"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
+        <View
+            android:id="@+id/viewStart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#66000000"
+            android:translationZ="1dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieViewStart"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/map_loading_anim"
+            android:translationZ="2dp"
+            android:visibility="gone"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/searchConstraintLayout"
@@ -134,13 +159,6 @@
 
                 />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingDebug"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:visibility="visible" />
 
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -157,6 +175,21 @@
                 app:fabSize="normal"
                 app:layout_constraintBottom_toTopOf="@+id/floatingCurrentLocation"
                 app:layout_constraintEnd_toEndOf="@+id/floatingCurrentLocation" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingDebug"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:src="@drawable/icon_set"
+                android:background="@drawable/app_logo_transparent"
+                app:borderWidth="0dp"
+                app:rippleColor="@color/pink01"
+                app:fabSize="normal"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="visible" />
 
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton

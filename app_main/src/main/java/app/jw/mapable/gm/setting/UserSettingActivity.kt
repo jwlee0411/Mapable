@@ -29,14 +29,14 @@ class UserSettingActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("preferences", 0)
 
-
         textEmail.text = sharedPreferences.getString("userID", "")
 
         val uid = sharedPreferences.getString("uid", "")!!
         val db = Firebase.firestore
         val docRef = db.collection("users").document(uid)
         docRef.addSnapshotListener { snapshot, e ->
-            if (e != null) {
+            if (e != null)
+            {
                 //FAILED
                 return@addSnapshotListener
             }
@@ -60,11 +60,10 @@ class UserSettingActivity : AppCompatActivity() {
 
         }
 
-
-
-        val userPhoto = "https://cdn.discordapp.com/attachments/729165233192566847/863209562287243264/app_logo_transparent.png"
-
-        Glide.with(this).load(Uri.parse(userPhoto)).into(imageUserSetting)
+//
+//        val userPhoto = "https://cdn.discordapp.com/attachments/729165233192566847/863209562287243264/app_logo_transparent.png"
+//
+//        Glide.with(this).load(Uri.parse(userPhoto)).into(imageUserSetting)
 
 
         imageUserSetting.setOnClickListener {
@@ -73,9 +72,6 @@ class UserSettingActivity : AppCompatActivity() {
             intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(intent, 0)
         }
-
-
-
 
         imageUserNameEdit.setOnClickListener {
 
@@ -120,6 +116,7 @@ class UserSettingActivity : AppCompatActivity() {
                 inputStream!!.close()
 
                 imageUserSetting.setImageBitmap(bitmap)
+                Toast.makeText(this, "이미지는 적용되지 않습니다.", Toast.LENGTH_LONG).show()
 
 //                val file = Uri.fromFile(File(uri))
 //                val storageRef : StorageReference = storageRef.child("images/" + )
