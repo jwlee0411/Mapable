@@ -134,6 +134,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         }
 
 
+
+
         loginType = sharedPreferences.getInt("loginType", 0)
 
 
@@ -500,6 +502,15 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
     fun setOnMapClick()
     {
+
+        if(intent.getBooleanExtra("showLocation", false))
+        {
+            val lat = intent.getDoubleExtra("latitude", 0.0)
+            val lon = intent.getDoubleExtra("longitude", 0.0)
+            val lng = LatLng(lat, lon)
+            setLocationLayout(lat, lon, lng)
+        }
+
         mMap.setOnCameraMoveListener {
 
             try{ selectLocationMarker.remove() }
@@ -635,63 +646,67 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
 
         mMap.setOnMapLongClickListener {
-            //TODO : 기존 코드 갈아엎고 새로운 방식으로 출발 도착 등 결정
+
+            setLocationLayout(it.latitude, it.longitude, it)
+
+        }
+
+        fadeOutAnimation()
+
+    }
+
+    private fun setLocationLayout(locationLatitude: Double, locationLongitude: Double, it: LatLng)
+    {
+        //기존 위치 지정 마커가 있다면 지운다.
+        try{ selectLocationMarker.remove() }
+        catch (e : Exception)
+        {
+            e.printStackTrace()
+        }
 
 
-            //기존 위치 지정 마커가 있다면 지운다.
-            try{ selectLocationMarker.remove() }
-            catch (e : Exception)
-            {
-                e.printStackTrace()
+        layoutInflated = true
+
+        val layoutAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_move_bottom_up)
+        layout_location.startAnimation(layoutAnimation)
+
+        layoutAnimation.setAnimationListener(object : Animation.AnimationListener{
+            override fun onAnimationStart(animation: Animation?) {
+                layout_location.visibility = View.VISIBLE
             }
 
+            override fun onAnimationEnd(animation: Animation?) {
 
-            layoutInflated = true
+            }
 
-            val layoutAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_move_bottom_up)
-            layout_location.startAnimation(layoutAnimation)
+            override fun onAnimationRepeat(animation: Animation?) {
 
-            layoutAnimation.setAnimationListener(object : Animation.AnimationListener{
-                override fun onAnimationStart(animation: Animation?) {
-                    layout_location.visibility = View.VISIBLE
-                }
+            }
 
-                override fun onAnimationEnd(animation: Animation?) {
+        })
 
-                }
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 14f))
 
-                override fun onAnimationRepeat(animation: Animation?) {
+        MarkerOptions().position(it)
 
-                }
+        val bitmap = (resources.getDrawable(R.drawable.icon_current_location_2) as BitmapDrawable).bitmap
+        selectLocationMarker = mMap.addMarker(MarkerOptions().position(it).icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false))))!!
 
-            })
-
-
-            locationLatitude = it.latitude
-            locationLongitude = it.longitude
-
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 14f))
-
-            MarkerOptions().position(it)
-
-            val bitmap = (resources.getDrawable(R.drawable.icon_current_location_2) as BitmapDrawable).bitmap
-            selectLocationMarker = mMap.addMarker(MarkerOptions().position(it).icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false))))!!
-
-            // mMap.addMarker(MarkerOptions().position(it))
-            val locationString : String = getCurrentAddress(locationLatitude, locationLongitude).replace("대한민국 ", "")
+        // mMap.addMarker(MarkerOptions().position(it))
+        val locationString : String = getCurrentAddress(locationLatitude, locationLongitude).replace("대한민국 ", "")
 
 
-            val gpsTracker = GpsTracker(this)
-            val latitude : Double = gpsTracker.getLatitude()
-            val longitude : Double = gpsTracker.getLongtitude()
+        val gpsTracker = GpsTracker(this)
+        val latitude : Double = gpsTracker.getLatitude()
+        val longitude : Double = gpsTracker.getLongtitude()
 
-            val distance = getDistance(locationLatitude, locationLongitude, latitude, longitude)
+        val distance = getDistance(locationLatitude, locationLongitude, latitude, longitude)
 
-            val makeStr = distance
+        val makeStr = distance
 
-            textDistanceLocation.text = makeStr
-            textLocationTitle.text = locationString
-            textAddress.text = locationString
+        textDistanceLocation.text = makeStr
+        textLocationTitle.text = locationString
+        textAddress.text = locationString
 
 //            val intentBuilder = PlacePicker.IntentBuilder()
 //            try{
@@ -712,53 +727,48 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 //
 //            }
 
-            buttonStart.setOnClickListener {
-                start = true
-                sharedPreferences.edit().putBoolean("start", true).apply()
+        buttonStart.setOnClickListener {
+            start = true
+            sharedPreferences.edit().putBoolean("start", true).apply()
 
-                sharedPreferences.edit().putFloat("startX", locationLatitude.toFloat()).putFloat("startY", locationLongitude.toFloat()).apply()
-                sharedPreferences.edit().putString("startNewX", locationLatitude.toString()).putString("startNewY", locationLongitude.toString()).apply()
-                sharedPreferences.edit().putString("startLocation", textLocationTitle.text.toString()).apply()
-
-
+            sharedPreferences.edit().putFloat("startX", locationLatitude.toFloat()).putFloat("startY", locationLongitude.toFloat()).apply()
+            sharedPreferences.edit().putString("startNewX", locationLatitude.toString()).putString("startNewY", locationLongitude.toString()).apply()
+            sharedPreferences.edit().putString("startLocation", textLocationTitle.text.toString()).apply()
 
 
 
-                if(end)
-                {
-                    //출발지, 도착지 모두 정해짐
-                    openAfterSearch()
 
-                }
-                else
-                {
-                    Toast.makeText(this, "출발지가 설정되었습니다.", Toast.LENGTH_LONG).show()
-                }
-            }
 
-            buttonEnd.setOnClickListener {
-                end = true
-                sharedPreferences.edit().putFloat("endX", latitude.toFloat()).putFloat("endY", longitude.toFloat()).apply()
-                sharedPreferences.edit().putString("endNewX", latitude.toString()).putString("endNewY", longitude.toString()).apply()
-                sharedPreferences.edit().putString("endLocation", textLocationTitle.text.toString()).apply()
-                if(start)
-                {
-                    //출발지, 도착지 모두 정해짐
-                    openAfterSearch()
-                }
-                else
-                {
-                    Toast.makeText(this, "도착지가 설정되었습니다.", Toast.LENGTH_LONG).show()
-                }
+            if(end)
+            {
+                //출발지, 도착지 모두 정해짐
+                openAfterSearch()
 
             }
+            else
+            {
+                Toast.makeText(this, "출발지가 설정되었습니다.", Toast.LENGTH_LONG).show()
+            }
+        }
 
+        buttonEnd.setOnClickListener {
+            end = true
+            sharedPreferences.edit().putFloat("endX", latitude.toFloat()).putFloat("endY", longitude.toFloat()).apply()
+            sharedPreferences.edit().putString("endNewX", latitude.toString()).putString("endNewY", longitude.toString()).apply()
+            sharedPreferences.edit().putString("endLocation", textLocationTitle.text.toString()).apply()
+            if(start)
+            {
+                //출발지, 도착지 모두 정해짐
+                openAfterSearch()
+            }
+            else
+            {
+                Toast.makeText(this, "도착지가 설정되었습니다.", Toast.LENGTH_LONG).show()
+            }
 
         }
 
 
-
-        fadeOutAnimation()
 
     }
 

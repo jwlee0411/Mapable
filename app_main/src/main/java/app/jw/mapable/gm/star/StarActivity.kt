@@ -50,6 +50,7 @@ class StarActivity : AppCompatActivity() {
         buttonBack.setOnClickListener {
             val intent = Intent(this, StartActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.putExtra("reset", false)
             startActivity(intent)
             finish()
         }

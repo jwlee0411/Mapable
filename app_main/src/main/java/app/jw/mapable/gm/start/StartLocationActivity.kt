@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
+import app.jw.mapable.gm.aftersearch.AfterSearchActivity
 import app.jw.mapable.gm.login.LoginActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_start.*
@@ -29,6 +30,8 @@ class StartLocationActivity : AppCompatActivity() {
 
     var userID = ""
     var loginType = 0
+
+    var openingHoursAll : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +67,8 @@ class StartLocationActivity : AppCompatActivity() {
         val rating = intent.getStringExtra("rating")
 
         var openingHours = intent.getStringExtra("openingHours")
+
+         openingHoursAll = openingHours
 
 
         if(name != null) textLocationName2.text = name
@@ -187,13 +192,79 @@ class StartLocationActivity : AppCompatActivity() {
 
         layoutMap.setOnClickListener {
 
+            val intent = Intent(this, StartActivity::class.java)
+            intent.putExtra("latitude", latitude)
+            intent.putExtra("longitude", longitude)
+            intent.putExtra("locationName", textLocationName2.text.toString())
+            intent.putExtra("reset", false)
+            intent.putExtra("showLocation", true)
+            startActivity(intent)
+        }
+
+        textOpeningHours.setOnClickListener {
+            if(openingHoursAll != null )
+            {
+                val openingHoursDialog = OpeningHoursDialog(this)
+                openingHoursDialog.callFunction(openingHoursAll!!)
+            }
+
+
         }
 
         buttonStartLocation.setOnClickListener {
+            val end = sharedPreferences.getBoolean("end", false)
+
+            Toast.makeText(this, "출발지가 설정되었습니다.", Toast.LENGTH_LONG).show()
+            sharedPreferences.edit().putBoolean("start", true).apply()
+
+            sharedPreferences.edit().putFloat("startX", latitude.toFloat()).putFloat("startY", longitude.toFloat()).apply()
+            sharedPreferences.edit().putString("startNewX", latitude.toString()).putString("startNewY", longitude.toString()).apply()
+            sharedPreferences.edit().putString("startLocation", textLocationName2.text.toString()).apply()
+
+            if(end)
+            {
+                sharedPreferences.edit().putBoolean("start", false).apply()
+                sharedPreferences.edit().putBoolean("end", false).apply()
+                val intent = Intent(this, AfterSearchActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }
+
+            else
+            {
+                val intent = Intent(this, StartActivity::class.java)
+                intent.putExtra("reset", false)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }
+
 
         }
 
         buttonEndLocation.setOnClickListener {
+            val start = sharedPreferences.getBoolean("start", false)
+
+            Toast.makeText(this, "도착지가 설정되었습니다.", Toast.LENGTH_LONG).show()
+            sharedPreferences.edit().putBoolean("end", true).apply()
+            sharedPreferences.edit().putFloat("endX", latitude.toFloat()).putFloat("endY", longitude.toFloat()).apply()
+            sharedPreferences.edit().putString("endNewX", latitude.toString()).putString("endNewY", longitude.toString()).apply()
+            sharedPreferences.edit().putString("endLocation", textLocationName2.text.toString()).apply()
+
+            if(start)
+            {
+                sharedPreferences.edit().putBoolean("start", false).apply()
+                sharedPreferences.edit().putBoolean("end", false).apply()
+                val intent = Intent(this, AfterSearchActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }
+            else
+            {
+                val intent = Intent(this, StartActivity::class.java)
+                intent.putExtra("reset", false)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }
 
         }
 

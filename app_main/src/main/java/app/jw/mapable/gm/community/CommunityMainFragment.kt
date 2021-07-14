@@ -76,8 +76,13 @@ class CommunityMainFragment : Fragment() {
                     val date: Date = timeStamp.toDate()
                     val dateFormat = android.text.format.DateFormat.getDateFormat(context)
 
+                    var content = document.data["content"] as String
 
-                    datas.add(ItemCommunityMain(document.data["title"] as String, document.data["content"] as String, document.data["username"] as String, dateFormat.format(date), document.data["image"] as String, document.data["like"] as Long, document.data["dislike"] as Long, document.data["star"] as Long))
+
+
+
+
+                    datas.add(ItemCommunityMain(document.data["title"] as String, content, document.data["username"] as String, dateFormat.format(date), document.data["image"] as String, document.data["like"] as Long, document.data["dislike"] as Long, document.data["star"] as Long))
                     swipeRefreshLayout.isRefreshing = false
 
                 }
