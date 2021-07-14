@@ -2,7 +2,6 @@ package app.jw.mapable.gm.setting
 
 import android.os.Bundle
 import android.os.Handler
-import android.os.Message
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -11,10 +10,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
-
 import kotlinx.android.synthetic.main.activity_app_info.*
-
-import kotlin.concurrent.timer
 
 class AppInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

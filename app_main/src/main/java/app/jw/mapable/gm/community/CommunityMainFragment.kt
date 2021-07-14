@@ -11,19 +11,13 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.jw.mapable.gm.R
-
 import app.jw.mapable.gm.databinding.FragmentCommunityMainBinding
-import app.jw.mapable.gm.notice.NoticeItem
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_after_search.*
-import kotlinx.android.synthetic.main.activity_after_search.swipeRefreshLayout
-import kotlinx.android.synthetic.main.fragment_community_main.*
 import kotlinx.android.synthetic.main.fragment_community_main.view.*
-import kotlinx.android.synthetic.main.fragment_community_my.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -32,7 +26,7 @@ class CommunityMainFragment : Fragment() {
     private var _binding : FragmentCommunityMainBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var recyclerAdapter : CommunityMainAdapter
+    private lateinit var recyclerAdapter : CommunityMainAdapter
 
     val datas = ArrayList<ItemCommunityMain>()
 
@@ -76,7 +70,7 @@ class CommunityMainFragment : Fragment() {
                     val date: Date = timeStamp.toDate()
                     val dateFormat = android.text.format.DateFormat.getDateFormat(context)
 
-                    var content = document.data["content"] as String
+                    val content = document.data["content"] as String
 
 
 
@@ -103,9 +97,9 @@ class CommunityMainFragment : Fragment() {
         }
     }
 
-    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
+    private fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
         datas.clear()
-        var ft: FragmentTransaction = fragmentManager.beginTransaction()
+        val ft: FragmentTransaction = fragmentManager.beginTransaction()
         ft.detach(fragment).attach(fragment).commit()
 
     }

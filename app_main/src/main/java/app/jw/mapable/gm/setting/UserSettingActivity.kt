@@ -1,23 +1,17 @@
 package app.jw.mapable.gm.setting
 
-import android.app.Dialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.start.StartActivity
-import com.bumptech.glide.Glide
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_user_setting.*
 import kotlinx.android.synthetic.main.fragment_community_my.view.*
-import java.io.File
 
 class UserSettingActivity : AppCompatActivity() {
 
@@ -98,11 +92,7 @@ class UserSettingActivity : AppCompatActivity() {
 
         }
 
-        buttonQuit.setOnClickListener {
-            val dialog = UserSettingDialog(this)
-            dialog.callFunction()
 
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

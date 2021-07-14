@@ -3,7 +3,6 @@ package app.jw.mapable.gm.login
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -18,36 +17,27 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.tasks.Task
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_after_search.*
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.regex.Pattern
 
 class LoginActivity : AppCompatActivity(){
 
-    lateinit var mGoogleApiClient : GoogleApiClient
-    lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var googleSignInClient: GoogleSignInClient
 
-    lateinit var task : Task<GoogleSignInAccount>
-    lateinit var firebaseAuth : FirebaseAuth
+    private lateinit var task : Task<GoogleSignInAccount>
+    private lateinit var firebaseAuth : FirebaseAuth
 
     lateinit var preferences: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
 
     var userID = ""
-    var userPW = ""
-
-    override fun onStart() {
-        super.onStart()
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        if(account != null){} //TODO : 이미 로그인되어 있는 경우 if문 실행
-    }
+    private var userPW = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -158,7 +148,7 @@ class LoginActivity : AppCompatActivity(){
         }
     }
 
-    fun loginSuccess(user : FirebaseUser)
+    private fun loginSuccess(user : FirebaseUser)
     {
 
         fadeOutAnimation()
@@ -188,37 +178,11 @@ class LoginActivity : AppCompatActivity(){
         finish()
 
 
-        //TODO : 필요없어진 코드. 추후 참고를 위해 남겨둠. 제출시 지워도 될 듯
-//
-//        val db = FirebaseFirestore.getInstance()
-//        val users: MutableMap<String, Any> = HashMap()
-//        users["userID"] = user.email.toString()
-//        users["userPW"] = ""
-//        users["image"] = ""
-//        users["message"] = ""
-//        users["usertype"] = true
-//
-//
-//
-//        try{
-//            db.collection("users").document(firebaseAuth.currentUser?.uid!!).set(users)
-//                .addOnSuccessListener {
-//                    println("LOG : SUCCESS")
-//                }
-//                .addOnFailureListener { println("LOG : FAILED") }
-//
-//        }
-//        catch (e : Exception)
-//        {
-//            e.printStackTrace()
-//        }
-
-
 
 
     }
 
-    fun loginSuccessGoogle(user : FirebaseUser)
+    private fun loginSuccessGoogle(user : FirebaseUser)
     {
         val database = Firebase.firestore
         database.collection("users").document(firebaseAuth.currentUser?.uid!!).get().addOnSuccessListener {
@@ -283,7 +247,7 @@ class LoginActivity : AppCompatActivity(){
 
     }
 
-    fun loginFailed()
+    private fun loginFailed()
     {
         fadeOutAnimation()
         Toast.makeText(this, "로그인에 실패하였습니다.", Toast.LENGTH_LONG).show()

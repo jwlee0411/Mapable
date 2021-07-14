@@ -15,13 +15,12 @@ import app.jw.mapable.gm.start.GpsTracker
 import app.jw.mapable.gm.start.StartActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_after_search.*
 import kotlinx.android.synthetic.main.activity_star.*
 import kotlin.math.roundToInt
 
 class StarActivity : AppCompatActivity() {
 
-    lateinit var recyclerAdapter : StarRecyclerAdapter
+    private lateinit var recyclerAdapter : StarRecyclerAdapter
 
     val datas = ArrayList<StarItem>()
 

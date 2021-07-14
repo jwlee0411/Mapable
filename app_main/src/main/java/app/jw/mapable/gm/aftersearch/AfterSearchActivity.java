@@ -171,8 +171,6 @@ public class AfterSearchActivity extends AppCompatActivity {
 
             odsayService.requestSearchPubTransPath(Double.toString(startY), Double.toString(startX), Double.toString(endY), Double.toString(endX), "0", "0", "0", onRoadFoundResultCallbackListener);
 
-
-            //TODO : 추후 수정 예정, swiperefreshlayout 사용해서 실제 새로고침이 가능하도록
             swipeRefreshLayout.setOnRefreshListener(() -> {
 
                 editor.putFloat("endX", (float) endX);
@@ -237,7 +235,7 @@ public class AfterSearchActivity extends AppCompatActivity {
                 Item item = new Item();
                 float distance = (float) (Math.round((Integer.parseInt(pathAll[i][0][0]) / 10)) / 100.0);
                 item.setTrafficDistance("이동거리 " + distance + "km");
-                item.setTotalWalk("도보 " + pathAll[i][0][1] + "분");
+                item.setTotalWalk("도보 " + pathAll[i][0][1] + "m");
                 item.setTotalTime(pathAll[i][0][2] + "분");
                 item.setPayment("카드 " + pathAll[i][0][3] + "원");
 

@@ -20,7 +20,7 @@ class NoticeActivity : AppCompatActivity(){
 
     private lateinit var recyclerAdapter : NoticeRecyclerAdapter
 
-    var notices = ArrayList<NoticeItem>()
+    private var notices = ArrayList<NoticeItem>()
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

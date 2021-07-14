@@ -20,11 +20,11 @@ class AfterSearchDisabledActivity : AppCompatActivity(){
 
     var startX : Double = 0.0
     var startY : Double = 0.0
-    var endX : Double = 0.0
-    var endY : Double = 0.0
+    private var endX : Double = 0.0
+    private var endY : Double = 0.0
 
     var startLocation : String = ""
-    var endLocation : String = ""
+    private var endLocation : String = ""
 
 
 
@@ -78,11 +78,4 @@ class AfterSearchDisabledActivity : AppCompatActivity(){
     }
 
 
-
-    fun getPath()
-    {
-        editor.remove("prevString").apply()
-
-
-    }
 }

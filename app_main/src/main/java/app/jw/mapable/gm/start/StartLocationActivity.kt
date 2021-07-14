@@ -13,7 +13,6 @@ import app.jw.mapable.gm.R
 import app.jw.mapable.gm.aftersearch.AfterSearchActivity
 import app.jw.mapable.gm.login.LoginActivity
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.activity_start_location.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,13 +23,13 @@ class StartLocationActivity : AppCompatActivity() {
     lateinit var sharedPreferences: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
 
-    var latitude : Double = 0.0
+    private var latitude : Double = 0.0
     var longitude : Double = 0.0
 
     var userID = ""
     var loginType = 0
 
-    var openingHoursAll : String? = ""
+    private var openingHoursAll : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +58,7 @@ class StartLocationActivity : AppCompatActivity() {
 
         longitude = intent.getDoubleExtra("longitude", 0.0)
 
-        var phoneNumber = intent.getStringExtra("phoneNumber")
+        val phoneNumber = intent.getStringExtra("phoneNumber")
 
         val websiteUri = intent.getStringExtra("websiteUri")
 
@@ -80,7 +79,7 @@ class StartLocationActivity : AppCompatActivity() {
         textView24.text = getDistance(currentLatitude, currentLongitude, latitude, longitude)
 
 
-        val currentTime: Date = Calendar.getInstance().getTime()
+        val currentTime: Date = Calendar.getInstance().time
         val date_text: String = SimpleDateFormat("EE", Locale.getDefault()).format(currentTime)
 
 

@@ -81,10 +81,10 @@ class SplashActivity : AppCompatActivity() {
 
 
 
-    fun splashAnimation()
+    private fun splashAnimation()
     {
 
-        val textAnim : Animation = AnimationUtils.loadAnimation(this, R.anim.anim_fade_in);
+        val textAnim : Animation = AnimationUtils.loadAnimation(this, R.anim.anim_fade_in)
         textView3.startAnimation(textAnim)
         textView10.startAnimation(textAnim)
         val imageAnim = AnimationUtils.loadAnimation(this, R.anim.anim_rotate)
@@ -115,7 +115,6 @@ class SplashActivity : AppCompatActivity() {
 
                 val handler2 = Handler()
 
-                //TODO : 애니메이션 오류로 Zoom In 비활성화
                 handler2.postDelayed({
 
                     val preferences : SharedPreferences = getSharedPreferences("preferences", 0)
@@ -152,9 +151,8 @@ class SplashActivity : AppCompatActivity() {
         val params = Bundle()
 
 
-
         lateinit var tts: TextToSpeech
-        tts = TextToSpeech(this) { status: Int ->
+        tts = TextToSpeech(this){ status: Int ->
             if (status == TextToSpeech.SUCCESS) {
                 val result: Int = tts.setLanguage(Locale.KOREAN)
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {

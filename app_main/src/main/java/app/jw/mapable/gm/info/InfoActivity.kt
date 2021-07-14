@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_info.*
 
 class InfoActivity : AppCompatActivity() {
 
-    lateinit var onBoardingAdapter : OnBoardingAdapter
+    private lateinit var onBoardingAdapter : OnBoardingAdapter
 
     lateinit var item : OnboardingItem
 
@@ -39,7 +39,7 @@ class InfoActivity : AppCompatActivity() {
         buttonOnBoardingAction.setOnClickListener {
             if(onBoardingViewPager.currentItem + 1 < onBoardingAdapter.itemCount)
             {
-                onBoardingViewPager.setCurrentItem(onBoardingViewPager.currentItem+1)
+                onBoardingViewPager.currentItem = onBoardingViewPager.currentItem+1
 
             }
             else
@@ -54,9 +54,9 @@ class InfoActivity : AppCompatActivity() {
 
     }
 
-    fun setupOnboardingItems()
+    private fun setupOnboardingItems()
     {
-        var onboardingItems = ArrayList<OnboardingItem>()
+        val onboardingItems = ArrayList<OnboardingItem>()
 
         item = OnboardingItem()
         item.setImage(R.drawable.fragment_01)

@@ -9,7 +9,6 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,8 +33,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -69,9 +66,9 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
     StringBuilder buffer;
     String firstUrl, firstUrl2;
 
-    private SparseBooleanArray selectedItems = new SparseBooleanArray();
+    private final SparseBooleanArray selectedItems = new SparseBooleanArray();
     // 직전에 클릭됐던 Item의 position
-    private int prePosition = -1;
+    private final int prePosition = -1;
 
 
 
@@ -91,7 +88,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        holder.onBind(listItem.get(position), position);
+        holder.onBind(listItem.get(position));
     }
 
     @Override
@@ -118,6 +115,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
             textViews[0] = itemView.findViewById(R.id.textTrafficDistance);
             textViews[1] = itemView.findViewById(R.id.textTotalTime);
             textViews[2] = itemView.findViewById(R.id.textPayment);
+            textViews[3] = itemView.findViewById(R.id.textTotalWalk);
             recyclerView = itemView.findViewById(R.id.recyclerView2);
             recyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
 
@@ -129,7 +127,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
 
         }
 
-        void onBind(Item item, int position) {
+        void onBind(Item item) {
 
             recyclerItem = item;
             setRouteArray();
@@ -138,40 +136,9 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                 Intent intent = new Intent(itemView.getContext(), AfterRoadActivity.class);
                 intent.putExtra("ways", preferences.getString("finalGetWays", ""));
                 itemView.getContext().startActivity(intent);
-                //TODO : 작동안됨(오류 해결 못함)
-//                System.out.println("○" + getAbsoluteAdapterPosition());
-//                //System.out.println(getBindingAdapterPosition());
-//                System.out.println("○" +position);
 
-
-//              constraintLayout.setVisibility(View.GONE);
 
             });
-
-
-
-//TODO : 테스트용
-
-
-//
-//            changeVisibility(selectedItems.get(position));
-//            constraintLayout.setOnClickListener(view -> {
-//                setRouteArray();
-//                System.out.println("§" + position);
-//
-//                if (selectedItems.get(position)) {
-//                    selectedItems.delete(position);
-//                } else {
-//                    selectedItems.delete(prePosition);
-//                    selectedItems.put(position, true);
-//                }
-//                if (prePosition != -1) {
-//                    notifyItemChanged(prePosition);
-//                }
-//                notifyItemChanged(position);
-//
-//                prePosition = position;
-//            });
 
 
         }
@@ -210,6 +177,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
         textViews[0].setText(recyclerItem.getTrafficDistance());
         textViews[1].setText(recyclerItem.getTotalTime());
         textViews[2].setText(recyclerItem.getPayment());
+        textViews[3].setText(recyclerItem.getTotalWalk());
 
         setRecyclerView();
 
@@ -232,7 +200,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                     item2.setEndStation(waysNewSplit[i][9]);
                     item2.setTrafficType(waysNewSplit[i][5]);
 
-                    seoulSubwayLocationSearch(waysNewSplit[i][5], waysNewSplit[i][6], waysNewSplit[i][16]); //지하철번호 + 역명 + 상하행정보(상행 : 1, 하행 : 2)
+                    seoulSubwayLocationSearch(waysNewSplit[i][5]); //지하철번호 + 역명 + 상하행정보(상행 : 1, 하행 : 2)
 
 
                     adapter2.addItem(item2);
@@ -252,7 +220,6 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                     item2.setTrafficType(waysNewSplit[i][5]);
 
 
-                    //TODO : 아직 값을 집어넣지는 않았어
                     if(i==1)
                     {
                         odsayService.requestBusStationInfo(waysNewSplit[i][14], onBusStopIdResultCallbackListener);
@@ -303,7 +270,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
         }
     };
 
-    void seoulSubwayLocationSearch(String stationName, String updnLine, String subwayCode) //지하철번호 + 역명 + 상하행정보(상행 : 1, 하행 : 2)
+    void seoulSubwayLocationSearch(String stationName) //지하철번호 + 역명 + 상하행정보(상행 : 1, 하행 : 2)
     {
         buffer = new StringBuilder();
         System.out.println("@함수 호출");
@@ -446,7 +413,7 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
             System.out.println("◈들어옴");
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             XmlPullParser xmlPullParser = factory.newPullParser();
-            xmlPullParser.setInput(new InputStreamReader(inputStream, "UTF-8"));
+            xmlPullParser.setInput(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 
             String tag;
 
@@ -460,23 +427,29 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
                         break;
                     case XmlPullParser.START_TAG:
                         tag = xmlPullParser.getName();
-                        if (tag.equals("arrmsg1")) {
-                            xmlPullParser.next();
-                            System.out.println("◈" + xmlPullParser.getText());
-                            buffer.append("버스도착1").append(xmlPullParser.getText()).append("\n");
-                        } else if (tag.equals("arrmsg2")) {
-                            xmlPullParser.next();
-                            buffer.append("버스도착2").append(xmlPullParser.getText()).append("\n");
-                        } else if (tag.equals("busType1")) {
-                            xmlPullParser.next();
-                            buffer.append("버스타입1").append(xmlPullParser.getText()).append("\n");
-                        } else if (tag.equals("busType2")) {
-                            xmlPullParser.next();
-                            buffer.append("버스타입2").append(xmlPullParser.getText()).append("\n");
-                        } else if (tag.equals("rtNm")) {
-                            xmlPullParser.next();
-                            System.out.println("◈" + xmlPullParser.getText());
-                            buffer.append("버스번호").append(xmlPullParser.getText()).append("\n");
+                        switch (tag) {
+                            case "arrmsg1":
+                                xmlPullParser.next();
+                                System.out.println("◈" + xmlPullParser.getText());
+                                buffer.append("버스도착1").append(xmlPullParser.getText()).append("\n");
+                                break;
+                            case "arrmsg2":
+                                xmlPullParser.next();
+                                buffer.append("버스도착2").append(xmlPullParser.getText()).append("\n");
+                                break;
+                            case "busType1":
+                                xmlPullParser.next();
+                                buffer.append("버스타입1").append(xmlPullParser.getText()).append("\n");
+                                break;
+                            case "busType2":
+                                xmlPullParser.next();
+                                buffer.append("버스타입2").append(xmlPullParser.getText()).append("\n");
+                                break;
+                            case "rtNm":
+                                xmlPullParser.next();
+                                System.out.println("◈" + xmlPullParser.getText());
+                                buffer.append("버스번호").append(xmlPullParser.getText()).append("\n");
+                                break;
                         }
                         //arrmsg(1,2) : 버스 도착예정 + n번째 전
                         //busType(1,2) : 버스종류(0 일반 / 1 저상)
@@ -499,37 +472,10 @@ public class MapRecyclerAdapter extends RecyclerView.Adapter<MapRecyclerAdapter.
             }
 
 
-        } catch (IOException | XmlPullParserException e) {
+        } catch (IOException | XmlPullParserException ignored) {
 
 
         }
-    }
-
-
-    private void changeVisibility(final boolean isExpanded) {
-        // height 값을 dp로 지정해서 넣고싶으면 아래 소스를 이용
-        int dpValue = 150;
-        float d = context.getResources().getDisplayMetrics().density;
-        int height = (int) (dpValue * d);
-
-        // ValueAnimator.ofInt(int... values)는 View가 변할 값을 지정, 인자는 int 배열
-        ValueAnimator va = isExpanded ? ValueAnimator.ofInt(0, height) : ValueAnimator.ofInt(height, 0);
-        // Animation이 실행되는 시간, n/1000초
-        va.setDuration(600);
-        va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                // value는 height 값
-                int value = (int) animation.getAnimatedValue();
-                // imageView의 높이 변경
-                recyclerView.getLayoutParams().height = value;
-                recyclerView.requestLayout();
-                // imageView가 실제로 사라지게하는 부분
-                recyclerView.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
-            }
-        });
-        // Animation start
-        va.start();
     }
 
 

@@ -129,218 +129,188 @@ public class MapRecyclerAdapter2 extends RecyclerView.Adapter<MapRecyclerAdapter
                 textViews[5].setText(item.getEndStation());
 
                 textViews[9].setVisibility(View.VISIBLE);
-                //TODO : REMIND ==> 실시간 정보를 아직 불러오지 않았음
-                //  textViews[10].setVisibility(View.VISIBLE);
 
 
-                if(item.getName().equals("수도권 1호선") || item.getName().equals("수도권 1호선(급행)"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line1, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.line1));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line1));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line1_icon, null));
-                }
-                else if(item.getName().equals("수도권 2호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line2, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.line2));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line2));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line2_icon, null));
-                }
-                else if(item.getName().equals("수도권 3호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line3, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.line3));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line3));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line3_icon, null));
-                }
-                else if(item.getName().equals("수도권 4호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line4, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.line4));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line4));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line4_icon, null));
-                }
-                else if(item.getName().equals("수도권 5호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line5, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.line5));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line5));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line5_icon, null));
-                }
-                else if(item.getName().equals("수도권 6호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line6, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.line6));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line6));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line6_icon, null));
-                }
-                else if(item.getName().equals("수도권 7호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line7, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.line7));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line7));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line7_icon, null));
-                }
-                else if(item.getName().equals("수도권 8호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line8, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.line8));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line8));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line8_icon, null));
-                }
-                else if(item.getName().equals("수도권 9호선") || item.getName().equals("수도권 9호선(급행)"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line9, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.line9));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line9));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line9_icon, null));
-                }
-                else if(item.getName().equals("수도권 공항철도"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineairport, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineAirport));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineAirport));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineairport_icon, null));
-                }
-                else if(item.getName().equals("수도권 자기부상열차"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linemaglev, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineMaglev));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineMaglev));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linemaglev_icon, null));
-                }
-                else if(item.getName().equals("경의중앙선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegyeongui, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineGyeongui));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineGyeongui));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegyeongui_icon, null));
-                }
-                else if(item.getName().equals("수도권 에버라인"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineyongin, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineYongin));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineYongin));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineyongin_icon, null));
-                }
-                else if(item.getName().equals("경춘선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegyeongchun, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineGyeongchun));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineGyeongchun));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegyeongchun_icon, null));
-                }
-                else if(item.getName().equals("수도권 신분당선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineshinbundang, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineShinBundang));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineShinBundang));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineshinbundang_icon, null));
-                }
-                else if(item.getName().equals("수도권 의정부경전철"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineuijeongbu, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineUijeongbu));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineUijeongbu));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineuijeongbu_icon, null));
-                }
-                else if(item.getName().equals("수도권 경강선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegyeonggang, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineGyeonggang));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineGyeonggang));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegyeonggang_icon, null));
-                }
-                else if(item.getName().equals("수도권 우이신설선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineui, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineUi));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineUi));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineui_icon, null));
-                }
-                else if(item.getName().equals("수도권 서해선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineseohae, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineSeohae));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineSeohae));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineseohae_icon, null));
-                }
-                else if(item.getName().equals("수도권 김포골드라인"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegimpo, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineGimpo));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineGimpo));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegimpo, null));
-                }
-                else if(item.getName().equals("수도권 수인.분당선") || item.getName().equals("수도권 분당선(급행)"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linebundang, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineBundang));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineBundang));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linebundang_icon, null));
-                }
-                else if(item.getName().equals("인천 1호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineincheon1, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineIncheon1));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineIncheon1));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineincheon1, null));
-                }
-                else if(item.getName().equals("인천 2호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineincheon2, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineIncheon2));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineIncheon2));
-                    imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineincheon2_icon, null));
-                }
-                //TODO : 아래부터는 다시!
-                else if(item.getName().equals("대전 1호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linedaejeon1, null));
-                    textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineDaejeon1));
-                    colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineDaejeon1));
-                    //imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linedaejeon1_icon, null));
-                }
-                else if(item.getName().equals("대구 1호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linedaegu1, null));
-                }
-                else if(item.getName().equals("대구 2호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linedaegu2, null));
-                }
-                else if(item.getName().equals("대구 3호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linedaegu3, null));
-                }
-                else if(item.getName().equals("광주 1호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegwangju1, null));
-                }
-                else if(item.getName().equals("부산 1호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linebusan1, null));
-                }
-                else if(item.getName().equals("부산 2호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linebusan2, null));
-                }
-                else if(item.getName().equals("부산 3호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linebusan3, null));
-                }
-                else if(item.getName().equals("부산 4호선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linebusan4, null));
-                }
-                else if(item.getName().equals("동해선"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linedonghae, null));
-                }
-                else if(item.getName().equals("부산-김해경전철"))
-                {
-                    imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegimhae, null));
+
+                switch (item.getName()) {
+                    case "수도권 1호선":
+                    case "수도권 1호선(급행)":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line1, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.line1));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line1));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line1_icon, null));
+                        break;
+                    case "수도권 2호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line2, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.line2));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line2));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line2_icon, null));
+                        break;
+                    case "수도권 3호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line3, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.line3));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line3));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line3_icon, null));
+                        break;
+                    case "수도권 4호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line4, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.line4));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line4));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line4_icon, null));
+                        break;
+                    case "수도권 5호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line5, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.line5));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line5));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line5_icon, null));
+                        break;
+                    case "수도권 6호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line6, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.line6));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line6));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line6_icon, null));
+                        break;
+                    case "수도권 7호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line7, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.line7));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line7));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line7_icon, null));
+                        break;
+                    case "수도권 8호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line8, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.line8));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line8));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line8_icon, null));
+                        break;
+                    case "수도권 9호선":
+                    case "수도권 9호선(급행)":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line9, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.line9));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.line9));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_line9_icon, null));
+                        break;
+                    case "수도권 공항철도":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineairport, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineAirport));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineAirport));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineairport_icon, null));
+                        break;
+                    case "수도권 자기부상열차":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linemaglev, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineMaglev));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineMaglev));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linemaglev_icon, null));
+                        break;
+                    case "경의중앙선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegyeongui, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineGyeongui));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineGyeongui));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegyeongui_icon, null));
+                        break;
+                    case "수도권 에버라인":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineyongin, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineYongin));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineYongin));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineyongin_icon, null));
+                        break;
+                    case "경춘선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegyeongchun, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineGyeongchun));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineGyeongchun));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegyeongchun_icon, null));
+                        break;
+                    case "수도권 신분당선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineshinbundang, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineShinBundang));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineShinBundang));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineshinbundang_icon, null));
+                        break;
+                    case "수도권 의정부경전철":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineuijeongbu, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineUijeongbu));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineUijeongbu));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineuijeongbu_icon, null));
+                        break;
+                    case "수도권 경강선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegyeonggang, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineGyeonggang));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineGyeonggang));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegyeonggang_icon, null));
+                        break;
+                    case "수도권 우이신설선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineui, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineUi));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineUi));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineui_icon, null));
+                        break;
+                    case "수도권 서해선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineseohae, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineSeohae));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineSeohae));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineseohae_icon, null));
+                        break;
+                    case "수도권 김포골드라인":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegimpo, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineGimpo));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineGimpo));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegimpo, null));
+                        break;
+                    case "수도권 수인.분당선":
+                    case "수도권 분당선(급행)":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linebundang, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineBundang));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineBundang));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linebundang_icon, null));
+                        break;
+                    case "인천 1호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineincheon1, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineIncheon1));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineIncheon1));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineincheon1, null));
+                        break;
+                    case "인천 2호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineincheon2, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineIncheon2));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineIncheon2));
+                        imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_lineincheon2_icon, null));
+                        break;
+
+                    case "대전 1호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linedaejeon1, null));
+                        textViews[3].setTextColor(itemView.getResources().getColor(R.color.lineDaejeon1));
+                        colorView.setBackgroundColor(itemView.getResources().getColor(R.color.lineDaejeon1));
+                        //imageIcon.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linedaejeon1_icon, null));
+                        break;
+                    case "대구 1호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linedaegu1, null));
+                        break;
+                    case "대구 2호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linedaegu2, null));
+                        break;
+                    case "대구 3호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linedaegu3, null));
+                        break;
+                    case "광주 1호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegwangju1, null));
+                        break;
+                    case "부산 1호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linebusan1, null));
+                        break;
+                    case "부산 2호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linebusan2, null));
+                        break;
+                    case "부산 3호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linebusan3, null));
+                        break;
+                    case "부산 4호선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linebusan4, null));
+                        break;
+                    case "동해선":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linedonghae, null));
+                        break;
+                    case "부산-김해경전철":
+                        imageIcon2.setImageDrawable(ResourcesCompat.getDrawable(itemView.getResources(), R.drawable.train_linegimhae, null));
+                        break;
                 }
 
 
@@ -369,8 +339,7 @@ public class MapRecyclerAdapter2 extends RecyclerView.Adapter<MapRecyclerAdapter
                 textViews[5].setText(item.getEndStation());
 
                 textViews[9].setVisibility(View.VISIBLE);
-                //TODO : REMIND ==> 실시간 정보를 아직 불러오지 않았음
-                //  textViews[10].setVisibility(View.VISIBLE);
+
 
 
 

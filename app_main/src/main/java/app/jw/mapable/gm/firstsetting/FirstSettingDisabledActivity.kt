@@ -1,25 +1,19 @@
 package app.jw.mapable.gm.firstsetting
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
-import app.jw.mapable.gm.start.StartActivity
 import kotlinx.android.synthetic.main.activity_first_setting_disabled.*
 import java.util.*
 
 class FirstSettingDisabledActivity : AppCompatActivity() {
 
-    lateinit var tts : TextToSpeech
+    private lateinit var tts : TextToSpeech
 
     lateinit var sharedPreferences: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
@@ -59,8 +53,6 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
     )
 
 
-    var settingProgress = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_setting_disabled)
@@ -79,15 +71,15 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
 
     }
 
-    fun initAnimation()
+    private fun initAnimation()
     {
-        val animationDrawable : AnimationDrawable = layoutDisabled.getBackground() as AnimationDrawable
+        val animationDrawable : AnimationDrawable = layoutDisabled.background as AnimationDrawable
         animationDrawable.setEnterFadeDuration(2000)
         animationDrawable.setExitFadeDuration(4000)
         animationDrawable.start()
     }
 
-    fun initTTS()
+    private fun initTTS()
     {
         tts = TextToSpeech(this) { status: Int ->
             if (status == TextToSpeech.SUCCESS) {
@@ -111,7 +103,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
         }
     }
 
-    fun setting00_TTS()
+    private fun setting00_TTS()
     {
         tts.setOnUtteranceProgressListener(object : UtteranceProgressListener(){
             override fun onStart(utteranceId: String?) {
@@ -123,7 +115,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
             }
 
             override fun onError(utteranceId: String?) {
-                TODO("Not yet implemented")
+
             }
 
         })
@@ -150,7 +142,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
         }
     }
 
-    fun setting02_TTS()
+    private fun setting02_TTS()
     {
         tts.speak(str[2], TextToSpeech.QUEUE_FLUSH, params, "setting02")
         buttonAffirmative.setOnClickListener {
@@ -165,7 +157,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
         }
     }
 
-    fun setting03_TTS()
+    private fun setting03_TTS()
     {
         tts.speak(str[3], TextToSpeech.QUEUE_FLUSH, params, "setting03")
         buttonAffirmative.setOnClickListener {
@@ -180,7 +172,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
         }
     }
 
-    fun setting04_TTS()
+    private fun setting04_TTS()
     {
         tts.speak(str[4], TextToSpeech.QUEUE_FLUSH, params, "setting04")
         buttonAffirmative.setOnClickListener {
@@ -195,7 +187,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
         }
     }
 
-    fun setting05_TTS()
+    private fun setting05_TTS()
     {
         tts.speak(str[5], TextToSpeech.QUEUE_FLUSH, params, "setting05")
         buttonAffirmative.setOnClickListener {
@@ -226,7 +218,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
         }
     }
 
-    fun setting06_TTS()
+    private fun setting06_TTS()
     {
         tts.speak(str[6], TextToSpeech.QUEUE_FLUSH, params, "setting06")
         buttonAffirmative.setOnClickListener {
@@ -241,7 +233,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
         }
     }
 
-    fun setting07_TTS()
+    private fun setting07_TTS()
     {
         tts.speak(str[7], TextToSpeech.QUEUE_FLUSH, params, "setting07")
         buttonAffirmative.setOnClickListener {
@@ -258,7 +250,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
 
 
 
-    fun setting08_TTS()
+    private fun setting08_TTS()
     {
         tts.speak(str[8], TextToSpeech.QUEUE_FLUSH, params, "setting08")
         buttonAffirmative.setOnClickListener {
@@ -274,7 +266,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
     }
 
     //TODO : 여기서부터 ㄱㄱ
-    fun setting09_TTS()
+    private fun setting09_TTS()
     {
         tts.speak(str[9], TextToSpeech.QUEUE_FLUSH, params, "setting09")
 
@@ -312,7 +304,7 @@ class FirstSettingDisabledActivity : AppCompatActivity() {
 
     }
 
-    fun settingEnd_TTS()
+    private fun settingEnd_TTS()
     {
 
     }
