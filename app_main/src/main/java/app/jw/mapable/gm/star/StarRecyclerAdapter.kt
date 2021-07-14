@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.aftersearch.AfterSearchActivity
-import app.jw.mapable.gm.start.StartActivity
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.item_star.view.*
 
