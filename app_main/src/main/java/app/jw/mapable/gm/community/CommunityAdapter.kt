@@ -1,12 +1,14 @@
 package app.jw.mapable.gm.community
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.jw.mapable.gm.R
 import kotlinx.android.synthetic.main.item_community_summary.view.*
+
 
 class CommunityAdapter(private val context : Context) :
     RecyclerView.Adapter<CommunityAdapter.ItemViewHolder>() {
@@ -37,8 +39,34 @@ class CommunityAdapter(private val context : Context) :
         {
             println("LOG : ${itemCommunityMyMore.title}")
             itemView.textSummaryTitle.text = itemCommunityMyMore.title
-            itemView.textSummaryDescription.text = itemCommunityMyMore.description
+            var description = itemCommunityMyMore.description
+            var descriptionFull = itemCommunityMyMore.description
+
+            if(description.indexOf("\\n") != -1) description = description.substring(0, description.indexOf("\\n"))
+
+
+            if(description.length > 25)
+            {
+                description = description.substring(0, 20)
+                description = "$description..."
+            }
+
+            description = description.replace("\\n", "\n")
+            descriptionFull = descriptionFull.replace("\\n", "\n")
+
+            itemView.textSummaryDescription.text = description
             itemView.textSummaryDate.text = itemCommunityMyMore.date
+
+            itemView.itemCommunitySummary.setOnClickListener {
+                val intent = Intent(context, CommunityDetailActivity::class.java)
+                intent.putExtra("posttime", itemCommunityMyMore.date)
+                intent.putExtra("title", itemCommunityMyMore.title)
+                intent.putExtra("content", descriptionFull)
+
+                itemView.context.startActivity(intent)
+
+
+            }
 
         }
     }

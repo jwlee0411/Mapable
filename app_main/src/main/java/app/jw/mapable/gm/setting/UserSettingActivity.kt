@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
+import app.jw.mapable.gm.start.StartActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -28,17 +29,14 @@ class UserSettingActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("preferences", 0)
 
-
         textEmail.text = sharedPreferences.getString("userID", "")
 
-
         val uid = sharedPreferences.getString("uid", "")!!
-
         val db = Firebase.firestore
-
         val docRef = db.collection("users").document(uid)
         docRef.addSnapshotListener { snapshot, e ->
-            if (e != null) {
+            if (e != null)
+            {
                 //FAILED
                 return@addSnapshotListener
             }
@@ -46,6 +44,8 @@ class UserSettingActivity : AppCompatActivity() {
             if (snapshot != null && snapshot.exists()) {
                 val username : String= snapshot.data!!["userName"] as String
                 val userMessage : String = snapshot.data!!["userMessage"] as String
+
+
 
                 if(username != "")textUserName.text = username
                 else textUserName.text = "이름을 설정해주세요!"
@@ -60,11 +60,10 @@ class UserSettingActivity : AppCompatActivity() {
 
         }
 
-
-
-        val userPhoto = "https://cdn.discordapp.com/attachments/729165233192566847/863209562287243264/app_logo_transparent.png"
-
-        Glide.with(this).load(Uri.parse(userPhoto)).into(imageUserSetting)
+//
+//        val userPhoto = "https://cdn.discordapp.com/attachments/729165233192566847/863209562287243264/app_logo_transparent.png"
+//
+//        Glide.with(this).load(Uri.parse(userPhoto)).into(imageUserSetting)
 
 
         imageUserSetting.setOnClickListener {
@@ -73,9 +72,6 @@ class UserSettingActivity : AppCompatActivity() {
             intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(intent, 0)
         }
-
-
-
 
         imageUserNameEdit.setOnClickListener {
 
@@ -95,7 +91,9 @@ class UserSettingActivity : AppCompatActivity() {
             Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show()
             sharedPreferences.edit().remove("loginType").commit() //반드시 commit으로!!
 
-
+            val intent = Intent(this, StartActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
             finish()
 
         }
@@ -118,6 +116,7 @@ class UserSettingActivity : AppCompatActivity() {
                 inputStream!!.close()
 
                 imageUserSetting.setImageBitmap(bitmap)
+                Toast.makeText(this, "이미지는 적용되지 않습니다.", Toast.LENGTH_LONG).show()
 
 //                val file = Uri.fromFile(File(uri))
 //                val storageRef : StorageReference = storageRef.child("images/" + )
@@ -128,5 +127,13 @@ class UserSettingActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, StartActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        finish()
     }
 }

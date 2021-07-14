@@ -5,14 +5,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.setting.SettingActivity
-import kotlinx.android.synthetic.main.activity_first_setting_enabled_1.*
+import kotlinx.android.synthetic.main.activity_first_setting_enabled.*
 
 class FirstSettingEnabledActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_first_setting_enabled_1)
+        setContentView(R.layout.activity_first_setting_enabled)
         //TODO : 이게 맞는지 모르겠음
         firstSettingEnabledActivity1 = this@FirstSettingEnabledActivity
 

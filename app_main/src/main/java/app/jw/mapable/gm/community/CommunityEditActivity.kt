@@ -44,7 +44,8 @@ class CommunityEditActivity : AppCompatActivity() {
             else
             {
                 val title = editTitle.text.toString()
-                val content = editContent.text.toString()
+                var content = editContent.text.toString()
+                content = content.replace("\n", "\\n")
                 val id = sharedPreferences.getString("id", "userID")!!
                 val nickname = sharedPreferences.getString("userName", "")!!
 

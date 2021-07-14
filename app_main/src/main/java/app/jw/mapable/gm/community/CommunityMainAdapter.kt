@@ -1,6 +1,7 @@
 package app.jw.mapable.gm.community
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -35,11 +36,40 @@ class CommunityMainAdapter(private val context : Context) : RecyclerView.Adapter
         fun bind(item: ItemCommunityMain) {
 
             itemView.textSummaryTitle.text = item.title
-            itemView.textSummaryDescription.text = item.content
+            var content = item.content
+
+            var contentFull = item.content
+
+            if(content.indexOf("\\n") != -1) content = content.substring(0, content.indexOf("\\n"))
+
+
+            if(content.length > 25)
+            {
+                content = content.substring(0, 20)
+                content = "$content..."
+            }
+
+            content = content.replace("\n", " ")
+
+            itemView.textSummaryDescription.text = content
 
             itemView.textTime.text = item.posttime
-            itemView.textNickname.text = " | " + item.username
+            itemView.textNickname.text = " | ${item.username}"
             itemView.textView11.text = item.like.toString()
+
+            contentFull = contentFull.replace("\\n", "\n")
+
+            itemView.itemCommunityMain.setOnClickListener {
+                val intent = Intent(context, CommunityDetailActivity::class.java)
+                intent.putExtra("posttime", item.posttime)
+                intent.putExtra("username", item.username)
+                intent.putExtra("title", item.title)
+                intent.putExtra("content", contentFull)
+
+                itemView.context.startActivity(intent)
+
+
+            }
 
             //TODO : 이미지 적용된 후 사용하기(DB 확인!!)
             //Glide.with(itemView.context).load(Uri.parse(item.imageLink)).into(itemView.imageView7)

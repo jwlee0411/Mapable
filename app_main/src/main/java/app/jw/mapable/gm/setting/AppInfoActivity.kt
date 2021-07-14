@@ -21,11 +21,25 @@ class AppInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app_info)
 
+        var content = ""
+
         lottieView.visibility = View.VISIBLE
         view.visibility = View.VISIBLE
 
+        val info = intent.getBooleanExtra("info", false)
 
-        val content = "<iframe src=\"https://docs.google.com/document/d/e/2PACX-1vQHA5uC7yEZwQewyoLbcCQBxuvjPemDwEDGuAXEIua9PezSn24s9etB8UhgB8_z9_V9Y-_BonbUhIsj/pub?embedded=true\" width = \"1000px\" height = \"2000px\" frameborder = 0 framespacing = 0></iframe>"
+        if(info)
+        {
+            content = "<iframe src=\"https://docs.google.com/document/d/e/2PACX-1vQHA5uC7yEZwQewyoLbcCQBxuvjPemDwEDGuAXEIua9PezSn24s9etB8UhgB8_z9_V9Y-_BonbUhIsj/pub?embedded=true\" width = \"1000px\" height = \"2000px\" frameborder = 0 framespacing = 0></iframe>"
+
+        }
+        else
+        {
+            content = "<iframe src=\"https://docs.google.com/document/d/e/2PACX-1vS6DLgQmcMqY-DLRACL73pXk3MSpJmj66k1-PmitbOXaEPj26i0eLeg5hewKpAhPspLYg6bkHwiqWbP/pub?embedded=true\" width = \"1000px\" height = \"2000px\" frameborder = 0 framespacing = 0></iframe>"
+
+        }
+
+
         webView.loadData(content, "text/html; charset=utf-8", "UTF-8")
         webView.webViewClient = MyWebViewClient()
 

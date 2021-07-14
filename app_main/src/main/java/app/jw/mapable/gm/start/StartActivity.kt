@@ -25,12 +25,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import app.jw.mapable.gm.R
 import app.jw.mapable.gm.aftersearch.AfterSearchActivity
 import app.jw.mapable.gm.community.CommunityActivity
-import app.jw.mapable.gm.explain.ExplainActivity
-import app.jw.mapable.gm.firstsetting.FirstSettingEnabledActivity
 import app.jw.mapable.gm.info.InfoActivity
-import app.jw.mapable.gm.R
 import app.jw.mapable.gm.login.LoginActivity
 import app.jw.mapable.gm.notice.NoticeActivity
 import app.jw.mapable.gm.search.SearchActivity
@@ -49,10 +47,12 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_star.*
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.activity_user_setting.*
 import kotlinx.android.synthetic.main.dialog_user_setting_edit.*
 import kotlinx.android.synthetic.main.navi_header_start.*
+import kotlinx.android.synthetic.main.navi_header_start.view.*
 import java.io.IOException
 import java.util.*
 import kotlin.math.*
@@ -88,6 +88,9 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     var start = false
     var end = false
 
+    var nickname = ""
+
+    var userID = ""
     val update_interval : Long = 1000
     val fastest_update_interval : Long = 500
 
@@ -115,22 +118,22 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         window.setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_start)
 
-        //설정화면 => 메인화면인 경우 설정화면 종료
-        //다른 액티비티 종료
+        lottieViewStart.visibility = View.VISIBLE
+        viewStart.visibility = View.VISIBLE
 
 
-        //설정화면 => 메인화면인 경우 설정화면 종료
-        //다른 액티비티 종료
-        try {
-            val firstSettingEnabledActivity1 = FirstSettingEnabledActivity.firstSettingEnabledActivity1 as FirstSettingEnabledActivity
-            firstSettingEnabledActivity1.finish()
-        } catch (ignored: Exception)
-        {
-
-        }
 
         sharedPreferences = getSharedPreferences("preferences", 0)
         editor = sharedPreferences.edit()
+
+
+        if(!(intent.getBooleanExtra("reset", true)))
+        {
+            start = sharedPreferences.getBoolean("start", false)
+            end = sharedPreferences.getBoolean("end", false)
+        }
+
+
 
 
         loginType = sharedPreferences.getInt("loginType", 0)
@@ -174,23 +177,25 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
 
 
-        val nickname = sharedPreferences.getString("userName", "")
+        nickname = sharedPreferences.getString("userName", "")!!
+        userID = sharedPreferences.getString("userID", "")!!
         val userPhoto = sharedPreferences.getString("userPhoto", "")
 
+        val header = navigationView.getHeaderView(0)
 
-        //TODO : 오류 해결해야댐
+        header.textViewUserName.text = "로그인 해주세요!"
 
-//        if(loginType != 0)
-//        {
-//            if(nickname != "") textViewUserName.text = nickname + "님, 환영합니다!"
-//
-//            else textViewUserName.text = "환영합니다!"
-//
-//            if(userPhoto != "") Glide.with(this).load(Uri.parse(userPhoto)).into(imageViewUserPhoto)
-//
-//        }
-//
-//        else textViewUserName.text = "로그인 해주세요!"; imageViewUserPhoto.setImageResource(R.drawable.profile_default)
+        if(loginType != 0)
+        {
+            if(nickname != "") header.textViewUserName.text = nickname + "님, 환영합니다!"
+
+            else header.textViewUserName.text = "환영합니다!"
+
+            if(userPhoto != "") Glide.with(this).load(Uri.parse(userPhoto)).into(header.imageViewUserPhoto)
+
+        }
+
+        else header.textViewUserName.text = "로그인 해주세요!"; header.imageViewUserPhoto.setImageResource(R.drawable.profile_default)
 
     }
 
@@ -198,15 +203,116 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
     fun setOnClick()
     {
-        //debug : 기존 DB를 지우기 위한 디버그용 버튼
 
-
-        //debug : 기존 DB를 지우기 위한 디버그용 버튼(x) => 그때그때 맞는 용도로 사용
-        floatingDebug.setOnClickListener {
-            startActivity(Intent(this, StartLocationActivity::class.java))
-            //sharedPreferences.edit().clear().apply()
+        layout_location.setOnClickListener {
+            //do nothing : 이 코드가 없으면 자꾸 map을 누르는 것으로 인식해 레이아웃이 들어가짐
         }
 
+
+        buttonShare.setOnClickListener{
+            println("LOG210714 : 클릭함")
+            val intentShare = Intent(Intent.ACTION_SEND)
+            intentShare.type = "text/plain"
+            val location = textLocationTitle.text.toString()
+            val distance = textDistanceLocation.text.toString()
+            intentShare.putExtra(Intent.EXTRA_TEXT,
+                "$location\n현재 위치로부터 $distance\n\n스마트한 지도, Mapable에서 공유함"
+            )
+            startActivity(Intent.createChooser(intentShare, "공유"))
+
+        }
+        buttonBookmark.setOnClickListener {
+
+            lottieViewStart.visibility = View.VISIBLE
+            viewStart.visibility = View.VISIBLE
+
+            if(loginType == 0) {
+                fadeOutAnimation()
+                Toast.makeText(this@StartActivity, "북마크 기능을 이용하려면 로그인이 필요합니다.", Toast.LENGTH_LONG).show()
+                startActivity(Intent(this@StartActivity, LoginActivity::class.java))}
+            else {
+
+                val db = FirebaseFirestore.getInstance()
+                val bookmark: MutableMap<String, Any> = HashMap()
+
+                bookmark["locationName"] = textLocationTitle.text.toString()
+                bookmark["latitude"] = locationLatitude
+                bookmark["longitude"] = locationLongitude
+                bookmark["username"] = userID
+
+                db.collection("bookmark").document().set(bookmark).addOnSuccessListener {
+                    Toast.makeText(this, "북마크를 등록했습니다.", Toast.LENGTH_LONG).show()
+                    fadeOutAnimation()
+                }
+                    .addOnFailureListener{
+                        it.printStackTrace()
+                        Toast.makeText(this, "북마크 등록에 실패하였습니다.", Toast.LENGTH_LONG).show()
+                        fadeOutAnimation()
+                    }
+            }
+
+
+
+
+
+
+        }
+
+
+        floatingDebug.setOnClickListener {
+            //현재 위치를 출발지로 지정함.
+
+            val gpsTracker = GpsTracker(this)
+            val latitude : Double = gpsTracker.getLatitude()
+            val longitude : Double = gpsTracker.getLongtitude()
+            val currentAddressName = getCurrentAddress(latitude, longitude)
+
+            println("$latitude / $longitude / $currentAddressName")
+
+            start = true
+            sharedPreferences.edit().putBoolean("start", true).apply()
+
+            sharedPreferences.edit().putFloat("startX", latitude.toFloat()).putFloat("startY", longitude.toFloat()).apply()
+            sharedPreferences.edit().putString("startNewX", latitude.toString()).putString("startNewY", longitude.toString()).apply()
+            sharedPreferences.edit().putString("startLocation", currentAddressName).apply()
+
+
+
+            Toast.makeText(this, "현재 위치가 출발지로 설정되었습니다.", Toast.LENGTH_LONG).show()
+
+            if(end) openAfterSearch()
+
+
+
+
+
+
+        }
+
+        floatingCurrentLocation.setOnClickListener {
+            val gpsTracker = GpsTracker(this)
+            val latitude : Double = gpsTracker.getLatitude()
+            val longitude : Double = gpsTracker.getLongtitude()
+
+            val prevLatLng = LatLng(latitude, longitude)
+
+            try{ currentLocationMarker.remove() }
+            catch (e : Exception)
+            {
+                e.printStackTrace()
+            }
+
+
+            val bitmap = (resources.getDrawable(R.drawable.marker_start_ride, null) as BitmapDrawable).bitmap
+            currentLocationMarker = mMap.addMarker(MarkerOptions().position(prevLatLng).icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false))))!!
+
+
+            getCurrentAddress(latitude, longitude)
+
+
+
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(prevLatLng, 15f))
+        }
 
 
         floatingRoadFound.setOnClickListener {
@@ -233,30 +339,6 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             overridePendingTransition(R.anim.anim_move_bottom_up_full, R.anim.anim_none)
         }
 
-        floatingCurrentLocation.setOnClickListener {
-            val gpsTracker = GpsTracker(this)
-            val latitude : Double = gpsTracker.getLatitude()
-            val longtitude : Double = gpsTracker.getLongtitude()
-
-            val prevLatLng = LatLng(latitude, longtitude)
-
-            try{ currentLocationMarker.remove() }
-            catch (e : Exception)
-            {
-                e.printStackTrace()
-            }
-
-
-            val bitmap = (resources.getDrawable(R.drawable.marker_start_ride) as BitmapDrawable).bitmap
-            currentLocationMarker = mMap.addMarker(MarkerOptions().position(prevLatLng).icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false))))
-
-
-
-
-
-
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(prevLatLng, 15f))
-        }
 
         floatingInfo.setOnClickListener { v: View? ->
             startActivity(Intent(this@StartActivity, InfoActivity::class.java))
@@ -402,19 +484,33 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             Toast.makeText(this, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show()
             return "잘못된 GPS 좌표"
         }
-        if (addresses == null || addresses.size == 0) {
+        if (addresses == null || addresses.isEmpty()) {
             Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show()
             return "주소 미발견"
         }
         val address: Address = addresses[0]
-        textViewSearch.text = address.getAddressLine(0).toString()
-        return address.getAddressLine(0).toString()
+        //println("LOG0713 : ${addresses[0]} / ${addresses[1]} / ${addresses[2]} / ${addresses[3]} / ${address.url} / ${address.phone} / ${address.adminArea} / ${address.extras}")
+        var addressText = address.getAddressLine(0).toString()
+        addressText = addressText.replace("대한민국 ", "")
+
+        textViewSearch.text = addressText
+
+        return addressText
 
 
     }
 
     fun setOnMapClick()
     {
+
+        if(intent.getBooleanExtra("showLocation", false))
+        {
+            val lat = intent.getDoubleExtra("latitude", 0.0)
+            val lon = intent.getDoubleExtra("longitude", 0.0)
+            val lng = LatLng(lat, lon)
+            setLocationLayout(lat, lon, lng)
+        }
+
         mMap.setOnCameraMoveListener {
 
             try{ selectLocationMarker.remove() }
@@ -550,127 +646,148 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
 
         mMap.setOnMapLongClickListener {
-            //TODO : 기존 코드 갈아엎고 새로운 방식으로 출발 도착 등 결정
 
-            try{ selectLocationMarker.remove() }
-            catch (e : Exception)
+            setLocationLayout(it.latitude, it.longitude, it)
+
+        }
+
+        fadeOutAnimation()
+
+    }
+
+    private fun setLocationLayout(locationLatitude: Double, locationLongitude: Double, it: LatLng)
+    {
+        //기존 위치 지정 마커가 있다면 지운다.
+        try{ selectLocationMarker.remove() }
+        catch (e : Exception)
+        {
+            e.printStackTrace()
+        }
+
+
+        layoutInflated = true
+
+        val layoutAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_move_bottom_up)
+        layout_location.startAnimation(layoutAnimation)
+
+        layoutAnimation.setAnimationListener(object : Animation.AnimationListener{
+            override fun onAnimationStart(animation: Animation?) {
+                layout_location.visibility = View.VISIBLE
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+
+            }
+
+        })
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 14f))
+
+        MarkerOptions().position(it)
+
+        val bitmap = (resources.getDrawable(R.drawable.icon_current_location_2) as BitmapDrawable).bitmap
+        selectLocationMarker = mMap.addMarker(MarkerOptions().position(it).icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false))))!!
+
+        // mMap.addMarker(MarkerOptions().position(it))
+        val locationString : String = getCurrentAddress(locationLatitude, locationLongitude).replace("대한민국 ", "")
+
+
+        val gpsTracker = GpsTracker(this)
+        val latitude : Double = gpsTracker.getLatitude()
+        val longitude : Double = gpsTracker.getLongtitude()
+
+        val distance = getDistance(locationLatitude, locationLongitude, latitude, longitude)
+
+        val makeStr = distance
+
+        textDistanceLocation.text = makeStr
+        textLocationTitle.text = locationString
+        textAddress.text = locationString
+
+//            val intentBuilder = PlacePicker.IntentBuilder()
+//            try{
+//                val intent = intentBuilder.build(this)
+//                startActivityForResult(intent, 1)
+//            }
+//            catch (e : Exception)
+//            {
+//                e.printStackTrace()
+//            }
+
+
+
+//            layout_location.setOnClickListener {
+//                val intent = Intent(this, StartLocationActivity::class.java)
+//                //TODO : intent.putExtra()
+//                startActivity(intent)
+//
+//            }
+
+        buttonStart.setOnClickListener {
+            start = true
+            sharedPreferences.edit().putBoolean("start", true).apply()
+
+            sharedPreferences.edit().putFloat("startX", locationLatitude.toFloat()).putFloat("startY", locationLongitude.toFloat()).apply()
+            sharedPreferences.edit().putString("startNewX", locationLatitude.toString()).putString("startNewY", locationLongitude.toString()).apply()
+            sharedPreferences.edit().putString("startLocation", textLocationTitle.text.toString()).apply()
+
+
+
+
+
+            if(end)
             {
-                e.printStackTrace()
+                //출발지, 도착지 모두 정해짐
+                openAfterSearch()
+
             }
-
-
-            layoutInflated = true
-
-            val layoutAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_move_bottom_up)
-            layout_location.startAnimation(layoutAnimation)
-
-            layoutAnimation.setAnimationListener(object : Animation.AnimationListener{
-                override fun onAnimationStart(animation: Animation?) {
-                    layout_location.visibility = View.VISIBLE
-                }
-
-                override fun onAnimationEnd(animation: Animation?) {
-
-                }
-
-                override fun onAnimationRepeat(animation: Animation?) {
-
-                }
-
-            })
-
-
-            locationLatitude = it.latitude
-            locationLongitude = it.longitude
-
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 14f))
-
-            MarkerOptions().position(it)
-
-            val bitmap = (resources.getDrawable(R.drawable.icon_current_location_2) as BitmapDrawable).bitmap
-            selectLocationMarker = mMap.addMarker(MarkerOptions().position(it).icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false))))!!
-
-            // mMap.addMarker(MarkerOptions().position(it))
-            val locationString : String = getCurrentAddress(locationLatitude, locationLongitude).replace("대한민국 ", "")
-
-
-            val gpsTracker = GpsTracker(this)
-            val latitude : Double = gpsTracker.getLatitude()
-            val longitude : Double = gpsTracker.getLongtitude()
-
-            val distance = getDistance(locationLatitude, locationLongitude, latitude, longitude)
-
-            val makeStr = distance
-
-            textDistanceLocation.text = makeStr
-            textLocationTitle.text = "일해라 개발자"
-            textAddress.text = locationString
-
-            val intentBuilder = PlacePicker.IntentBuilder()
-            try{
-                val intent = intentBuilder.build(this)
-                startActivityForResult(intent, 1)
-            }
-            catch (e : Exception)
+            else
             {
-                e.printStackTrace()
+                Toast.makeText(this, "출발지가 설정되었습니다.", Toast.LENGTH_LONG).show()
             }
+        }
 
-
-
-            layout_location.setOnClickListener {
-                val intent = Intent(this, StartLocationActivity::class.java)
-                //TODO : intent.putExtra()
-                startActivity(intent)
-
+        buttonEnd.setOnClickListener {
+            end = true
+            sharedPreferences.edit().putFloat("endX", latitude.toFloat()).putFloat("endY", longitude.toFloat()).apply()
+            sharedPreferences.edit().putString("endNewX", latitude.toString()).putString("endNewY", longitude.toString()).apply()
+            sharedPreferences.edit().putString("endLocation", textLocationTitle.text.toString()).apply()
+            if(start)
+            {
+                //출발지, 도착지 모두 정해짐
+                openAfterSearch()
             }
-
-            buttonStart.setOnClickListener {
-                start = true
-                sharedPreferences.edit().putBoolean("start", true).apply()
-
-                sharedPreferences.edit().putFloat("startX", locationLatitude.toFloat()).putFloat("startY", locationLongitude.toFloat()).apply()
-                sharedPreferences.edit().putString("startNewX", locationLatitude.toString()).putString("startNewY", locationLongitude.toString()).apply()
-                sharedPreferences.edit().putString("startLocation", textLocationTitle.text.toString()).apply()
-
-
-
-
-
-                if(end)
-                {
-                    //출발지, 도착지 모두 정해짐
-                    openAfterSearch()
-
-                }
-                else
-                {
-                    Toast.makeText(this, "출발지가 설정되었습니다.", Toast.LENGTH_LONG).show()
-                }
+            else
+            {
+                Toast.makeText(this, "도착지가 설정되었습니다.", Toast.LENGTH_LONG).show()
             }
-
-            buttonEnd.setOnClickListener {
-                end = true
-                sharedPreferences.edit().putFloat("endX", latitude.toFloat()).putFloat("endY", longitude.toFloat()).apply()
-                sharedPreferences.edit().putString("endNewX", latitude.toString()).putString("endNewY", longitude.toString()).apply()
-                sharedPreferences.edit().putString("endLocation", textLocationTitle.text.toString()).apply()
-                if(start)
-                {
-                    //출발지, 도착지 모두 정해짐
-                    openAfterSearch()
-                }
-                else
-                {
-                    Toast.makeText(this, "도착지가 설정되었습니다.", Toast.LENGTH_LONG).show()
-                }
-
-            }
-
 
         }
 
 
 
+    }
+
+    private fun fadeOutAnimation()
+    {
+        val animation = AnimationUtils.loadAnimation(this, R.anim.anim_fade_out)
+
+        lottieViewStart.startAnimation(animation)
+        viewStart.startAnimation(animation)
+
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationEnd(animation: Animation) {
+                lottieViewStart.visibility = View.GONE
+                viewStart.visibility = View.GONE
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
     }
 
     private fun openAfterSearch()
@@ -681,7 +798,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         startActivity(intent)
     }
 
-    //TODO : getDistance 함수 오류 수정
+
     private fun getDistance(lat1 : Double, lon1 : Double, lat2 : Double, lon2 : Double) : String
     {
         val locationStart = Location("start")
@@ -728,32 +845,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             val rating = place.rating
 
 
-            buttonShare.setOnClickListener{
-                val intentShare = Intent(Intent.ACTION_SEND)
-                intentShare.type = "text/plain"
-                intentShare.putExtra(Intent.EXTRA_TEXT, "공유할 텍스트")
-                startActivity(Intent.createChooser(intentShare, "공유"))
 
-            }
-
-            buttonCall.setOnClickListener{
-                startActivity(Intent("android.intent.action.DIAL", Uri.parse("tel:$phonenumber"))) //TODO : 전화번호 바꾸기
-            }
-
-            buttonBookmark.setOnClickListener {
-
-                val uid = sharedPreferences.getString("uid", "")!!
-
-                val bookmarkData = "★" + textLocationTitle.text.toString() + "※" + locationLatitude + "※" + locationLongitude
-
-                val bookmarkString = sharedPreferences.getString("bookmark", "")!!
-
-                editor.putString("bookmark", bookmarkString + bookmarkData).apply()
-
-
-
-
-            }
 
 
         }
@@ -764,15 +856,42 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     var backKeyPressedTime = 0L
     override fun onBackPressed() {
 
-        if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
-            backKeyPressedTime = System.currentTimeMillis()
-            val toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG)
-            toast.show()
-            return
-        }
-        if (System.currentTimeMillis() <= backKeyPressedTime + 2500)
+        if(layout_location.visibility == View.VISIBLE)
         {
-            finish()
+            val layoutAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_move_bottom_down)
+            layout_location.startAnimation(layoutAnimation)
+
+            layoutAnimation.setAnimationListener(object : Animation.AnimationListener{
+                override fun onAnimationStart(animation: Animation?) {
+
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    layout_location.visibility = View.GONE
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {
+
+                }
+
+            })
         }
+        else
+        {
+            if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+                backKeyPressedTime = System.currentTimeMillis()
+
+
+                val toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG)
+                toast.show()
+                return
+            }
+            if (System.currentTimeMillis() <= backKeyPressedTime + 2500)
+            {
+                finish()
+            }
+        }
+
+
     }
 }

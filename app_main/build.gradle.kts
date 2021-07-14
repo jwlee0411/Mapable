@@ -85,9 +85,6 @@ dependencies {
     implementation ("com.airbnb.android:lottie:3.7.0")
 
 
-    //사용 안함(제거하면 에러뜸)
-
-
 }
 
 repositories {

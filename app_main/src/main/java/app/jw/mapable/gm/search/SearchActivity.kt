@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.start.StartActivity
+import app.jw.mapable.gm.start.StartLocationActivity
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_search.*
@@ -77,7 +78,7 @@ class SearchActivity : AppCompatActivity() {
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 // TODO: Get info about the selected place.
-                val intent = Intent(applicationContext, StartActivity::class.java)
+                val intent = Intent(applicationContext, StartLocationActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 intent.putExtra("name", place.name)
                 intent.putExtra("address", place.address)

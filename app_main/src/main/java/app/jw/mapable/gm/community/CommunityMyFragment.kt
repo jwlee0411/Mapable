@@ -114,8 +114,12 @@ class CommunityMyFragment : Fragment() {
 
 
         root.textMyID.text = userID
-        root.textMyName.text = userName
-        root.textMyMessage.text = userMessage
+
+        if(userName == "") root.textMyName.text = "이름을 설정해주세요!"
+        else root.textMyName.text = userName
+
+        if(userMessage == "") root.textMyMessage.text = "상태메시지를 설정해주세요!"
+        else root.textMyMessage.text = userMessage
 
 
         recyclerPostAdapter = CommunityAdapter(root.context)

@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="256dp"
     android:layout_height="wrap_content"
     android:onClick="myViewClick"
     android:padding="10dp">
@@ -20,14 +20,16 @@
 
     <TextView
         android:id="@+id/textViewUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:text="로그인 해주세요!"
-        android:textSize="16dp"
-        android:textColor="@color/black"
         android:fontFamily="@font/nanum_bold"
+        android:gravity="center_vertical"
+        android:text="로그인 해주세요!"
+        android:textColor="@color/black"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewUserPhoto"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageViewUserPhoto"
         app:layout_constraintTop_toTopOf="@+id/imageViewUserPhoto" />
 

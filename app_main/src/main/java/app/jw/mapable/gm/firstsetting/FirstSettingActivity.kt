@@ -25,6 +25,8 @@ class FirstSettingActivity : AppCompatActivity() {
 
         initTTS()
 
+        setonClick()
+
     }
 
     fun initTTS()
@@ -44,17 +46,7 @@ class FirstSettingActivity : AppCompatActivity() {
 
                     tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                         override fun onStart(utteranceId: String) {
-                            val mHandler = Handler(Looper.getMainLooper())
-                            mHandler.postDelayed({  val intent = Intent(this@FirstSettingActivity, FirstSettingDisabledActivity::class.java)
-                                startActivity(intent)
-                                finish()}, 7000)
 
-                            buttonSettingStart.setOnClickListener {
-                                mHandler.removeMessages(0)
-                                tts.stop()
-                                startActivity(Intent(this@FirstSettingActivity, FirstSettingEnabledActivity::class.java))
-                                finish()
-                            }
                         }
                         override fun onDone(utteranceId: String) {
 
@@ -63,7 +55,7 @@ class FirstSettingActivity : AppCompatActivity() {
                         override fun onError(utteranceId: String) {}
                     })
                     tts.speak(
-                        "안녕하세요. 시각장애인이시면 화면을 누르지 말고 잠시 기다려주세요. ", TextToSpeech.QUEUE_FLUSH, params, "setting00")
+                        "안녕하세요. 시각장애인이시면 화면 아래쪽을 눌러주세요. ", TextToSpeech.QUEUE_FLUSH, params, "setting00")
 
 
                 }
@@ -72,6 +64,20 @@ class FirstSettingActivity : AppCompatActivity() {
             {
                 Toast.makeText(this, "오류로 인해 TTS가 비활성화되었습니다.", Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    fun setonClick()
+    {
+        buttonNormal.setOnClickListener {
+            tts.stop()
+            val intent = Intent(this, FirstSettingEnabledActivity::class.java)
+            startActivity(intent)
+        }
+
+        buttonDisabled.setOnClickListener {
+            val intent = Intent(this, FirstSettingDisabledActivity::class.java)
+            startActivity(intent)
         }
     }
 }

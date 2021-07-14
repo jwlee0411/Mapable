@@ -4,21 +4,25 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.start.StartActivity
 import kotlinx.android.synthetic.main.activity_setting.*
+import kotlinx.android.synthetic.main.navi_header_start.*
 
 
 class SettingActivity : AppCompatActivity() {
 
-    lateinit var preferences : SharedPreferences
+    lateinit var sharedPreferences : SharedPreferences
     lateinit var editor : SharedPreferences.Editor
     lateinit var dlg : AlertDialog.Builder
 
     lateinit var settings : BooleanArray
+
+    var loginType = 0
 
     var setting_default : Int = 0
 
@@ -27,13 +31,27 @@ class SettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
-        preferences = getSharedPreferences("preferences", 0)
-        editor = preferences.edit()
+        sharedPreferences = getSharedPreferences("preferences", 0)
+        editor = sharedPreferences.edit()
 
         settings = BooleanArray(10)
 
         setting_default = intent.getIntExtra("defaultSetting", 0)
 
+
+        loginType = sharedPreferences.getInt("loginType", 0)
+
+
+        if(loginType==0)
+        {
+            userSettingView.visibility = View.GONE
+            layoutUserSetting.visibility = View.GONE
+        }
+        else
+        {
+            userSettingView.visibility = View.VISIBLE
+            layoutUserSetting.visibility = View.VISIBLE
+        }
 
         setonClick()
 
@@ -80,13 +98,14 @@ class SettingActivity : AppCompatActivity() {
 
 
 
+
     }
 
     fun getPreviousSettings()
     {
-        settings[0] = preferences.getBoolean("busRoadFound", false)
+        settings[0] = sharedPreferences.getBoolean("busRoadFound", false)
 
-        settings[4] = preferences.getBoolean("subwayRoadFound", false)
+        settings[4] = sharedPreferences.getBoolean("subwayRoadFound", false)
 
 
 
@@ -95,9 +114,9 @@ class SettingActivity : AppCompatActivity() {
         {
             busEnabled()
 
-            settings[1] = preferences.getBoolean("busLowOnly", false)
-            settings[2] = preferences.getBoolean("busWait30", false)
-            settings[3] = preferences.getBoolean("busWait60", false)
+            settings[1] = sharedPreferences.getBoolean("busLowOnly", false)
+            settings[2] = sharedPreferences.getBoolean("busWait30", false)
+            settings[3] = sharedPreferences.getBoolean("busWait60", false)
 
 
             switchBusLow.isChecked = settings[1]
@@ -111,9 +130,9 @@ class SettingActivity : AppCompatActivity() {
         {
             subwayEnabled()
 
-            settings[5] = preferences.getBoolean("subwayElevator", false)
-            settings[6] = preferences.getBoolean("subwayWheelchairStation", false)
-            settings[7] = preferences.getBoolean("subwayWheelchairOn", false)
+            settings[5] = sharedPreferences.getBoolean("subwayElevator", false)
+            settings[6] = sharedPreferences.getBoolean("subwayWheelchairStation", false)
+            settings[7] = sharedPreferences.getBoolean("subwayWheelchairOn", false)
 
             switchSubwayElevator.isChecked = settings[5]
             switchSubwayWheelchairStation.isChecked = settings[6]
@@ -122,14 +141,14 @@ class SettingActivity : AppCompatActivity() {
 
 
 
-        settings[8] = preferences.getBoolean("disabled", false)
-        settings[9] = preferences.getBoolean("noInfo", false)
+        settings[8] = sharedPreferences.getBoolean("disabled", false)
+        settings[9] = sharedPreferences.getBoolean("noInfo", false)
 
 
         switchDisabled.isChecked = settings[8]
         switchNoInfo.isChecked = settings[9]
 
-        val searchWay : Int = preferences.getInt("searchWay", 0)
+        val searchWay : Int = sharedPreferences.getInt("searchWay", 0)
 
         when(searchWay)
         {
@@ -149,6 +168,13 @@ class SettingActivity : AppCompatActivity() {
 
         layoutAppInfo.setOnClickListener {
             val intent = Intent(this, AppInfoActivity::class.java)
+            intent.putExtra("info", true)
+            startActivity(intent)
+        }
+
+        layoutAppPrivacy.setOnClickListener {
+            val intent = Intent(this, AppInfoActivity::class.java)
+            intent.putExtra("info", false)
             startActivity(intent)
         }
 
