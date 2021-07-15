@@ -297,7 +297,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/nanum_bold"
-                android:text="69.74km"
+                android:text="00.00km"
                 android:textColor="@color/pink04"
                 app:layout_constraintStart_toStartOf="@+id/textLocationTitle"
                 app:layout_constraintTop_toBottomOf="@+id/textLocationTitle" />
