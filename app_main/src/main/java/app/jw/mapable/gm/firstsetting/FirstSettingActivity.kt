@@ -2,8 +2,6 @@ package app.jw.mapable.gm.firstsetting
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.widget.Toast
@@ -15,7 +13,7 @@ import java.util.*
 class FirstSettingActivity : AppCompatActivity() {
 
 
-    lateinit var tts : TextToSpeech
+    private lateinit var tts : TextToSpeech
     private val params = Bundle()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +27,7 @@ class FirstSettingActivity : AppCompatActivity() {
 
     }
 
-    fun initTTS()
+    private fun initTTS()
     {
         tts = TextToSpeech(this) { status: Int ->
             if (status == TextToSpeech.SUCCESS) {
@@ -67,7 +65,7 @@ class FirstSettingActivity : AppCompatActivity() {
         }
     }
 
-    fun setonClick()
+    private fun setonClick()
     {
         buttonNormal.setOnClickListener {
             tts.stop()

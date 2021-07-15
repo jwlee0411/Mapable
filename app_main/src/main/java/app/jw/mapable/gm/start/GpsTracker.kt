@@ -17,14 +17,14 @@ class GpsTracker(context: Context) : Service(), LocationListener{
     var mContext: Context = context
 
 
-    var location:Location? = null
+    private var location:Location? = null
     var locationManager : LocationManager? = null
 
     private val MIN_DISTANCE_CHANGE_FOR_UPDATES: Float = 10F
     private val MIN_TIME_BW_UPDATES = (1000 * 60 * 1).toLong()
 
-    var latitude : Double = 0.0
-    var longtitude : Double = 0.0
+    private var latitude : Double = 0.0
+    private var longtitude : Double = 0.0
 
 
     init{
@@ -74,8 +74,8 @@ class GpsTracker(context: Context) : Service(), LocationListener{
                     if (locationManager != null) {
                         location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)!!
                         if (location != null) {
-                            latitude = location!!.getLatitude()
-                            longtitude = location!!.getLongitude()
+                            latitude = location!!.latitude
+                            longtitude = location!!.longitude
                         }
                     }
                 }
@@ -91,8 +91,8 @@ class GpsTracker(context: Context) : Service(), LocationListener{
                             location =
                                 locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
                             if (location != null) {
-                                latitude = location!!.getLatitude()
-                                longtitude = location!!.getLongitude()
+                                latitude = location!!.latitude
+                                longtitude = location!!.longitude
                             }
                         }
                     }

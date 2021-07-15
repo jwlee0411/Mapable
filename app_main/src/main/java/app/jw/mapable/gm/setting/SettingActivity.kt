@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.start.StartActivity
 import kotlinx.android.synthetic.main.activity_setting.*
-import kotlinx.android.synthetic.main.navi_header_start.*
 
 
 class SettingActivity : AppCompatActivity() {
@@ -24,7 +23,7 @@ class SettingActivity : AppCompatActivity() {
 
     var loginType = 0
 
-    var setting_default : Int = 0
+    private var setting_default : Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -148,9 +147,7 @@ class SettingActivity : AppCompatActivity() {
         switchDisabled.isChecked = settings[8]
         switchNoInfo.isChecked = settings[9]
 
-        val searchWay : Int = sharedPreferences.getInt("searchWay", 0)
-
-        when(searchWay)
+        when(sharedPreferences.getInt("searchWay", 0))
         {
             0 -> radioButton1.isChecked = true
             1 -> radioButton2.isChecked = true
@@ -159,7 +156,7 @@ class SettingActivity : AppCompatActivity() {
         }
     }
 
-    fun setonClick(){
+    private fun setonClick(){
 
         layoutUserSetting.setOnClickListener {
             val intent = Intent(this, UserSettingActivity::class.java)
@@ -168,13 +165,13 @@ class SettingActivity : AppCompatActivity() {
 
         layoutAppInfo.setOnClickListener {
             val intent = Intent(this, AppInfoActivity::class.java)
-            intent.putExtra("info", true)
+            intent.putExtra("type", 0)
             startActivity(intent)
         }
 
         layoutAppPrivacy.setOnClickListener {
             val intent = Intent(this, AppInfoActivity::class.java)
-            intent.putExtra("info", false)
+            intent.putExtra("type", 1)
             startActivity(intent)
         }
 
@@ -237,7 +234,7 @@ class SettingActivity : AppCompatActivity() {
     }
 
 
-    fun subwayEnabled(){
+    private fun subwayEnabled(){
         switchSubwayElevator.isEnabled = true
         switchSubwayWheelchairStation.isEnabled = true
         switchSubwayWheelchairOn.isEnabled = true
@@ -251,7 +248,7 @@ class SettingActivity : AppCompatActivity() {
 
     }
 
-    fun subwayDisabled(){
+    private fun subwayDisabled(){
         switchSubwayElevator.isEnabled = false
         switchSubwayWheelchairStation.isEnabled = false
         switchSubwayWheelchairOn.isEnabled = false
@@ -278,7 +275,7 @@ class SettingActivity : AppCompatActivity() {
 
     }
 
-    fun busDisabled(){
+    private fun busDisabled(){
         switchBusLow.isEnabled = false
         switchBusWait30.isEnabled = false
         switchBusWait60.isEnabled = false
@@ -291,7 +288,7 @@ class SettingActivity : AppCompatActivity() {
         textBusWait60Explain.setTextColor(resources.getColor(R.color.gray2, null))
     }
 
-    fun applySetting() {
+    private fun applySetting() {
         editor.putBoolean("busRoadFound", switchBus.isChecked)
         editor.putBoolean("busLowOnly", switchBusLow.isChecked)
         editor.putBoolean("busWait30", switchBusWait30.isChecked)

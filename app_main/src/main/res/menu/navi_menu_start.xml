@@ -6,19 +6,32 @@
         android:title="즐겨찾는 장소" />
 
 
-<!--    <item-->
-<!--        android:id="@+id/nav_bus"-->
-<!--        android:icon="@drawable/icon_star"-->
-<!--        android:title="버스 도착정보 조회"-->
-<!--        />-->
-
-
-
     <item
         android:id="@+id/nav_community"
         android:icon="@drawable/icon_people"
         android:title="커뮤니티"
         />
+
+    <item
+        android:id="@+id/nav_train"
+        android:icon="@drawable/icon_train"
+        android:title="지하철 실시간 운행정보"
+        />
+
+    <item
+        android:id="@+id/nav_wheelchair"
+        android:icon="@drawable/icon_disabled"
+        android:title="휠체어리프트 정보"
+        />
+
+    <item
+        android:id="@+id/nav_elevator"
+        android:icon="@drawable/icon_elevator"
+        android:title="엘리베이터 정보"
+        />
+
+
+
 
     <item
         android:id="@+id/nav_info"

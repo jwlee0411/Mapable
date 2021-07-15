@@ -11,7 +11,6 @@ import app.jw.mapable.gm.R
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_community_my_more.*
-import kotlinx.android.synthetic.main.fragment_community_my.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -24,19 +23,18 @@ class CommunityMyMoreActivity : AppCompatActivity() {
 
     lateinit var title : String
 
-    var myPost = ArrayList<String>()
-    var myStar = ArrayList<String>()
+    private var myPost = ArrayList<String>()
+    private var myStar = ArrayList<String>()
 
     lateinit var recyclerPostAdapter : CommunityAdapter
     lateinit var recyclerStarAdapter: CommunityAdapter
 
     var userName = ""
-    var userMessage = ""
-    var userPhoto = ""
+    private var userMessage = ""
+    private var userPhoto = ""
     var userID = ""
 
     private lateinit var recyclerAdapter : CommunityAdapter
-    private val datas = ArrayList<ItemCommunityMyMore>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,7 +122,7 @@ class CommunityMyMoreActivity : AppCompatActivity() {
                     {
                         println("getID : $getID")
 
-                        if(getID.equals(postID))
+                        if(getID == postID)
                         {
                             println("setPost")
 
@@ -170,7 +168,7 @@ class CommunityMyMoreActivity : AppCompatActivity() {
                     for(getID in myStar)
                     {
                         println("getID : $getID")
-                        if(getID.equals(postID))
+                        if(getID == postID)
                         {
                             val timeStamp = document.data["posttime"] as com.google.firebase.Timestamp
                             val date: Date = timeStamp.toDate()

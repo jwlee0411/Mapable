@@ -11,7 +11,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
-        android:id="@+id/layout_start"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
         <View
@@ -59,7 +58,7 @@
                 android:layout_height="0dp"
                 android:gravity="center_vertical"
 
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:background="@null"
                 android:text="여기서 검색"
                 android:fontFamily="@font/nanum_bold"
@@ -70,7 +69,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/buttonSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="검색"
@@ -84,7 +82,7 @@
                 android:layout_height="32dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 android:background="@drawable/icon_menu"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/searchConstraintLayout"
@@ -96,7 +94,6 @@
                 android:layout_height="32dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
-                android:layout_marginRight="4dp"
                 android:layout_marginBottom="4dp"
                 android:background="@drawable/icon_mic_black"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -127,7 +124,6 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <ImageButton
-                android:id="@+id/buttonInfo"
                 android:layout_height="48dp"
                 android:layout_width="48dp"
                 android:background="@drawable/oval_new_01"
@@ -138,7 +134,6 @@
                 />
 
             <ImageButton
-                android:id="@+id/buttonCurrentLocation"
                 android:layout_height="48dp"
                 android:layout_width="48dp"
                 android:background="@drawable/oval_new_01"
@@ -149,7 +144,6 @@
                 />
 
             <ImageButton
-                android:id="@+id/buttonRoadFound"
                 android:layout_height="48dp"
                 android:layout_width="48dp"
                 android:background="@drawable/oval_new_01"
@@ -197,7 +191,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/white"
                 app:borderWidth="0dp"
@@ -304,7 +297,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/nanum_bold"
-                android:text="69.74km"
+                android:text="00.00km"
                 android:textColor="@color/pink04"
                 app:layout_constraintStart_toStartOf="@+id/textLocationTitle"
                 app:layout_constraintTop_toBottomOf="@+id/textLocationTitle" />

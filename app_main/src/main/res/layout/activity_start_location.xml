@@ -365,7 +365,6 @@
         app:layout_constraintTop_toTopOf="@+id/imageButton6" />
 
     <TextView
-        android:id="@+id/textView27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="/ 5.0"

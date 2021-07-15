@@ -14,7 +14,7 @@ class StartDisabledActivity : AppCompatActivity() {
 
     lateinit var sharedPreferences : SharedPreferences
     lateinit var editor: SharedPreferences.Editor
-    lateinit var tts : TextToSpeech
+    private lateinit var tts : TextToSpeech
     private val params = Bundle()
 
 
@@ -34,16 +34,16 @@ class StartDisabledActivity : AppCompatActivity() {
     }
 
 
-    fun initAnimation()
+    private fun initAnimation()
     {
-        val animationDrawable : AnimationDrawable = layoutDisabled2.getBackground() as AnimationDrawable
+        val animationDrawable : AnimationDrawable = layoutDisabled2.background as AnimationDrawable
         animationDrawable.setEnterFadeDuration(2000)
         animationDrawable.setExitFadeDuration(4000)
         animationDrawable.start()
     }
 
 
-    fun initTTS()
+    private fun initTTS()
     {
         tts = TextToSpeech(this) { status: Int ->
             if (status == TextToSpeech.SUCCESS) {
@@ -67,7 +67,7 @@ class StartDisabledActivity : AppCompatActivity() {
         }
     }
 
-    fun ttsIdle()
+    private fun ttsIdle()
     {
         tts.speak("길찾기를 하시려면 아무 곳이나 클릭해주세요.", TextToSpeech.QUEUE_FLUSH, params, "ttsIdle")
         textViewStartDisabledTitle.text = "대기 중"
@@ -80,19 +80,6 @@ class StartDisabledActivity : AppCompatActivity() {
         textViewStartDisabledTitle.text = "출발 위치 검색"
         textViewStartDisabledDescription.text = "출발 위치를 검색합니다."
     }
-
-    fun ttsEndLocation()
-    {
-        tts.speak("도착 위치를 검색합니다. 검색할 위치를 말씀해주세요.", TextToSpeech.QUEUE_FLUSH, params, "ttsIdle")
-        textViewStartDisabledTitle.text = "도착 위치 검색"
-        textViewStartDisabledDescription.text = "도착 위치를 검색합니다."
-    }
-
-    fun showRoute()
-    {
-
-    }
-
 
 
 }

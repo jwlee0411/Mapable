@@ -220,7 +220,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout2" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerMyReply"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

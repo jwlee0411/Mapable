@@ -33,13 +33,13 @@ class CommunityMyFragment : Fragment() {
     lateinit var recyclerPostAdapter : CommunityAdapter
     lateinit var recyclerStarAdapter: CommunityAdapter
 
-    var myPost = ArrayList<String>()
+    private var myPost = ArrayList<String>()
 
-    var myStar = ArrayList<String>()
+    private var myStar = ArrayList<String>()
 
     var userName = ""
-    var userMessage = ""
-    var userPhoto = ""
+    private var userMessage = ""
+    private var userPhoto = ""
     var userID = ""
 
     override fun onCreateView(
@@ -195,9 +195,9 @@ class CommunityMyFragment : Fragment() {
 
                     for(getID in myPost)
                     {
-                        println("getID : $getID")
+                        println("getID : $getID / $postID")
 
-                        if(getID.equals(postID))
+                        if(getID == postID)
                         {
                             println("setPost")
 
@@ -244,7 +244,7 @@ class CommunityMyFragment : Fragment() {
                     for(getID in myStar)
                     {
                         println("getID : $getID")
-                        if(getID.equals(postID))
+                        if(getID == postID)
                         {
                             val timeStamp = document.data["posttime"] as com.google.firebase.Timestamp
                             val date: Date = timeStamp.toDate()

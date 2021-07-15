@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.aftersearch.AfterSearchActivity
-import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.item_star.view.*
 
 class StarRecyclerAdapter(private val context : Context) : RecyclerView.Adapter<StarRecyclerAdapter.ItemViewHolder>() {
@@ -41,9 +40,6 @@ class StarRecyclerAdapter(private val context : Context) : RecyclerView.Adapter<
     inner class ItemViewHolder(view : View) : RecyclerView.ViewHolder(view){
         fun bind(item : StarItem)
         {
-            //TODO : ㅇㅇ
-
-
 
             itemView.buttonDepart.setOnClickListener {
                 val latitude = item.latitude

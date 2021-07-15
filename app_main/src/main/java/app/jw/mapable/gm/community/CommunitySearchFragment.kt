@@ -1,24 +1,19 @@
 package app.jw.mapable.gm.community
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.databinding.FragmentCommunitySearchBinding
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.fragment_community_main.view.*
 import kotlinx.android.synthetic.main.fragment_community_search.*
 import kotlinx.android.synthetic.main.fragment_community_search.view.*
 import java.util.*
@@ -32,7 +27,7 @@ class CommunitySearchFragment : Fragment() {
 
     var resultCount = 0
 
-    lateinit var recyclerAdapter: CommunityAdapter
+    private lateinit var recyclerAdapter: CommunityAdapter
     val datas = ArrayList<ItemCommunityMyMore>()
 
 

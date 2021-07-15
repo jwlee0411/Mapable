@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.item_container_onboarding.view.*
 class OnBoardingAdapter(onboardingItems: List<OnboardingItem>) : RecyclerView.Adapter<OnBoardingAdapter.OnboardingViewHolder>(){
 
 
-    var onboardingItems : List<OnboardingItem> = onboardingItems
+    private var onboardingItems : List<OnboardingItem> = onboardingItems
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnboardingViewHolder {

@@ -13,10 +13,8 @@ class FirstSettingEnabledActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_setting_enabled)
-        //TODO : 이게 맞는지 모르겠음
-        firstSettingEnabledActivity1 = this@FirstSettingEnabledActivity
 
-        var intent = Intent(this, SettingActivity::class.java)
+        val intent = Intent(this, SettingActivity::class.java)
 
         lottieSetting1.setOnClickListener {
             intent.putExtra("defaultSetting", 1)

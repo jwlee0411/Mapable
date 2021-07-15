@@ -1,20 +1,14 @@
 package app.jw.mapable.gm.start
 
-import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
-import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
-import android.speech.RecognitionListener
-import android.speech.SpeechRecognizer
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -23,7 +17,6 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import app.jw.mapable.gm.R
 import app.jw.mapable.gm.aftersearch.AfterSearchActivity
@@ -32,12 +25,12 @@ import app.jw.mapable.gm.info.InfoActivity
 import app.jw.mapable.gm.login.LoginActivity
 import app.jw.mapable.gm.notice.NoticeActivity
 import app.jw.mapable.gm.search.SearchActivity
+import app.jw.mapable.gm.setting.AppInfoActivity
 import app.jw.mapable.gm.setting.SettingActivity
 import app.jw.mapable.gm.setting.UserSettingActivity
 import app.jw.mapable.gm.star.StarActivity
 import com.bumptech.glide.Glide
 import com.google.android.gms.location.*
-import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -65,13 +58,13 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
    lateinit var selectLocationMarker : Marker
 
-   var locationLatitude = 0.0
-    var locationLongitude = 0.0
+   private var locationLatitude = 0.0
+    private var locationLongitude = 0.0
 
-    var layoutInflated = false
+    private var layoutInflated = false
 
     var onTouched = false
-    var clicked = false
+    private var clicked = false
 
     var loginType = 0
 
@@ -82,23 +75,19 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
     var startX : Double = 0.0
     var startY : Double = 0.0
-    var endX : Double = 0.0
-    var endY : Double = 0.0
 
     var start = false
-    var end = false
+    private var end = false
 
-    var nickname = ""
+    private var nickname = ""
 
     var userID = ""
-    val update_interval : Long = 1000
-    val fastest_update_interval : Long = 500
+    private val update_interval : Long = 1000
+    private val fastest_update_interval : Long = 500
 
 
-    lateinit var searchLayoutAnimation : Animation
-    lateinit var floatingLayoutAnimation : Animation
-
-    lateinit var recognizer : SpeechRecognizer
+    private lateinit var searchLayoutAnimation : Animation
+    private lateinit var floatingLayoutAnimation : Animation
 
     lateinit var mMap : GoogleMap
 
@@ -107,7 +96,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
     lateinit var currentPosition : LatLng
 
     lateinit var mFusedLocationClient : FusedLocationProviderClient
-    lateinit var locationRequest : LocationRequest
+    private lateinit var locationRequest : LocationRequest
 
     lateinit var sharedPreferences : SharedPreferences
     lateinit var editor : SharedPreferences.Editor
@@ -158,7 +147,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
     }
 
-    fun getSettings()
+    private fun getSettings()
     {
         settings[0] = sharedPreferences.getBoolean("busRoadFound", false)
         settings[1] = sharedPreferences.getBoolean("busLowOnly", false)
@@ -201,7 +190,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
 
 
-    fun setOnClick()
+    private fun setOnClick()
     {
 
         layout_location.setOnClickListener {
@@ -324,7 +313,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
         textViewSearch.setOnClickListener {
 
-           // Toast.makeText(this, "장소 검색 기능은 추후 제공 예정입니다.", Toast.LENGTH_LONG).show()
+
             val intent = Intent(this, SearchActivity::class.java)
             intent.putExtra("TTS", false)
             startActivity(intent)
@@ -332,7 +321,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         }
         soundButton.setOnClickListener {
 
-            //Toast.makeText(this, "장소 검색 기능은 추후 제공 예정입니다.", Toast.LENGTH_LONG).show()
+
             val intent = Intent(this, SearchActivity::class.java)
             intent.putExtra("TTS", true)
             startActivity(intent)
@@ -364,14 +353,28 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
                     else startActivity(Intent(this@StartActivity, CommunityActivity::class.java))
 
                 }
+                R.id.nav_train -> {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://smapp.seoulmetro.co.kr:58443/traininfo/traininfoUserView.do"))
+                    startActivity(intent)
+                }
+
+                R.id.nav_wheelchair ->
+                {
+                    val intent = Intent(this, AppInfoActivity::class.java)
+                    intent.putExtra("type", 2)
+                    startActivity(intent)
+                }
+                R.id.nav_elevator ->{
+                    val intent = Intent(this, AppInfoActivity::class.java)
+                    intent.putExtra("type", 3)
+                    startActivity(intent)
+                }
 
             }
             true
         }
 
-//        textView9.setOnClickListener{
-//            println("12jladfp")
-//        }
+
 
         setMap()
     }
@@ -391,7 +394,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         }
     }
 
-    fun setMap()
+    private fun setMap()
     {
 
         locationRequest = LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(update_interval).setFastestInterval(fastest_update_interval)
@@ -405,45 +408,6 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
 
     }
-
-
-
-
-    private fun checkPermission(): Boolean {
-        val hasFineLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-        val hasCoarseLocationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-        return hasFineLocationPermission == PackageManager.PERMISSION_GRANTED && hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED
-    }
-
-    fun checkLocationServicesStatus(): Boolean {
-        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-    }
-
-
-    val locationCallback: LocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            super.onLocationResult(locationResult)
-            val locationList = locationResult.locations
-            if (locationList.size > 0) {
-                val location = locationList[locationList.size - 1]
-                prevLatitude = location.latitude
-                prevLongtitude = location.longitude
-                currentPosition = LatLng(prevLatitude, prevLongtitude)
-                sharedPreferences.edit().putString("latitudeNow", prevLatitude.toString()).apply()
-                sharedPreferences.edit().putString("longtitudeNow", prevLongtitude.toString())
-                    .apply()
-                if (!onTouched) {
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13f))
-                }
-                mCurrentLocation = location
-            }
-        }
-    }
-
-
-
-
 
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -489,7 +453,6 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
             return "주소 미발견"
         }
         val address: Address = addresses[0]
-        //println("LOG0713 : ${addresses[0]} / ${addresses[1]} / ${addresses[2]} / ${addresses[3]} / ${address.url} / ${address.phone} / ${address.adminArea} / ${address.extras}")
         var addressText = address.getAddressLine(0).toString()
         addressText = addressText.replace("대한민국 ", "")
 
@@ -500,7 +463,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
     }
 
-    fun setOnMapClick()
+    private fun setOnMapClick()
     {
 
         if(intent.getBooleanExtra("showLocation", false))
@@ -692,7 +655,6 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         val bitmap = (resources.getDrawable(R.drawable.icon_current_location_2) as BitmapDrawable).bitmap
         selectLocationMarker = mMap.addMarker(MarkerOptions().position(it).icon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, 30, 30, false))))!!
 
-        // mMap.addMarker(MarkerOptions().position(it))
         val locationString : String = getCurrentAddress(locationLatitude, locationLongitude).replace("대한민국 ", "")
 
 
@@ -707,25 +669,6 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         textDistanceLocation.text = makeStr
         textLocationTitle.text = locationString
         textAddress.text = locationString
-
-//            val intentBuilder = PlacePicker.IntentBuilder()
-//            try{
-//                val intent = intentBuilder.build(this)
-//                startActivityForResult(intent, 1)
-//            }
-//            catch (e : Exception)
-//            {
-//                e.printStackTrace()
-//            }
-
-
-
-//            layout_location.setOnClickListener {
-//                val intent = Intent(this, StartLocationActivity::class.java)
-//                //TODO : intent.putExtra()
-//                startActivity(intent)
-//
-//            }
 
         buttonStart.setOnClickListener {
             start = true
@@ -753,8 +696,8 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
 
         buttonEnd.setOnClickListener {
             end = true
-            sharedPreferences.edit().putFloat("endX", latitude.toFloat()).putFloat("endY", longitude.toFloat()).apply()
-            sharedPreferences.edit().putString("endNewX", latitude.toString()).putString("endNewY", longitude.toString()).apply()
+            sharedPreferences.edit().putFloat("endX", locationLatitude.toFloat()).putFloat("endY", locationLongitude.toFloat()).apply()
+            sharedPreferences.edit().putString("endNewX", locationLatitude.toString()).putString("endNewY", locationLongitude.toString()).apply()
             sharedPreferences.edit().putString("endLocation", textLocationTitle.text.toString()).apply()
             if(start)
             {
@@ -819,41 +762,7 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
         }
     }
 
-
-
-    private val listener: RecognitionListener = object : RecognitionListener {
-        override fun onReadyForSpeech(params: Bundle) {}
-        override fun onBeginningOfSpeech() {}
-        override fun onRmsChanged(rmsdB: Float) {}
-        override fun onBufferReceived(buffer: ByteArray) {}
-        override fun onEndOfSpeech() {}
-        override fun onError(error: Int) {}
-        override fun onResults(results: Bundle) {}
-        override fun onPartialResults(partialResults: Bundle) {}
-        override fun onEvent(eventType: Int, params: Bundle) {}
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if(requestCode == 1 && resultCode == Activity.RESULT_OK)
-        {
-            val place = PlacePicker.getPlace(this, data)
-            val name = place.name
-            val phonenumber = place.phoneNumber
-            val rating = place.rating
-
-
-
-
-
-        }
-    }
-
-
-
-    var backKeyPressedTime = 0L
+    private var backKeyPressedTime = 0L
     override fun onBackPressed() {
 
         if(layout_location.visibility == View.VISIBLE)

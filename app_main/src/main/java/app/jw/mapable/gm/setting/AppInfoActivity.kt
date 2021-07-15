@@ -1,8 +1,9 @@
 package app.jw.mapable.gm.setting
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.os.Message
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -11,10 +12,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import app.jw.mapable.gm.R
-
 import kotlinx.android.synthetic.main.activity_app_info.*
 
-import kotlin.concurrent.timer
 
 class AppInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,20 +27,22 @@ class AppInfoActivity : AppCompatActivity() {
 
         val info = intent.getBooleanExtra("info", false)
 
-        if(info)
-        {
-            content = "<iframe src=\"https://docs.google.com/document/d/e/2PACX-1vQHA5uC7yEZwQewyoLbcCQBxuvjPemDwEDGuAXEIua9PezSn24s9etB8UhgB8_z9_V9Y-_BonbUhIsj/pub?embedded=true\" width = \"1000px\" height = \"2000px\" frameborder = 0 framespacing = 0></iframe>"
+        val type = intent.getIntExtra("type", 0)
 
-        }
-        else
+
+        when(type)
         {
-            content = "<iframe src=\"https://docs.google.com/document/d/e/2PACX-1vS6DLgQmcMqY-DLRACL73pXk3MSpJmj66k1-PmitbOXaEPj26i0eLeg5hewKpAhPspLYg6bkHwiqWbP/pub?embedded=true\" width = \"1000px\" height = \"2000px\" frameborder = 0 framespacing = 0></iframe>"
+            0 -> content = "<iframe src=\"https://docs.google.com/document/d/e/2PACX-1vQHA5uC7yEZwQewyoLbcCQBxuvjPemDwEDGuAXEIua9PezSn24s9etB8UhgB8_z9_V9Y-_BonbUhIsj/pub?embedded=true\" width = \"1000px\" height = \"2000px\" frameborder = 0 framespacing = 0></iframe>"
+            1 -> content = "<iframe src=\"https://docs.google.com/document/d/e/2PACX-1vS6DLgQmcMqY-DLRACL73pXk3MSpJmj66k1-PmitbOXaEPj26i0eLeg5hewKpAhPspLYg6bkHwiqWbP/pub?embedded=true\" width = \"1000px\" height = \"2000px\" frameborder = 0 framespacing = 0></iframe>"
+            2 -> content = "<iframe src=\"https://docs.google.com/document/d/e/2PACX-1vSD8omIUVSp-WQPkgEqgYNN7r2q66yJMVBdQ2xrPEbqcInjiHCPnRc_OVQuUWCv1xC1gWYaUDrsb4-a/pub?embedded=true\" width = \"1000px\" height = \"2000px\" frameborder = 0 framespacing = 0></iframe>"
+            3 -> content = "<iframe src=\"https://docs.google.com/document/d/e/2PACX-1vTSRtZXAPEZgpQ4ky7hJ0hJiDL8kCtI47rrLLcEu0rNjKun1GaqzAEh5-PUhg9fGQ/pub?embedded=true\" width = \"1000px\" height = \"2000px\" frameborder = 0 framespacing = 0></iframe>"
 
         }
 
 
         webView.loadData(content, "text/html; charset=utf-8", "UTF-8")
         webView.webViewClient = MyWebViewClient()
+
 
         val handler = object : Handler(){}
 

@@ -6,7 +6,6 @@
 
     <!-- 테마색 -->
     <color name="pink01">#FF3083</color>
-    <color name="pink02">#FF508C</color>
     <color name="pink03">#FD7099</color>
     <color name="pink04">#FC8FA8</color>
     <color name="pink05">#FAAEBB</color>
@@ -14,14 +13,6 @@
     <color name="pink07">#F6EBEB</color>
 
     <color name="appicon">#d74081</color>
-
-    <color name="pink01text">#f8afbc</color>
-    <color name="pink02text">#f8cfd6</color>
-    <color name="pink03text">#ed212f</color>
-    <color name="pink04text">#ee2982</color>
-    <color name="pink05text">#ef518e</color>
-    <color name="pink06text">#f16e97</color>
-    <color name="pink07text">#f48ea8</color>
 
     <color name="fragmentBackground">#efeff8</color>
 
@@ -69,21 +60,7 @@
 
     <color name="lineMaglev">#FFCD12</color>
 
-    <color name="lineBusan1">#F06A00</color>
-    <color name="lineBusan2">#81BF48</color>
-    <color name="lineBusan3">#BB8C00</color>
-    <color name="lineBusan4">#217DCB</color>
-    <color name="lineGimhae">#8652A1</color>
-
-    <color name="lineDaegu1">#D93F5C</color>
-    <color name="lineDaegu2">#00AA80</color>
-    <color name="lineDaegu3">#FFB100</color>
-
-    <color name="lineGwangju1">#009088</color>
     <color name="lineDaejeon1">#007448</color>
-
-
-    <color name="korailBlue">#003DA5</color>
 
 
     <!--기본색-->
@@ -98,8 +75,6 @@
 
     <color name="white">#FFFFFF</color>
     <color name="red">#FF0000</color>
-    <color name="green">#00FF00</color>
-    <color name="blue">#0000FF</color>
 
 
 </resources>

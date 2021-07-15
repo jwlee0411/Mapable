@@ -78,7 +78,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <View
-                        android:id="@+id/viewBusLine"
                         android:layout_width="1dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="8dp"
@@ -113,7 +112,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/linearLayoutCompat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -159,7 +157,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/textBusLow" />
 
                         <View
-                            android:id="@+id/viewBusLowLine"
                             android:layout_width="1dp"
                             android:layout_height="0dp"
                             android:layout_marginEnd="8dp"
@@ -180,7 +177,6 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <View
-                        android:id="@+id/view3"
                         android:layout_width="match_parent"
                         android:layout_height="1px"
                         android:layout_marginStart="12dp"
@@ -223,7 +219,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/textBusWait30" />
 
                         <View
-                            android:id="@+id/viewBusWait30Line"
                             android:layout_width="1dp"
                             android:layout_height="0dp"
                             android:layout_marginEnd="8dp"
@@ -288,7 +283,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/textBusWait60" />
 
                         <View
-                            android:id="@+id/viewBusWait60Line"
                             android:layout_width="1dp"
                             android:layout_height="0dp"
                             android:layout_marginEnd="8dp"
@@ -347,7 +341,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <View
-                        android:id="@+id/viewSubwayLine"
                         android:layout_width="1dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="8dp"
@@ -382,7 +375,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/linearLayoutCompat02"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -429,7 +421,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/textSubwayElevator" />
 
                         <View
-                            android:id="@+id/viewSubwayElevatorLine"
                             android:layout_width="1dp"
                             android:layout_height="0dp"
                             android:layout_marginEnd="8dp"
@@ -450,7 +441,6 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <View
-                        android:id="@+id/view6"
                         android:layout_width="match_parent"
                         android:layout_height="1px"
                         android:layout_marginStart="12dp"
@@ -490,7 +480,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/textSubwayWheelchairStation" />
 
                         <View
-                            android:id="@+id/viewSubwayWheelchairStationLine"
                             android:layout_width="1dp"
                             android:layout_height="0dp"
                             android:layout_marginEnd="8dp"
@@ -555,7 +544,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/textSubwayWheelchairOn" />
 
                         <View
-                            android:id="@+id/viewSubwayWheelchairOnLine"
                             android:layout_width="1dp"
                             android:layout_height="0dp"
                             android:layout_marginEnd="8dp"
@@ -583,7 +571,6 @@
 
 
             <TextView
-                android:id="@+id/textRadio"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="우선 탐색"
@@ -681,7 +668,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/radioWayCheck">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout03"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -699,7 +685,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <View
-                        android:id="@+id/viewDisabledLine"
                         android:layout_width="1dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="8dp"
@@ -742,7 +727,6 @@
                     android:background="@color/gray2" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout04"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -761,7 +745,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <View
-                        android:id="@+id/viewNoInfoLine"
                         android:layout_width="1dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="8dp"
@@ -824,7 +807,6 @@
 
 
                     <TextView
-                        android:id="@+id/textUserSettingExplain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -867,7 +849,6 @@
 
 
                     <TextView
-                        android:id="@+id/textAppInfoExplain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -909,7 +890,6 @@
 
 
                     <TextView
-                        android:id="@+id/textAppPrivacyExplain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"

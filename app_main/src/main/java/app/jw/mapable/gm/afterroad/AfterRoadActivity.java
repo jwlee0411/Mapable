@@ -8,7 +8,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -16,8 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -76,7 +73,7 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
             public void onDrawerStateChanged(int newState) {
 
             }
-        }); //TODO
+        });
 
 
     }
@@ -352,25 +349,11 @@ public class AfterRoadActivity extends AppCompatActivity implements OnMapReadyCa
 
 
         }
-        //TODO : 카메라 위치를 경로에 맞추기
-        LatLng SEOUL = new LatLng(37.56, 126.97);
-
-
 
 
         googleMap.setOnMarkerClickListener(marker -> false);
 
-        googleMap.setOnInfoWindowClickListener(marker -> {
-            String markerTitle = marker.getTitle();
-            LatLng markerLocation = marker.getPosition();
-            String markerSnippet = marker.getSnippet();
 
-            AfterRoadDialog afterRoadDialog = new AfterRoadDialog(AfterRoadActivity.this);
-
-            //TODO
-            afterRoadDialog.callFunction();
-
-        });
     }
 
     @Override

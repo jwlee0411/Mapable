@@ -8,60 +8,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/android_gradient_list">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingExit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/app_logo_transparent"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:src="@drawable/icon_exit"
-        app:borderWidth="0dp"
-        app:fabSize="normal"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="@color/pink01" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonAffirmative"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/transparent"
-        android:text="예(O)"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/buttonNegative"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonNegative"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/transparent"
-        android:text="아니오(X)"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonAffirmative" />
-
     <TextView
         android:id="@+id/textViewSettingDisabledTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nanum_extra_bold"
         android:text="안녕하세요!"
-        android:visibility="gone"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4"/>
 
     <TextView
         android:id="@+id/textViewSettingDisabledDescription"
@@ -71,7 +31,7 @@
         android:fontFamily="@font/nanum_bold"
         android:text="안녕하세요!"
         android:textAlignment="center"
-        android:visibility="gone"
+
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,6 +53,22 @@
         app:layout_constraintStart_toEndOf="@+id/imageViewStartDisabled"
         app:layout_constraintTop_toTopOf="@+id/imageViewStartDisabled" />
 
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/nanum_bold"
+        android:text="자동 진행 중입니다. 화면을 클릭하지 마세요.\n어플리케이션을 종료하면 설정이 저장되지 않습니다."
+
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:id="@+id/imageViewStartDisabled"
         android:layout_width="32dp"
@@ -102,74 +78,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_eye" />
-
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/layoutFirstSettingWay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/buttonRecommend"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/transparent"
-                android:text="추천 경로 우선"
-                android:visibility="visible" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/buttonWalk"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/transparent"
-                android:text="도보 적은 경로 우선"
-                android:visibility="visible" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/buttonBus"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/transparent"
-                android:text="버스 경로 우선"
-                android:visibility="visible" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/buttonSubway"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/transparent"
-                android:text="지하철 경로 우선"
-                android:visibility="visible" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
