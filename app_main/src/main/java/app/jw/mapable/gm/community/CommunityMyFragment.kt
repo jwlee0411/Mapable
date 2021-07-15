@@ -195,7 +195,7 @@ class CommunityMyFragment : Fragment() {
 
                     for(getID in myPost)
                     {
-                        println("getID : $getID")
+                        println("getID : $getID / $postID")
 
                         if(getID == postID)
                         {

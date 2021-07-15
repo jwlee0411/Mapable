@@ -31,7 +31,6 @@ class UserSettingActivity : AppCompatActivity() {
         docRef.addSnapshotListener { snapshot, e ->
             if (e != null)
             {
-                //FAILED
                 return@addSnapshotListener
             }
 
@@ -48,16 +47,9 @@ class UserSettingActivity : AppCompatActivity() {
                 else textUserMessage.text = "상태메시지를 설정해주세요!"
 
 
-            } else {
-                //DATA = NULL
             }
 
         }
-
-//
-//        val userPhoto = "https://cdn.discordapp.com/attachments/729165233192566847/863209562287243264/app_logo_transparent.png"
-//
-//        Glide.with(this).load(Uri.parse(userPhoto)).into(imageUserSetting)
 
 
         imageUserSetting.setOnClickListener {
@@ -83,7 +75,8 @@ class UserSettingActivity : AppCompatActivity() {
 
         buttonLogout.setOnClickListener {
             Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show()
-            sharedPreferences.edit().remove("loginType").commit() //반드시 commit으로!!
+            sharedPreferences.edit().remove("loginType").commit() //반드시 commit 으로!!
+
 
             val intent = Intent(this, StartActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -107,9 +100,6 @@ class UserSettingActivity : AppCompatActivity() {
 
                 imageUserSetting.setImageBitmap(bitmap)
                 Toast.makeText(this, "이미지는 적용되지 않습니다.", Toast.LENGTH_LONG).show()
-
-//                val file = Uri.fromFile(File(uri))
-//                val storageRef : StorageReference = storageRef.child("images/" + )
 
             }catch (e : Exception)
             {

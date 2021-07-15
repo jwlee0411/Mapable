@@ -25,6 +25,7 @@ import app.jw.mapable.gm.info.InfoActivity
 import app.jw.mapable.gm.login.LoginActivity
 import app.jw.mapable.gm.notice.NoticeActivity
 import app.jw.mapable.gm.search.SearchActivity
+import app.jw.mapable.gm.setting.AppInfoActivity
 import app.jw.mapable.gm.setting.SettingActivity
 import app.jw.mapable.gm.setting.UserSettingActivity
 import app.jw.mapable.gm.star.StarActivity
@@ -351,6 +352,22 @@ class StartActivity : AppCompatActivity(), OnMapReadyCallback, ActivityCompat.On
                         startActivity(Intent(this@StartActivity, LoginActivity::class.java))}
                     else startActivity(Intent(this@StartActivity, CommunityActivity::class.java))
 
+                }
+                R.id.nav_train -> {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://smapp.seoulmetro.co.kr:58443/traininfo/traininfoUserView.do"))
+                    startActivity(intent)
+                }
+
+                R.id.nav_wheelchair ->
+                {
+                    val intent = Intent(this, AppInfoActivity::class.java)
+                    intent.putExtra("type", 2)
+                    startActivity(intent)
+                }
+                R.id.nav_elevator ->{
+                    val intent = Intent(this, AppInfoActivity::class.java)
+                    intent.putExtra("type", 3)
+                    startActivity(intent)
                 }
 
             }

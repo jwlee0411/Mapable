@@ -165,13 +165,13 @@ class SettingActivity : AppCompatActivity() {
 
         layoutAppInfo.setOnClickListener {
             val intent = Intent(this, AppInfoActivity::class.java)
-            intent.putExtra("info", true)
+            intent.putExtra("type", 0)
             startActivity(intent)
         }
 
         layoutAppPrivacy.setOnClickListener {
             val intent = Intent(this, AppInfoActivity::class.java)
-            intent.putExtra("info", false)
+            intent.putExtra("type", 1)
             startActivity(intent)
         }
 

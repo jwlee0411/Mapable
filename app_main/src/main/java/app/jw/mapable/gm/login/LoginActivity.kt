@@ -157,6 +157,15 @@ class LoginActivity : AppCompatActivity(){
             editor.putString("userName", it.getString("userName"))
             editor.putString("userMessage", it.getString("userMessage"))
             editor.putString("message", it.getString("message"))
+            editor.apply()
+
+
+            Toast.makeText(this, "${user.email} 으로 로그인 되었습니다!", Toast.LENGTH_LONG).show()
+
+            val intent = Intent(this, StartActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+            finish()
 
 
         }
@@ -170,12 +179,7 @@ class LoginActivity : AppCompatActivity(){
 
         editor.putInt("loginType", 1)
         editor.apply()
-        Toast.makeText(this, "${user.email} 으로 로그인 되었습니다!", Toast.LENGTH_LONG).show()
 
-        val intent = Intent(this, StartActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
-        finish()
 
 
 
@@ -192,8 +196,12 @@ class LoginActivity : AppCompatActivity(){
                 editor.putString("userName", it.getString("userName"))
                 editor.putString("userMessage", it.getString("userMessage"))
                 editor.putString("message", it.getString("message"))
+                editor.putString("userID", user.email.toString())
+                editor.putString("userPW", "")
+                editor.putString("uid", firebaseAuth.currentUser?.uid!!)
                 editor.putInt("loginType", 2)
                 editor.apply()
+                println(firebaseAuth.currentUser?.uid)
                 Toast.makeText(this, "${user.email} 으로 로그인 되었습니다!", Toast.LENGTH_LONG).show()
                 val intent = Intent(this, StartActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -228,6 +236,9 @@ class LoginActivity : AppCompatActivity(){
                     .addOnSuccessListener {
                         fadeOutAnimation()
                         Toast.makeText(this, "${user.email} 으로 로그인 되었습니다!", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, StartActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(intent)
                         finish()
                     }
                     .addOnFailureListener { println("LOG : FAILED") }
